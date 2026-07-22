@@ -1,0 +1,113 @@
+---
+title: "OpenClaw vs OpenCode: A Full-Stack Gateway That Made Me Ditch Terminal AI Assistants"
+published: 2026-05-07
+description: "A real experience comparison from OpenCode to OpenClaw, and why I eventually chose this 'lobster'"
+tags: ["AI", "OpenClaw", "OpenCode", "Productivity Tools", "Open Source"]
+category: projects
+draft: true
+pinned: false
+---
+
+> **Current time: London 2026.05.07 03:10**
+
+## 🦞 Foreword
+
+Recently, I've been playing around with various AI programming assistants, from OpenCode to OpenClaw. The difference in experience is so huge that I couldn't help but write something down to record it.
+
+Conclusion first: **OpenClaw has completely changed my perception of AI assistants** — it is not just a terminal tool, but a true "on-call personal assistant".
+
+---
+
+## 🔧 OpenCode: A Programming Companion in the Terminal
+
+OpenCode is a terminal AI assistant written in Go, built on Bubble Tea for its TUI, supporting multiple models like OpenAI, Claude, and Gemini.
+
+**Pros:**
+- Pure terminal operation, very friendly for CLI lovers
+- Supports multiple AI providers, easy to switch
+- Has Session management and automatic Compact (auto-summarize when context is almost full)
+- LSP integration, good code intelligence
+- Vim-style editor, familiar feel
+
+**But the problem is:**
+
+It is essentially still a **tool within a terminal window**. You have to keep that terminal open, stare at that TUI, and close it when you're done. It won't actively look for you, it won't appear on your phone, and it certainly won't suddenly pop up to help when you are chatting on Discord.
+
+Furthermore, **OpenCode has stopped maintenance**. The project has been archived, and the author went on to make [Crush](https://github.com/charmbracelet/crush) (taken over by the Charm team). For a tool you are still using, this is somewhat reassuring but also concerning.
+
+---
+
+## 🚀 OpenClaw: Not Just a Tool, It's an "Assistant Living in Your Contacts"
+
+OpenClaw's positioning is completely different. It is a **self-hosted Gateway** that connects all your chat channels — Discord, Telegram, WhatsApp, Signal, iMessage, WeChat... almost anything you can think of.
+
+### Where is the core difference?
+
+| Dimension | OpenCode | OpenClaw |
+|------|----------|----------|
+| **Form** | Terminal TUI App | Self-hosted Gateway |
+| **Interaction** | Must operate in a terminal window | Chat in your favorite chat app |
+| **Multi-channel** | ❌ Terminal only | ✅ 20+ channels online simultaneously |
+| **Mobile** | ❌ | ✅ iOS/Android endpoints |
+| **Voice** | ❌ | ✅ Voice wake-up + Talk Mode |
+| **Multi-Agent** | Single session | Multi-Agent routing, isolated workspaces |
+| **Continuous Run** | Gone when terminal closes | Background daemon, 24/7 online |
+| **Skill System** | Basic tool calls | Extensible Skills ecosystem |
+| **Maintenance Status** | ⚠️ Archived | ✅ Actively in development |
+
+### 🎯 The points I value most
+
+**1. Reachable Anytime, Anywhere**
+
+Send a Discord message to the assistant on your phone while on the subway, and it can help you look things up, write code, or deploy projects. OpenCode can't do this — you have to turn on your computer and open a terminal.
+
+**2. Tool Ecosystem**
+
+OpenClaw has browser control, Canvas visual workspace, Cron scheduled tasks, file operations, Shell execution... and can be extended through Skills. Although OpenCode can also execute commands, the breadth and depth of tools are an order of magnitude different.
+
+**3. Multi-Agent Architecture**
+
+You can assign different Agents to different channels/users, each with its own independent workspace and session. This is incredibly useful for someone with multiple projects or wanting to isolate different scenarios.
+
+**4. Local First, Data in Your Hands**
+
+OpenClaw runs on your own machine, with configuration files at `~/.openclaw/openclaw.json`, and conversation records are not uploaded to third parties. For developers who care about privacy, this is very important.
+
+---
+
+## 📊 Performance Experience
+
+To be honest, there isn't much difference in pure response speed between the two — after all, the bottleneck is the underlying AI model (I use the same API Key for both).
+
+But in **overall efficiency**, OpenClaw wins big:
+
+- **Context Switching Cost**: OpenCode requires switching to the terminal → OpenClaw can be asked directly in the current chat window
+- **Multi-device Collaboration**: Seamless transition from phone → computer
+- **Automation**: Cron scheduled tasks + Heartbeat polling, the assistant will actively work
+
+---
+
+## 🤔 Who is it for?
+
+**Choose OpenCode (Crush) if you:**
+- Purely write code in the terminal and don't need cross-platform access
+- Like a minimalist TUI experience
+- Don't care about the project maintenance status
+
+**Choose OpenClaw if you:**
+- Want a true "personal assistant" rather than just a "programming tool"
+- Frequently switch between different devices
+- Care about data privacy and self-hosting
+- Like to tinker and extend
+
+---
+
+## Finally
+
+After switching from OpenCode to OpenClaw, my feeling is: **This is not just a tool upgrade, it is a paradigm shift**.
+
+OpenCode is "I have an AI helper in my terminal", while OpenClaw is "I have a personal assistant living in all my platforms". 🦞
+
+If you are also looking for an AI assistant solution, I highly recommend trying OpenClaw — after all, it is open-source, and it only takes 5 minutes to get it running.
+
+**"EXFOLIATE! EXFOLIATE!"** 🦞✨

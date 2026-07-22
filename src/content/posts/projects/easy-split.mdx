@@ -1,0 +1,457 @@
+---
+title: "Easy Split - Smart Bill Splitting App"
+published: 2025-11-12
+updated: 2025-11-18
+description: "An AI-based cross-platform bill splitting web application that supports automatic receipt recognition, smart expense allocation, and real-time synchronization, making going Dutch easy and accurate. The tutorial covers the complete workflow from registration to bill management."
+tags: ["project", "bill management", "AI", "web application", "real-time synchronization", "tutorial"]
+category: Projects
+draft: false
+pinned: true
+image: https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/index_page.png
+---
+
+import ImageSetter from '@/components/misc/ImageSetter.astro';
+
+# Easy Split Tutorial
+
+> Keep your bills clear, keep your coding happy! ✨
+
+Welcome to **Easy Split**! This is an application to help you and your friends easily split bills. Whether it's for dining, traveling, or daily expenses, Easy Split can help you automatically recognize receipts, smartly allocate expenses, and make going Dutch easy and accurate.
+
+---
+
+## 🌐 Try It Online
+
+**[🚀 Try Easy Split Now](https://easy-split-sandy.vercel.app/dashboard)**
+
+*No download required, open and use. Supports mobile and desktop browsers.*
+
+> 💡 **Quick Start Tips**:
+> - Registering an account takes only 30 seconds
+> - You can create a community to experience the complete workflow first
+> - Supports uploading test receipts to see AI recognition effects
+
+---
+
+## 📋 Table of Contents
+
+- [Quick Start](#quick-start)
+- [Step 1: Register an Account](#step-1-register-an-account)
+- [Step 2: Create or Join a Community](#step-2-create-or-join-a-community)
+- [Step 3: Upload Receipt](#step-3-upload-receipt)
+- [Step 4: Manage Bills](#step-4-manage-bills)
+- [Step 5: Allocate Expenses](#step-5-allocate-expenses)
+- [Step 6: View Totals](#step-6-view-totals)
+- [Other Features](#other-features)
+- [FAQ](#faq)
+
+---
+
+## Quick Start
+
+The core function of Easy Split is to help you:
+1. **Take a photo of a receipt** → Automatically recognize bill items
+2. **Select participants** → Decide who needs to share the bill
+3. **Allocate items** → Tell the system which ones are "Private" (borne by yourself only) and which are "Shared" (split equally)
+4. **View totals** → See exactly how much everyone needs to pay at a glance
+
+The entire process is **synchronized in real time**, and everyone sees the latest data!
+
+---
+
+## Step 1: Register an Account
+
+### 1.1 Register a New Account
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/01-01-register-page.png" alt="Registration Page" caption="Easy Split Registration Page" />
+
+1. Open the Easy Split application
+2. Click the "Create one" link
+3. Fill in the following information:
+   - **Display name**: Your name in the app, which must be unique
+   - **Email**: Used for login and receiving verification emails
+   - **Password**: At least 6 characters
+4. Click "Create account"
+
+### 1.2 Verify Email
+
+After successful registration, you will see a verification prompt:
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/01-02-verification-prompt.png" alt="Verification Prompt" caption="Email Verification Prompt" />
+
+1. **Check your inbox** (including spam folder)
+2. Click the link in the verification email
+3. After successful verification, return to the app to log in
+
+> 💡 **Tip**: If you did not receive the email, you can click "Resend verification email"
+
+### 1.3 Login
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/01-03-signin-page.png" alt="Login Page" caption="Easy Split Login Page" />
+
+1. Enter your email and password
+2. Click "Sign in"
+3. After successful login, you will enter the **Dashboard**
+
+---
+
+## Step 2: Create or Join a Community
+
+A community is like a "bill group" where you and your friends can manage bills together.
+
+### 2.1 Create a Community
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/02-01-create-community-form.png" alt="Create Community" caption="Create Community Form" />
+
+1. On the dashboard page, find the "Create community" section
+2. Enter a community name, such as "Weekend Dinner Group", "Travel Squad", etc.
+3. Click the "Create" button
+4. After creation, the system will automatically generate a **6-digit invite code**
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/02-01b-community-list.png" alt="Community List" caption="Community List Display" />
+
+> 💡 **Tip**: After creating a community, you become the **Owner** of this community and can manage members and settings
+
+### 2.2 Join a Community
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/02-02-join-community-form.png" alt="Join Community" caption="Join Community via Invite Code" />
+
+If your friend has already created a community, you can join via the invite code:
+
+1. On the dashboard page, find the "Join via invite code" section
+2. Enter the **6-digit invite code** given by your friend (case-insensitive)
+3. Click the "Join" button
+4. After successfully joining, the community will appear in your "Your communities" list
+
+> 💡 **Tip**: Invite codes look like `CCWEAH`, `XY1234`, etc., consisting of letters and numbers
+
+---
+
+## Step 3: Upload Receipt
+
+This is Easy Split's most powerful feature! You just need to take a photo of the receipt and upload it, and the system will automatically recognize the bill items and amounts.
+
+### 3.1 Enter the Community
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/03-01-community-dashboard.png" alt="Community Page" caption="Community Management Page" />
+
+1. In the community list on the dashboard, click the "Open" button
+2. After entering the community page, you will see:
+   - Community information (name, invite code)
+   - Member list
+   - Upload receipt area
+   - Bill list
+
+### 3.2 Upload Receipt
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/03-02-upload-receipt-area.png" alt="Upload Receipt" caption="Upload Receipt Feature Area" />
+
+1. Find the "Upload Receipt" area
+2. Click the "Select Image" button
+3. Choose a receipt photo from your phone's album or computer
+4. The system will automatically:
+   - Upload the image to the server
+   - Use AI to recognize the receipt content
+   - Create the bill and bill items
+   - Redirect to the bill details page
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/03-02b-upload-progress.png" alt="Upload Progress" caption="Receipt Upload and Recognition Progress" />
+
+> 💡 **Tip**:
+> - Receipt photos should be clear and taken straight on
+> - Supports common receipt formats (restaurants, supermarkets, stores, etc.)
+> - The recognition process may take a few seconds, please be patient
+
+### 3.3 View Recognition Results
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/03-03-bill-detail-page.png" alt="Bill Details" caption="Bill Details Page" />
+
+After a successful upload, the system will automatically redirect you to the bill details page, where you can see:
+- Basic bill information
+- All recognized items (name, price)
+- The allocation status of each item
+
+---
+
+## Step 4: Manage Bills
+
+On the bill details page, you can perform various operations to complete the bill information.
+
+### 4.1 Set Bill Name
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/04-01-edit-bill-name.png" alt="Edit Bill Name" caption="Edit Bill Name" />
+
+If you are the creator of the bill, you can edit the bill name:
+
+1. Next to the bill title, find the name input box
+2. Enter a descriptive name, such as "Saturday Dinner", "Grocery Shopping", etc.
+3. Click the "Save" button
+
+> 💡 **Tip**: The bill name can help you quickly identify different bills
+
+### 4.2 Set Exchange Rate
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/04-02-edit-exchange-rate.png" alt="Exchange Rate Setting" caption="Set Currency Exchange Rate" />
+
+If your bill is in another currency (like CNY), you can set an exchange rate:
+
+1. Find the "GBP→CNY rate" input box
+2. Enter the current exchange rate, e.g., `9.0` means 1 GBP = 9 CNY
+3. The system will automatically calculate and display amounts in both currencies
+
+> 💡 **Tip**:
+> - The exchange rate can be accurate up to 4 decimal places
+> - Only the bill creator can modify the exchange rate
+> - All amounts will be displayed in both GBP and CNY
+
+### 4.3 Add Participants
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/04-03-select-participants.png" alt="Participant Selection" caption="Select Bill Participants" />
+
+Participants are those who need to share the cost of this bill:
+
+1. In the "Participants" section, you will see all members of the community
+2. If you are the bill creator, you can:
+   - Check the checkbox to add participants
+   - Uncheck to remove participants
+3. The system will update in real-time, and all participants can see the changes
+
+> 💡 **Tip**:
+> - Only the bill creator can manage participants
+> - Participants can view the bill but cannot modify the participant list
+> - Shared expenses will be split equally among all participants
+
+---
+
+## Step 5: Allocate Expenses
+
+This is the core feature of Easy Split! You can decide whether each bill item is "Private" or "Shared".
+
+### 5.1 Understand Allocation Methods
+
+Easy Split supports two allocation methods:
+
+#### Private Items (Private)
+- **Meaning**: This item belongs to one person only, and the cost is entirely borne by this person
+- **Example**: A coffee you bought for yourself, a book a friend bought alone
+- **Operation**: Click the "Claim private" button
+
+#### Shared Items (Shared)
+- **Meaning**: This item is shared by everyone, and the cost is split equally
+- **Example**: A pizza eaten together, shared drinks
+- **Operation**: Do nothing, default is shared
+
+### 5.2 Claim Private Items
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/05-02-claim-item-button.png" alt="Claim Item" caption="Claim Private Item Button" />
+
+If you are a participant in the bill, you can claim private items:
+
+1. In the "Items" list, find the item you want to claim
+2. Click the "Claim private" button
+3. The button will change to your name, indicating that the item has been claimed by you
+4. The cost will automatically be removed from shared expenses and included only in your personal expenses
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/05-02b-item-claimed-by-user.png" alt="Claimed Item" caption="Item has been claimed by user" />
+
+> 💡 **Tip**:
+> - Only participants can claim items
+> - You can unclaim an item to make it shared again
+> - If an item has already been claimed by someone else, you cannot claim it
+
+### 5.3 Edit Item Price
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/05-03-edit-item-price.png" alt="Edit Price" caption="Edit Bill Item Price" />
+
+If the AI-recognized price is inaccurate, the bill creator can manually modify it:
+
+1. Find the item that needs modification
+2. Click the "Edit" button next to the price
+3. Enter the correct price
+4. Click the "Save" button
+5. The system will automatically update the totals
+
+> 💡 **Tip**:
+> - Only the bill creator can edit prices
+> - Once the price is modified, all related calculations will update automatically
+
+---
+
+## Step 6: View Totals
+
+The totals page displays the amount everyone should pay, including private and shared expenses.
+
+### 6.1 View Totals
+
+<ImageSetter src="https://raw.githubusercontent.com/alvinluo-tech/alvin-luo-assets/main/easy-split/06-01-totals-summary.png" alt="Totals Display" caption="Bill Totals Summary" />
+
+At the bottom of the bill details page, you will see the "Totals" section:
+
+1. **Shared subtotal**: The total amount of all shared items
+2. **Personal details**: The detailed expenses of each participant
+   - **Private**: The total amount of private items you claimed
+   - **Share**: Your portion of the shared expenses
+   - **Total**: The total amount you need to pay
+
+### 6.2 Understand Expense Calculation
+
+Expense calculation formula:
+
+```
+Personal Total = Private Expenses + Shared Expenses
+
+Where:
+- Private Expenses = Sum of all private item prices you claimed
+- Shared Expenses = Total Shared Amount ÷ Number of Participants
+```
+
+**Example**:
+
+Suppose a bill has the following items:
+- Pizza: £20 (Shared)
+- Drinks: £10 (Shared)
+- Coffee: £5 (Claimed by you as private)
+
+Participants: 3 people (You, Friend A, Friend B)
+
+Calculation process:
+- Total shared amount: £20 + £10 = £30
+- Each person's share: £30 ÷ 3 = £10
+- Your private expenses: £5
+- **Your Total**: £10 + £5 = £15
+
+### 6.3 Real-time Updates
+
+An important feature of Easy Split is **real-time synchronization**:
+
+- When someone claims or unclaims an item, everyone's totals update instantly
+- When the bill creator adds or removes participants, shared expenses are recalculated automatically
+- When a price is modified, all related calculations update automatically
+
+You don't need to refresh the page; all changes appear in real time!
+
+---
+
+## Other Features
+
+### 7.1 Manage Community Members
+
+#### View Member List
+
+On the community page, you can see all members:
+- Member name (display name)
+- Member role (Owner will show a 👑 Owner badge)
+- Your own badge (You)
+
+#### Leave Community
+
+If you are a regular member, you can click the "Leave Community" button to exit the community.
+
+#### Remove Member (Owner Only)
+
+If you are the owner, you can remove other members:
+1. Find the member you want to remove
+2. Click the "Remove" button
+3. Confirm the action
+
+> ⚠️ **Notice**:
+> - The owner cannot remove themselves
+> - Removed members will no longer be able to view the community and bills
+> - The removal action cannot be undone
+
+### 7.2 Delete Bill
+
+If you are the bill creator, you can delete the bill:
+
+1. On the bill details page, find the "Delete Bill" button
+2. Click the button and confirm deletion
+3. The bill will be permanently deleted and cannot be recovered
+
+> ⚠️ **Notice**: Deleting a bill is irreversible, please proceed with caution
+
+### 7.3 Switch Theme
+
+Easy Split supports light and dark themes:
+
+1. In the top right corner of the page, find the theme switch button
+2. Click the button to toggle between "Light" and "Dark" themes
+3. Your selection will be saved and automatically applied the next time you open the app
+
+### 7.4 Sign Out
+
+1. On the dashboard page, click the "Sign out" button in the top right corner
+2. After confirming the sign-out, you will be redirected to the login page
+
+---
+
+## FAQ
+
+### Q1: What if the receipt recognition is inaccurate?
+
+**A**: If the AI-recognized item name or price is inaccurate, you can:
+- The bill creator can manually edit the item price
+- Item names currently cannot be edited, but you can correct the allocation by claiming the item
+
+### Q2: Can I join multiple communities?
+
+**A**: Yes! You can join multiple communities simultaneously; each community is independent and does not affect the others.
+
+### Q3: What if I accidentally claimed the wrong item?
+
+**A**: You can click the already claimed item again to unclaim it, reverting it to a shared item.
+
+### Q4: How are shared expenses calculated?
+
+**A**: Shared Expenses = Total amount of all shared items ÷ Number of participants. The system distributes it equally automatically.
+
+### Q5: Can I change the community name?
+
+**A**: Yes! If you are the owner, you can click the edit button next to the community name on the community page to change it.
+
+### Q6: Will the invite code expire?
+
+**A**: No. The invite code is permanent and remains valid as long as the community exists.
+
+### Q7: What if I didn't receive the verification email?
+
+**A**: Please check:
+- Spam folder
+- Whether the email address is correct
+- You can click "Resend verification email" to try again
+
+### Q8: Can I delete a community?
+
+**A**: Currently, deleting a community is not supported. If you are the owner, you can remove all members, but the community itself cannot be deleted.
+
+### Q9: How long is bill data saved?
+
+**A**: Bill data is saved permanently until you manually delete it.
+
+### Q10: Which currencies are supported?
+
+**A**: Currently, bills are based in GBP (British Pound), and you can manually input an exchange rate to display the equivalent CNY (Chinese Yuan) amount.
+
+---
+
+## Summary
+
+Congratulations! You have now mastered all the features of Easy Split. The core advantages of this application are:
+
+✅ **Automation**: AI automatically recognizes receipts, no manual input needed  
+✅ **Real-time Sync**: All changes sync immediately, making multiplayer collaboration stress-free  
+✅ **Flexible Allocation**: Supports both private and shared allocation methods  
+✅ **Clear & Transparent**: Exactly how much everyone needs to pay is clear at a glance  
+✅ **Easy to Use**: Clean interface, intuitive operations  
+
+Start using Easy Split now and make bill splitting easy and accurate!
+
+---
+
+## Need Help?
+
+If you encounter problems while using it, you can:
+- Check the FAQ section in this tutorial
+- Contact the application developer
+- Check the GitHub repository for technical support
+- Leave a comment in the comment section below
+
