@@ -39,7 +39,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
     children: [
       {
         name: "GitHub",
-        url: "https://github.com/alvinluo-tech",
+        url: "https://github.com/shishir0x",
         external: true,
         icon: "fa6-brands:github",
       },
@@ -47,32 +47,32 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
       name: "youtube",
       icon: "youtube",
       external: true,
-      url: "https://www.youtube.com/@ItsAlvinLuo",
+      url: "https://www.youtube.com/@shishir_0x",
     },
-             {
-      name: "bilibili",
-      icon: "bilibili",
-      external: true,
-      url: "https://space.bilibili.com/1506265259",
-    },
+            //  {
+    //   name: "bilibili",
+    //   icon: "bilibili",
+    //   external: true,
+    //   url: "https://space.bilibili.com/1506265259",
+    // },
         {
       name: "Instagram",
-      url: "https://www.instagram.com/alvinluo_lys",
+      url: "https://www.instagram.com/shishir0x",
       icon: "instagram",
       external: true,
     },
-       {
-        name: "Redbook",
-        url: "https://www.xiaohongshu.com/user/profile/5fa793ed00000000010038a3",
-        external: true,
-        icon: "redbook",
-      },
-      // {
-      //   name: "Tiktok",
-      //   url: "https://www.tiktok.com/@alvinluo86",
+      //  {
+      //   name: "Redbook",
+      //   url: "https://www.xiaohongshu.com/user/profile/5fa793ed00000000010038a3",
       //   external: true,
-      //   icon: "tiktok",
+      //   icon: "redbook",
       // },
+      {
+        name: "Tiktok",
+        url: "https://www.tiktok.com/@shishir0x",
+        external: true,
+        icon: "tiktok",
+      },
   
 
       

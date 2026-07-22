@@ -32,14 +32,14 @@ export const spineModelConfig: SpineModelConfig = {
       "emoji_6",
     ], // List of random animations on click
     clickMessages: [
-      "Hello! I am Alvin~",
-      "hello, i'm Alvin!",
+      "Hello! I am Shishir ",
+      "hello, i'm Shishir!",
       "Keep it up today! ✨",
       "Want to watch the starry sky together? 🌟",
-      "Remember to get a good rest~",
+      "Remember to get a good rest ",
       "Anything you want to tell me? 💫",
       "Let's explore the unknown world together! 🚀",
-      "Every star has its own story~⭐",
+      "Every star has its own story⭐",
       "Hope to bring you warmth and joy! 💖",
     ], // Random text messages displayed on click
     messageDisplayTime: 3000, // Text display time (ms)

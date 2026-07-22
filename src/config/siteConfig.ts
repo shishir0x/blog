@@ -1,15 +1,14 @@
 import type { SiteConfig } from "../types/config";
 import { fontConfig } from "./fontConfig";
 
-// Define site language
-// Language codes, e.g., 'zh_CN', 'zh_TW', 'en', 'ja', 'ru'.
+
 const SITE_LANG = "en"; 
 
 export const siteConfig: SiteConfig = {
-  title: "Alvin's blog",
-  subtitle: "Demo site",
+  title: "shishir0x Blog",
+  subtitle: "",
   description:
-    "Alvin's blog is a fresh, beautiful, and modern personal blog developed based on the Astro framework, designed specifically for tech enthusiasts and content creators.",
+    "shishir0x blog is a fresh, beautiful, and modern personal blog developed based on the Astro framework, designed specifically for tech enthusiasts and content creators.",
   keywords: [
     "Firefly",
     "Fuwari",
@@ -47,7 +46,7 @@ export const siteConfig: SiteConfig = {
     value: "/assets/images/LiuYingPure3.svg",
     alt: "🍀",
   },
-  navbarTitle: "Alvin's blog", // Navbar title, can be different from title, if not set, title will be used
+  navbarTitle: "shishir0x ", // Navbar title, can be different from title, if not set, title will be used
 
   
   // Bangumi configuration
