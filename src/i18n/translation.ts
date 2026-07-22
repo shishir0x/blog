@@ -35,14 +35,14 @@ export function i18n(key: I18nKey): string {
 }
 
 /**
- * 获取当前语言，优先使用本地存储（运行时用户选择），否则回退到站点配置
+ * Get current language, prioritizing local storage (user runtime choice), otherwise fallback to site config
  */
 export function getCurrentLang(): string {
   try {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("site-lang");
       if (saved && typeof saved === "string") {
-        // 规范化
+        // Normalize
         const s = saved.toLowerCase();
         if (s.startsWith("en")) return "en";
         if (s === "zh_cn" || s === "zh-cn" || s === "zh_hans") return "zh_CN";
@@ -50,7 +50,7 @@ export function getCurrentLang(): string {
         if (s.startsWith("ja")) return "ja";
         if (s.startsWith("ru")) return "ru";
       }
-      // 若未保存，则尝试从 <html lang> 猜测
+      // If not saved, try to guess from <html lang>
       const htmlLang = (document.documentElement.getAttribute("lang") || "").toLowerCase();
       if (htmlLang.startsWith("zh")) return "zh_CN";
       if (htmlLang.startsWith("ja")) return "ja";

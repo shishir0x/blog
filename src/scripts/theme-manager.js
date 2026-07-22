@@ -1,4 +1,4 @@
-// 主题管理脚本
+
 export function initThemeManager() {
 	const DEFAULT_THEME = 'LIGHT_MODE';
 	const LIGHT_MODE = 'LIGHT_MODE';
@@ -6,8 +6,8 @@ export function initThemeManager() {
 	const SYSTEM_MODE = 'SYSTEM_MODE';
 	const BANNER_HEIGHT_EXTEND = 30;
 	const PAGE_WIDTH = 80;
-	const configHue = 200; // 从配置中获取
-	const defaultMode = 'system'; // 从配置中获取
+	const configHue = 200;
+	const defaultMode = 'system';
 
 	// Load the theme from local storage, use defaultMode from config if not set
 	const theme = localStorage.getItem('theme') || defaultMode;
@@ -67,8 +67,8 @@ export function initThemeManager() {
 	const expressiveTheme = isDark ? "github-dark" : "github-light";
 	document.documentElement.setAttribute("data-theme", expressiveTheme);
 	
-	// 确保主题正确应用 - 解决代码块渲染问题
-	// 使用 requestAnimationFrame 确保在下一帧检查主题状态
+
+
 	requestAnimationFrame(() => {
 		const currentTheme = document.documentElement.getAttribute('data-theme');
 		if (currentTheme !== expressiveTheme) {

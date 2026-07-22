@@ -54,7 +54,7 @@ const closeSearchPanel = (): void => {
 	if (panel) {
 		panel.classList.add("float-panel-closed");
 	}
-	// 清空搜索关键词和结果
+	// Clear search keyword and results
 	keywordDesktop = "";
 	keywordMobile = "";
 	result = [];

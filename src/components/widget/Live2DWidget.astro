@@ -9,7 +9,6 @@ interface Props {
 
 const { config } = Astro.props;
 
-// 获取位置和尺寸配置
 const position = config.position || {
   corner: "bottom-right" as const,
   offsetX: 20,
@@ -31,7 +30,7 @@ const size = config.size || { width: 280, height: 250 };
   <canvas id="live2d-canvas" width={size.width} height={size.height}></canvas>
 </div>
 
-<!-- 引入消息框组件 -->
+
 <MessageBox />
 
 <script define:vars={{ config, modelPath: url(config.model.path), sdkPath: url("/pio/static/live2d-sdk/live2d.min.js") }}>
@@ -89,14 +88,12 @@ const size = config.size || { width: 280, height: 250 };
 
     canvas.addEventListener("click", handleClick);
 
-    // 添加拖拽功能
     let isDragging = false;
     let dragStart = { x: 0, y: 0 };
     let containerStart = { x: 0, y: 0 };
 
-    // 鼠标事件
     container.addEventListener("mousedown", (e) => {
-      if (e.button !== 0) return; // 只响应左键
+      if (e.button !== 0) return;
       isDragging = true;
       dragStart = { x: e.clientX, y: e.clientY };
 
@@ -116,7 +113,6 @@ const size = config.size || { width: 280, height: 250 };
       const newX = containerStart.x + deltaX;
       const newY = containerStart.y + deltaY;
 
-      // 边界检查
       const maxX = window.innerWidth - container.offsetWidth;
       const maxY = window.innerHeight - container.offsetHeight;
 
@@ -136,7 +132,6 @@ const size = config.size || { width: 280, height: 250 };
       }
     });
 
-    // 触摸事件（移动端支持）
     container.addEventListener("touchstart", (e) => {
       if (e.touches.length !== 1) return;
       isDragging = true;
@@ -159,7 +154,6 @@ const size = config.size || { width: 280, height: 250 };
       const newX = containerStart.x + deltaX;
       const newY = containerStart.y + deltaY;
 
-      // 边界检查
       const maxX = window.innerWidth - container.offsetWidth;
       const maxY = window.innerHeight - container.offsetHeight;
 
@@ -178,10 +172,8 @@ const size = config.size || { width: 280, height: 250 };
       isDragging = false;
     });
 
-    // 设置初始光标样式
     container.style.cursor = "grab";
 
-    // 窗口大小变化时重新检查边界
     window.addEventListener("resize", () => {
       const rect = container.getBoundingClientRect();
       const maxX = window.innerWidth - container.offsetWidth;
@@ -258,7 +250,6 @@ const size = config.size || { width: 280, height: 250 };
     showMessage();
   }
 
-  // 消息框功能已移至公共组件 MessageBox.astro
 
   // Show random message using the common MessageBox component
   function showMessage() {
@@ -272,7 +263,6 @@ const size = config.size || { width: 280, height: 250 };
 
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
 
-    // 使用公共消息框组件
     if (window.showModelMessage) {
       window.showModelMessage(randomMessage, {
         containerId: "live2d-widget",
@@ -332,7 +322,6 @@ const size = config.size || { width: 280, height: 250 };
 
   // Load Live2D and initialize
   function loadLive2DSDK() {
-    // 检查移动端显示设置，如果隐藏则不加载运行时
     if (
       config.responsive?.hideOnMobile &&
       window.innerWidth <= (config.responsive.mobileBreakpoint || 768)
@@ -387,7 +376,6 @@ const size = config.size || { width: 280, height: 250 };
   // Initialize when ready (only once)
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
-      // 检查是否已经初始化
       if (!window.live2dModelInitialized) {
         loadLive2DSDK();
         window.live2dModelInitialized = true;
@@ -395,7 +383,6 @@ const size = config.size || { width: 280, height: 250 };
       handleResponsive();
     });
   } else {
-    // 检查是否已经初始化
     if (!window.live2dModelInitialized) {
       loadLive2DSDK();
       window.live2dModelInitialized = true;
@@ -406,16 +393,13 @@ const size = config.size || { width: 280, height: 250 };
   // Handle window resize for responsive behavior
   window.addEventListener("resize", handleResponsive);
 
-  // 监听 Swup 页面切换事件（如果使用了 Swup）
   if (typeof window.swup !== "undefined" && window.swup.hooks) {
     window.swup.hooks.on("content:replace", () => {
-      // 只更新响应式显示，不重新创建模型
       setTimeout(() => {
         handleResponsive();
       }, 100);
     });
   } else {
-    // 如果 Swup 还未加载，监听启用事件
     document.addEventListener("swup:enable", () => {
       if (window.swup && window.swup.hooks) {
         window.swup.hooks.on("content:replace", () => {
@@ -432,8 +416,8 @@ const size = config.size || { width: 280, height: 250 };
   .live2d-widget {
     position: fixed;
     z-index: 999;
-    pointer-events: auto; /* 启用指针事件以支持拖拽 */
-    cursor: grab; /* 默认显示拖拽光标 */
+    pointer-events: auto; 
+    cursor: grab; 
   }
 
   #live2d-canvas {
@@ -448,7 +432,7 @@ const size = config.size || { width: 280, height: 250 };
     opacity: 1;
   }
 
-  /* 拖拽时的光标样式 */
+  
   .live2d-widget:active {
     cursor: grabbing;
   }

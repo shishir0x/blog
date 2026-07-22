@@ -48,8 +48,8 @@
   function abbr(code: LangCode): string {
     switch (code) {
       case 'en': return 'EN';
-      case 'zh_CN': return '中文';
-      case 'zh_TW': return '繁體';
+      case 'zh_CN': return 'ZH';
+      case 'zh_TW': return 'TW';
       case 'ja': return '日本語';
       case 'ru': return 'RU';
     }

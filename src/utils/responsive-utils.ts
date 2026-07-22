@@ -1,7 +1,6 @@
 import { sidebarLayoutConfig } from '../config';
 import { widgetManager } from './widget-manager';
 
-// 响应式侧边栏配置
 export const getResponsiveSidebarConfig = () => {
 	const globalSidebarEnabled = sidebarLayoutConfig.enable;
 	const sidebarPosition = sidebarLayoutConfig.position || "left";
@@ -15,7 +14,6 @@ export const getResponsiveSidebarConfig = () => {
 	};
 };
 
-// 生成网格布局类名
 export const generateGridClasses = (config: ReturnType<typeof getResponsiveSidebarConfig>) => {
 	const { mobileShowSidebar, tabletShowSidebar, desktopShowSidebar, sidebarPosition } = config;
 	
@@ -28,7 +26,6 @@ export const generateGridClasses = (config: ReturnType<typeof getResponsiveSideb
 	return { gridCols };
 };
 
-// 生成侧边栏类名
 export const generateSidebarClasses = (config: ReturnType<typeof getResponsiveSidebarConfig>) => {
 	const { mobileShowSidebar, tabletShowSidebar, desktopShowSidebar, sidebarPosition } = config;
 	
@@ -40,7 +37,6 @@ export const generateSidebarClasses = (config: ReturnType<typeof getResponsiveSi
 	`.trim().replace(/\s+/g, " ");
 };
 
-// 生成主内容类名
 export const generateMainContentClasses = (config: ReturnType<typeof getResponsiveSidebarConfig>) => {
 	const { mobileShowSidebar, tabletShowSidebar, desktopShowSidebar, sidebarPosition } = config;
 	

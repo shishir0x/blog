@@ -15,10 +15,8 @@ const {
   aspectRatio
 } = Astro.props;
 
-// R2 CDN 基础 URL
 const baseUrl = "https://pub-996ee35c86674a47bf3eb5e069624f90.r2.dev/";
 
-// 如果 src 已经是完整链接则直接用，否则拼接 R2 地址
 const fullSrc = src.startsWith('http') ? src : `${baseUrl}${src}`;
 ---
 
@@ -77,7 +75,7 @@ const fullSrc = src.startsWith('http') ? src : `${baseUrl}${src}`;
     font-style: italic;
   }
 
-  /* 深色模式支持 */
+  
   @media (prefers-color-scheme: dark) {
     .blog-image {
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -92,7 +90,7 @@ const fullSrc = src.startsWith('http') ? src : `${baseUrl}${src}`;
     }
   }
 
-  /* 响应式设计 */
+  
   @media (max-width: 768px) {
     .image-container {
       margin: 1.5rem 0;

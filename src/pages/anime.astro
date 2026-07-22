@@ -5,15 +5,15 @@ import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 
-// 检查页面是否启用
+
 if (!siteConfig.pages.anime) {
   return Astro.redirect("/404/");
 }
 
-// 服务器端只传递配置信息到客户端
+
 const BANGUMI_USER_ID = siteConfig.bangumi?.userId || "your-user-id";
 
-// 收藏状态映射
+
 const COLLECTION_TYPES = {
   1: { key: "wish", name: i18n(I18nKey.animeStatusWish), icon: "material-symbols:schedule", color: "amber" },
   2: { key: "done", name: i18n(I18nKey.animeStatusDone), icon: "material-symbols:check-circle", color: "blue" },
@@ -31,7 +31,7 @@ const COLLECTION_TYPES = {
     class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32"
   >
     <div class="card-base z-10 px-9 py-6 relative w-full">
-      <!-- 页面标题 -->
+      
       <div class="relative w-full mb-8">
         <div class="mb-6">
           <h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2">
@@ -45,7 +45,7 @@ const COLLECTION_TYPES = {
           </h2>
         </div>
 
-        <!-- 筛选控件 -->
+        
         <div class="mb-8">
           <div class="filter-container">
             <button class="filter-tag active" data-status="all">{i18n(I18nKey.animeStatusAll)}</button>
@@ -58,13 +58,13 @@ const COLLECTION_TYPES = {
         </div>
       </div>
 
-      <!-- 动漫列表 -->
+      
       <div class="mb-8">
         <h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4">
           {i18n(I18nKey.animeList)}
         </h2>
 
-        <!-- 加载状态 -->
+        
         <div id="loadingState" class="text-center py-16">
           <div
             class="inline-flex items-center justify-center w-16 h-16 bg-[var(--btn-regular-bg)] rounded-full mb-6 border border-[var(--line-divider)]"
@@ -84,7 +84,7 @@ const COLLECTION_TYPES = {
           </p>
         </div>
 
-        <!-- 错误状态 -->
+        
         <div id="errorState" class="hidden text-center py-16">
           <div
             class="inline-flex items-center justify-center w-16 h-16 bg-[var(--btn-regular-bg)] rounded-full mb-6 border border-[var(--line-divider)]"
@@ -127,7 +127,7 @@ const COLLECTION_TYPES = {
           </button>
         </div>
 
-        <!-- 空状态 -->
+        
         <div id="emptyState" class="hidden text-center py-16">
           <div
             class="inline-flex items-center justify-center w-16 h-16 bg-[var(--btn-regular-bg)] rounded-full mb-6 border border-[var(--line-divider)]"
@@ -159,7 +159,7 @@ const COLLECTION_TYPES = {
           </p>
         </div>
 
-        <!-- 未配置状态 -->
+        
         {
           BANGUMI_USER_ID === "your-user-id" ? (
             <div id="unconfiguredState" class="text-center py-12">
@@ -174,16 +174,16 @@ const COLLECTION_TYPES = {
           ) : null
         }
 
-        <!-- 动漫列表容器 -->
+        
         <div
           id="animeGrid"
           class="hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6"
         >
-          <!-- 动漫卡片将由 JavaScript 生成 -->
+          
         </div>
       </div>
 
-      <!-- 分页控件 -->
+      
       <div id="paginationContainer" class="hidden">
         <div
           class="bg-gradient-to-r from-[var(--card-bg)] to-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] p-4 md:p-6 mb-6 shadow-sm"
@@ -193,16 +193,16 @@ const COLLECTION_TYPES = {
               id="pagination"
               class="flex justify-center items-center gap-1 md:gap-2 flex-wrap"
             >
-              <!-- 分页按钮将由 JavaScript 生成 -->
+              
             </div>
 
-            <!-- 页面信息 -->
+            
             <div
               id="pageInfo"
               class="flex items-center gap-2 text-xs md:text-sm text-[var(--btn-content)] bg-[var(--btn-regular-bg)] px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-[var(--line-divider)]"
             >
               <iconify-icon icon="material-symbols:description" class="w-4 h-4"></iconify-icon>
-              <!-- 页面信息文本将由 JavaScript 生成 -->
+              
             </div>
           </div>
         </div>
@@ -230,13 +230,13 @@ const COLLECTION_TYPES = {
     ANIME_LOAD_FAILED: i18n(I18nKey.animeLoadFailed),
   }}
 >
-  // 传递服务器端配置到客户端
+
   window.animePageConfig = {
     userId: BANGUMI_USER_ID,
     apiBase: "https://api.bgm.tv",
     collectionTypes: COLLECTION_TYPES,
     pageSize: 20,
-    // 分页文本国际化
+
     pagination: {
       first: PAGINATION_FIRST,
       prev: PAGINATION_PREV,
@@ -256,7 +256,7 @@ const COLLECTION_TYPES = {
 </script>
 
 <script is:inline>
-  // 避免重复声明
+
   if (typeof window.AnimePageManager === 'undefined') {
     window.AnimePageManager = class AnimePageManager {
     constructor() {
@@ -272,19 +272,19 @@ const COLLECTION_TYPES = {
     }
 
     init() {
-      // 检查是否配置了用户ID
+
       if (this.config.userId === "your-user-id") {
         this.showUnconfiguredState();
         return;
       }
 
-      // 从URL参数获取初始状态
+
       this.parseUrlParams();
 
-      // 初始化UI
+
       this.initializeUI();
 
-      // 加载数据
+
       this.loadData();
     }
 
@@ -300,22 +300,22 @@ const COLLECTION_TYPES = {
     }
 
     renderFilterButtons() {
-      // 静态HTML已处理筛选按钮，无需动态生成
+
     }
 
     bindEvents() {
-      // 筛选按钮事件
+
       document.addEventListener("click", (e) => {
         const filterTag = e.target.closest(".filter-tag");
         if (filterTag) {
           e.preventDefault();
 
-          // 移除其他按钮的active类
+
           document.querySelectorAll(".filter-tag").forEach((btn) => {
             btn.classList.remove("active");
           });
 
-          // 添加active类到当前按钮
+
           filterTag.classList.add("active");
 
           const status = filterTag.dataset.status;
@@ -323,14 +323,14 @@ const COLLECTION_TYPES = {
         }
       });
 
-      // 重试按钮事件
+
       document.getElementById("retryButton")?.addEventListener("click", () => {
         this.loadData();
       });
 
-      // 分页事件委托
+
       document.addEventListener("click", (e) => {
-        // 查找最近的 page-btn 或 page-btn-mobile 元素
+
         const pageBtn = e.target.closest(".page-btn, .page-btn-mobile");
         if (pageBtn) {
           e.preventDefault();
@@ -341,7 +341,7 @@ const COLLECTION_TYPES = {
         }
       });
 
-      // 窗口大小变化时重新渲染分页
+
       let resizeTimeout;
       window.addEventListener("resize", () => {
         clearTimeout(resizeTimeout);
@@ -357,7 +357,7 @@ const COLLECTION_TYPES = {
       try {
         this.showLoading();
 
-        // 获取当前页数据
+
         const filterType =
           this.statusFilter === "all"
             ? undefined
@@ -380,7 +380,7 @@ const COLLECTION_TYPES = {
           this.renderPagination();
           this.showDataState();
         } else {
-          // 没有数据时显示空状态
+
           this.animeData = [];
           this.totalCount = 0;
           this.totalPages = 0;
@@ -394,7 +394,7 @@ const COLLECTION_TYPES = {
 
     async fetchBangumiCollections(options) {
       const params = new URLSearchParams({
-        subject_type: "2", // 动画类型
+        subject_type: "2",
         limit: options.limit.toString(),
         offset: options.offset.toString(),
       });
@@ -417,7 +417,7 @@ const COLLECTION_TYPES = {
     async processCollectionData(collections) {
       const processedData = await Promise.all(
         collections.map(async (item) => {
-          // 获取详细信息
+
           const details = await this.fetchSubjectDetails(item.subject_id);
 
           const subject = item.subject || details;
@@ -626,11 +626,11 @@ const COLLECTION_TYPES = {
       const hasPrevPage = this.currentPage > 1;
       const hasNextPage = this.currentPage < this.totalPages;
 
-      // 检测是否为移动端
+
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // 移动端简化版本：只显示上一页、当前页、下一页
+
         if (hasPrevPage) {
           html += `
           <button class="page-btn-mobile btn-regular inline-flex items-center justify-center w-10 h-10 rounded-xl text-sm font-medium transition-all duration-150" data-page="${this.currentPage - 1}">
@@ -639,7 +639,7 @@ const COLLECTION_TYPES = {
         `;
         }
 
-        // 当前页信息
+
         html += `
         <div class="flex items-center justify-center px-3 py-2 text-sm font-medium text-[var(--btn-content)] bg-[var(--btn-regular-bg)] rounded-xl border border-[var(--line-divider)]">
           <span>${this.currentPage}</span>
@@ -656,8 +656,8 @@ const COLLECTION_TYPES = {
         `;
         }
       } else {
-        // 桌面端完整版本
-        // 上一页按钮
+
+
         if (hasPrevPage) {
           html += `
           <button class="page-btn btn-regular inline-flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150" data-page="1">
@@ -669,7 +669,7 @@ const COLLECTION_TYPES = {
         `;
         }
 
-        // 页码按钮
+
         const startPage = Math.max(1, this.currentPage - 2);
         const endPage = Math.min(this.totalPages, startPage + 4);
 
@@ -686,7 +686,7 @@ const COLLECTION_TYPES = {
         `;
         }
 
-        // 下一页按钮
+
         if (hasNextPage) {
           html += `
           <button class="page-btn btn-regular inline-flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150" data-page="${this.currentPage + 1}">
@@ -701,16 +701,16 @@ const COLLECTION_TYPES = {
 
       container.innerHTML = html;
 
-      // 页面信息
+
       const pageInfoEl = document.getElementById("pageInfo");
       if (pageInfoEl) {
         if (isMobile) {
-          // 移动端简化页面信息
+
           pageInfoEl.innerHTML = `
           <span class="text-[var(--btn-content)]">${window.animePageConfig?.pagination?.total || "Total"} ${this.totalCount} ${window.animePageConfig?.pagination?.records || "records"}</span>
         `;
         } else {
-          // 桌面端完整页面信息
+
           pageInfoEl.innerHTML = `
           <span class="text-[var(--btn-content)]">${this.config.pagination.page} ${this.currentPage} ${this.config.pagination.of} ${this.totalPages} ${this.config.pagination.total} ${this.totalCount} ${this.config.pagination.records}</span>
         `;
@@ -790,7 +790,7 @@ const COLLECTION_TYPES = {
     };
   }
 
-  // 直接初始化
+
   new window.AnimePageManager()
   
 </script>
@@ -869,7 +869,7 @@ const COLLECTION_TYPES = {
     overflow: hidden;
   }
 
-  /* 分页按钮主题样式优化 */
+  
   .page-btn,
   .page-btn-mobile {
     @apply transform-gpu;
@@ -884,7 +884,7 @@ const COLLECTION_TYPES = {
     @apply scale-95;
   }
 
-  /* 移动端分页容器优化 */
+  
   @media (max-width: 767px) {
     #pagination {
       @apply gap-2;
@@ -895,13 +895,13 @@ const COLLECTION_TYPES = {
     }
   }
 
-  /* 重试按钮样式 */
+  
   #retryButton {
     @apply transform-gpu transition-all duration-200;
     @apply hover:scale-105;
   }
 
-  /* 加载状态动画 */
+  
   @keyframes pulse-soft {
     0%,
     100% {
@@ -937,7 +937,7 @@ const COLLECTION_TYPES = {
     border-top-color: transparent;
   }
 
-  /* 选择框美化 */
+  
   #sortSelect:focus {
     @apply ring-2 ring-blue-500/20 border-blue-500;
   }

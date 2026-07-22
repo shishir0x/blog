@@ -2,179 +2,181 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const ja: Translation = {
-  [Key.home]: "ホーム",
-  [Key.about]: "について",
-  [Key.archive]: "アーカイブ",
-  [Key.search]: "検索",
-  [Key.other]: "その他",
-  [Key.links]: "リンク",
+  [Key.home]: "Home",
+  [Key.about]: "About",
+  [Key.archive]: "Archive",
+  [Key.search]: "Search",
+  [Key.other]: "Other",
+  [Key.links]: "Links",
 
-  [Key.tags]: "タグ",
-  [Key.categories]: "カテゴリ",
-  [Key.recentPosts]: "最近の投稿",
-  [Key.postList]: "投稿リスト",
-  [Key.tableOfContents]: "目次",
+  [Key.tags]: "Tags",
+  [Key.categories]: "Categories",
+  [Key.recentPosts]: "Recent Posts",
+  [Key.postList]: "Post List",
+  [Key.tableOfContents]: "Table of Contents",
 
-  // お知らせ
-  [Key.announcement]: "お知らせ",
-  [Key.announcementClose]: "閉じる",
+  // Announcement
+  [Key.announcement]: "Announcement",
+  [Key.announcementClose]: "Close",
 
-  [Key.comments]: "コメント",
-  [Key.commentSection]: "コメント欄",
-  [Key.commentSubtitle]: "あなたの考えを共有し、みんなと議論しましょう",
-  [Key.commentNotConfigured]: "コメントシステムが設定されていません",
-  [Key.friends]: "友達",
-  [Key.untitled]: "無題",
-  [Key.uncategorized]: "未分類",
-  [Key.noTags]: "タグなし",
+  [Key.comments]: "Comments",
+  [Key.commentSection]: "Comments",
+  [Key.commentSubtitle]: "Share your thoughts and discuss with everyone",
+  [Key.commentNotConfigured]: "Comment system not configured",
+  [Key.friends]: "Friends",
+  [Key.untitled]: "Untitled",
+  [Key.uncategorized]: "Uncategorized",
+  [Key.noTags]: "No Tags",
 
-  [Key.wordCount]: "語",
-  [Key.wordsCount]: "語",
-  [Key.minuteCount]: "分",
-  [Key.minutesCount]: "分",
-  [Key.postCount]: "投稿",
-  [Key.postsCount]: "投稿",
+  [Key.wordCount]: "word",
+  [Key.wordsCount]: "words",
+  [Key.minuteCount]: "minute",
+  [Key.minutesCount]: "minutes",
+  [Key.postCount]: "post",
+  [Key.postsCount]: "posts",
 
-  [Key.themeColor]: "テーマカラー",
+  [Key.themeColor]: "Theme Color",
 
-  [Key.lightMode]: "ライト",
-  [Key.darkMode]: "ダーク",
-  [Key.systemMode]: "システム",
+  [Key.lightMode]: "Light",
+  [Key.darkMode]: "Dark",
+  [Key.systemMode]: "System",
 
-  [Key.more]: "もっと",
+  [Key.more]: "More",
 
-  [Key.author]: "著者",
-  [Key.publishedAt]: "公開日",
-  [Key.license]: "ライセンス",
-  [Key.anime]: "アニメ",
+  [Key.author]: "Author",
+  [Key.publishedAt]: "Published at",
+  [Key.license]: "License",
+  [Key.anime]: "Anime",
 
-  // アニメページ
-  [Key.animeTitle]: "私のアニメリスト",
-  [Key.animeSubtitle]: "私の二次元の旅を記録する",
-  [Key.animeList]: "アニメリスト",
-  [Key.animeTotal]: "合計",
-  [Key.animeWatching]: "視聴中",
-  [Key.animeCompleted]: "完了",
-  [Key.animeAvgRating]: "平均評価",
-  [Key.animeStatusWatching]: "視聴中",
-  [Key.animeStatusCompleted]: "完了",
-  [Key.animeStatusPlanned]: "予定",
-  [Key.animeYear]: "年",
-  [Key.animeStudio]: "スタジオ",
-  [Key.animeEmpty]: "アニメデータなし",
+  // Anime Page
+  [Key.animeTitle]: "My Anime List",
+  [Key.animeSubtitle]: "Record my anime journey",
+  [Key.animeList]: "Anime List",
+  [Key.animeTotal]: "Total",
+  [Key.animeWatching]: "Watching",
+  [Key.animeCompleted]: "Completed",
+  [Key.animeAvgRating]: "Average Rating",
+  [Key.animeStatusWatching]: "Watching",
+  [Key.animeStatusCompleted]: "Completed",
+  [Key.animeStatusPlanned]: "Planned",
+  [Key.animeStudio]: "Studio",
+  [Key.animeEmpty]: "No anime data",
   [Key.animeEmptyBangumi]:
-    "Bangumiの設定またはネットワーク接続を確認してください",
+    "Please check Bangumi configuration or network connection",
+    
+  // Anime Status
+  [Key.animeStatusAll]: "All",
+  [Key.animeStatusWish]: "Wish",
+  [Key.animeStatusDone]: "Done",
+  [Key.animeStatusDoing]: "Watching",
+  [Key.animeStatusOnhold]: "On Hold",
+  [Key.animeStatusDropped]: "Dropped",
+  
+  // Anime Page Text
+  [Key.animeLoading]: "Loading anime data...",
+  [Key.animeLoadingDescription]: "Please wait, fetching your collection from Bangumi",
+  [Key.animeError]: "Data loading failed",
+  [Key.animeErrorDescription]: "Unable to connect to Bangumi API, please check your network connection or try again later",
+  [Key.animeRetry]: "Retry",
+  [Key.animeEmptyData]: "No data",
+  [Key.animeEmptyDescription]: "No anime found in this category",
+  [Key.animeEmptySuggestion]: "Try switching to other categories",
+  [Key.animeConfigDescription]: "Please set your Bangumi user ID in src/config/siteConfig.ts",
+  [Key.animeRefreshNote]: "Due to some limitations, you may need to refresh the page once to load anime data, there is no good solution yet",
+  
+  // Anime Info
+  [Key.animeYear]: "Year",
+  [Key.animeEpisodes]: "Episodes",
+  [Key.animeRank]: "Rank",
+  [Key.animeUnknown]: "Unknown",
+  [Key.animeLoadFailed]: "Load failed",
 
-  // アニメのステータス
-  [Key.animeStatusAll]: "すべて",
-  [Key.animeStatusWish]: "見たい",
-  [Key.animeStatusDone]: "見た",
-  [Key.animeStatusDoing]: "視聴中",
-  [Key.animeStatusOnhold]: "保留",
-  [Key.animeStatusDropped]: "中止",
+  // Pagination
+  [Key.paginationFirst]: "First",
+  [Key.paginationPrev]: "Previous",
+  [Key.paginationNext]: "Next",
+  [Key.paginationLast]: "Last",
+  [Key.paginationPage]: "Page",
+  [Key.paginationOf]: "of",
+  [Key.paginationTotal]: ", Total",
+  [Key.paginationRecords]: " records",
 
-  // アニメページのテキスト
-  [Key.animeLoading]: "アニメデータを読み込み中…",
-  [Key.animeLoadingDescription]: "Bangumi からコレクションを取得しています。しばらくお待ちください",
-  [Key.animeError]: "データ読み込みに失敗しました",
-  [Key.animeErrorDescription]: "Bangumi API に接続できません。ネットワーク接続を確認するか、後で再試行してください",
-  [Key.animeRetry]: "再試行",
-  [Key.animeEmptyData]: "データなし",
-  [Key.animeEmptyDescription]: "このカテゴリにアニメは見つかりませんでした",
-  [Key.animeEmptySuggestion]: "他のカテゴリに切り替えてみてください",
-  [Key.animeConfigDescription]: "src/config/siteConfig.ts に Bangumi のユーザーIDを設定してください",
-  [Key.animeRefreshNote]: "いくつかの制限により、アニメデータを読み込むにはページを更新する必要がある場合があります。現在、良い解決策はありません",
-
-  // アニメ情報
-  [Key.animeEpisodes]: "話数",
-  [Key.animeRank]: "ランキング",
-  [Key.animeUnknown]: "不明",
-  [Key.animeLoadFailed]: "読み込み失敗",
-
-  // ページネーション
-  [Key.paginationFirst]: "最初",
-  [Key.paginationPrev]: "前へ",
-  [Key.paginationNext]: "次へ",
-  [Key.paginationLast]: "最後",
-  [Key.paginationPage]: "",
-  [Key.paginationOf]: "ページ、全",
-  [Key.paginationTotal]: "ページ、合計",
-  [Key.paginationRecords]: "件",
-
-  // 404ページ
+  // 404 Page
   [Key.notFound]: "404",
-  [Key.notFoundTitle]: "ページが見つかりません",
+  [Key.notFoundTitle]: "Page Not Found",
   [Key.notFoundDescription]:
-    "申し訳ありませんが、アクセスしたページは存在しないか、移動されています。",
-  [Key.backToHome]: "ホームに戻る",
+    "Sorry, the page you visited does not exist or has been moved.",
+  [Key.backToHome]: "Back to Home",
 
   // Music Player
-  [Key.music]: "ミュージック",
-  [Key.musicNoPlaying]: "再生中の曲なし",
-  [Key.musicLyrics]: "歌詞",
-  [Key.musicVolume]: "音量",
-  [Key.musicPlayMode]: "再生モード",
-  [Key.musicPrev]: "前の曲",
-  [Key.musicNext]: "次の曲",
-  [Key.musicPlaylist]: "プレイリスト",
-  [Key.musicNoLyrics]: "歌詞なし",
-  [Key.musicLoadingLyrics]: "歌詞を読み込み中...",
-  [Key.musicFailedLyrics]: "歌詞の読み込みに失敗しました",
-  [Key.musicNoSongs]: "プレイリストが空です",
-  [Key.musicError]: "ミュージックプレーヤーエラー",
-  [Key.musicPlay]: "再生",
-  [Key.musicPause]: "一時停止",
-  [Key.musicProgress]: "再生進捗",
-  [Key.musicCover]: "カバー",
-  [Key.musicNoCover]: "カバーなし",
-  [Key.playlist]: "プレイリスト",
+  [Key.music]: "Music",
+  [Key.musicNoPlaying]: "No music playing",
+  [Key.musicLyrics]: "Lyrics",
+  [Key.musicVolume]: "Volume",
+  [Key.musicPlayMode]: "Play Mode",
+  [Key.musicPrev]: "Previous",
+  [Key.musicNext]: "Next",
+  [Key.musicPlaylist]: "Playlist",
+  [Key.musicNoLyrics]: "No lyrics available",
+  [Key.musicLoadingLyrics]: "Loading lyrics...",
+  [Key.musicFailedLyrics]: "Failed to load lyrics",
+  [Key.musicNoSongs]: "No songs in playlist",
+  [Key.musicError]: "Music player error",
+  [Key.musicPlay]: "Play",
+  [Key.musicPause]: "Pause",
+  [Key.musicProgress]: "Progress",
+  [Key.musicCover]: "Cover",
+  [Key.musicNoCover]: "No cover",
+  [Key.playlist]: "Playlist",
 
 
-  // RSSページ
-  [Key.rss]: "RSSフィード",
-  [Key.rssDescription]: "最新の更新を購読する",
-  [Key.rssSubtitle]: "RSSで購読して、最新の記事と更新を第一时间で取得する",
-  [Key.rssLink]: "RSSリンク",
-  [Key.rssCopyToReader]: "RSSリンクをリーダーにコピー",
-  [Key.rssCopyLink]: "リンクをコピー",
-  [Key.rssLatestPosts]: "最新の投稿",
-  [Key.rssWhatIsRSS]: "RSSとは？",
-  [Key.rssWhatIsRSSDescription]:
-    "RSS（Really Simple Syndication）は、頻繁に更新されるコンテンツを公開するための標準形式です。RSSを使用すると：",
-  [Key.rssBenefit1]:
-    "手動で訪問することなく、最新のウェブサイトコンテンツを及时に取得",
-  [Key.rssBenefit2]: "1か所で複数のウェブサイトの購読を管理",
-  [Key.rssBenefit3]: "重要な更新や記事を見逃すことを回避",
-  [Key.rssBenefit4]: "広告なしのクリーンな読書体験を楽しむ",
-  [Key.rssHowToUse]:
-    "Feedly、Inoreaderまたは他のRSSリーダーを使用してこのサイトを購読することを推奨します。",
-  [Key.rssCopied]: "RSSリンクがクリップボードにコピーされました！",
-  [Key.rssCopyFailed]: "コピーに失敗しました。手動でリンクをコピーしてください",
+	// RSS Page
+	[Key.rss]: "RSS Feed",
+	[Key.rssDescription]: "Subscribe to get latest updates",
+	[Key.rssSubtitle]:
+		"Subscribe via RSS to get the latest articles and updates imediately",
+	[Key.rssLink]: "RSS Link",
+	[Key.rssCopyToReader]: "Copy link to your RSS reader",
+	[Key.rssCopyLink]: "Copy Link",
+	[Key.rssLatestPosts]: "Latest Posts",
+	[Key.rssWhatIsRSS]: "What is RSS?",
+	[Key.rssWhatIsRSSDescription]:
+		"RSS (Really Simple Syndication) is a standard format for publishing frequently updated content. With RSS, you can:",
+	[Key.rssBenefit1]:
+		"Get the latest website content in time without manually visiting",
+	[Key.rssBenefit2]: "Manage subscriptions to multiple websites in one place",
+	[Key.rssBenefit3]: "Avoid missing important updates and articles",
+	[Key.rssBenefit4]: "Enjoy an ad-free, clean reading experience",
+	[Key.rssHowToUse]:
+		"It is recommended to use Feedly, Inoreader or other RSS readers to subscribe to this site.",
+	[Key.rssCopied]: "RSS link copied to clipboard!",
+	[Key.rssCopyFailed]: "Copy failed, please copy the link manually",
 
 
 
-  // 最終更新時間カード
-  [Key.lastModifiedPrefix]: "最終更新日：",
-  [Key.lastModifiedOutdated]: "一部の内容が古くなっている可能性があります",
-  [Key.lastModifiedDaysAgo]: "{days}日前",
-  [Key.year]: "年",
-  [Key.month]: "月",
-  [Key.day]: "日",
-  [Key.hour]: "時",
-  [Key.minute]: "分",
-  [Key.second]: "秒",
+  // Last Modified Time Card
+  [Key.lastModifiedPrefix]: "Last updated on ",
+  [Key.lastModifiedOutdated]: "Some content may be outdated",
+  [Key.lastModifiedDaysAgo]: "{days} days ago",
+  [Key.year]: "year",
+  [Key.month]: "month",
+  [Key.day]: "day",
+  [Key.hour]: "hour",
+  [Key.minute]: "minute",
+  [Key.second]: "second",
 
-  // ページビュー統計
-  [Key.pageViews]: "閲覧数",
-  [Key.pageViewsLoading]: "読み込み中...",
-  [Key.pageViewsError]: "統計利用不可",
+  // Page Views Statistics
+  [Key.pageViews]: "Views",
+  [Key.pageViewsLoading]: "Loading...",
+  [Key.pageViewsError]: "Stats unavailable",
 
-  // ピン留め
-  [Key.pinned]: "ピン留め",
+  // Pinned
+  [Key.pinned]: "Pinned",
 
-  // 壁紙モード
-  [Key.wallpaperMode]: "壁紙モード",
-  [Key.wallpaperBannerMode]: "バナー壁紙",
-  [Key.wallpaperOverlayMode]: "全画面壁紙",
-  [Key.wallpaperNoneMode]: "単色背景",
+  // Wallpaper Mode
+  [Key.wallpaperMode]: "Wallpaper Mode",
+  [Key.wallpaperBannerMode]: "Banner Wallpaper",
+  [Key.wallpaperOverlayMode]: "Full Screen Wallpaper",
+  [Key.wallpaperNoneMode]: "Solid Color Background",
 };
+

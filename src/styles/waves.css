@@ -1,25 +1,25 @@
-/* Water waves animation - 恢复原始效果 */
+
 .waves > .parallax use {
 	animation: wave-default 25s cubic-bezier(0.5, 0.5, 0.45, 0.5) infinite;
 }
 
-/* 性能优化：低质量模式 */
+
 [data-wave-quality="low"] .waves > .parallax use {
 	animation: wave-slow 30s linear infinite;
 	animation-fill-mode: both;
 }
 
-/* 性能优化：中等质量模式 */
+
 [data-wave-quality="medium"] .waves > .parallax use {
 	animation: wave 20s cubic-bezier(0.4, 0.4, 0.6, 0.4) infinite;
 }
 
-/* 性能优化：高质量模式 */
+
 [data-wave-quality="high"] .waves > .parallax use {
 	animation: wave 15s cubic-bezier(0.5, 0.5, 0.45, 0.5) infinite;
 }
 
-/* 硬件加速控制 */
+
 [data-hardware-acceleration="true"] .waves > .parallax use {
 	transform: translateZ(0);
 	will-change: transform;
@@ -58,20 +58,20 @@
 	}
 }
 
-/* 低质量模式的额外优化 */
+
 .wave-low-quality {
 	animation-timing-function: linear !important;
 	animation-iteration-count: infinite !important;
 }
 
-/* 性能优化：减少重绘 */
+
 [data-wave-quality="low"] .waves {
-	/* 移除contain属性，避免限制波浪动画 */
+	
 	contain: none;
 }
 
 [data-wave-quality="medium"] .waves {
-	/* 移除contain属性，避免限制波浪动画 */
+	
 	contain: none;
 }
 

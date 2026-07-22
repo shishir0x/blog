@@ -6,21 +6,18 @@ interface Props {
   path: string;
 }
 
-// 从 commentConfig.twikoo 中排除 lang，因为我们需要在客户端动态设置
 const { lang, ...baseConfig } = commentConfig.twikoo || {};
 const config = {
   ...baseConfig,
   el: "#tcomment",
   path: Astro.props.path,
-  // lang 将在客户端脚本中根据用户选择动态设置
 };
 ---
 
 <div id="tcomment"></div>
-<!-- 使用自编译的 Twikoo 文件，避免点赞等按钮导致页面触发滚动回顶部 https://github.com/twikoojs/twikoo/issues/721 -->
+
 <script is:inline src={url("/assets/js/firefly-twikoo-1.6.44.all.min.js")}></script>
 <script is:inline define:vars={{ config }}>
-  // 获取当前页面路径
   function getCurrentPath() {
     const pathname = window.location.pathname;
     return pathname.endsWith("/") && pathname.length > 1
@@ -28,16 +25,12 @@ const config = {
       : pathname;
   }
 
-  // 根据网站语言获取 Twikoo 支持的语言代码
   function getTwikooLang() {
     try {
       const siteLang = localStorage.getItem('site-lang') || 'zh-CN';
       console.log("[Twikoo] localStorage 读取:", siteLang);
       const normalized = siteLang.toLowerCase();
       
-      // 映射网站语言代码到 Twikoo 支持的语言
-      // Twikoo 官方支持: zh-CN, zh-TW, zh-HK, en, uz, ja, ko
-      // 不支持的语言会回退到英语
       let result = 'zh-CN';
       if (normalized.startsWith('en')) result = 'en';
       else if (normalized === 'zh_cn' || normalized === 'zh-cn' || normalized === 'zh_hans') result = 'zh-CN';
@@ -46,7 +39,6 @@ const config = {
       else if (normalized.startsWith('ja')) result = 'ja';
       else if (normalized.startsWith('ko')) result = 'ko';
       else if (normalized.startsWith('uz')) result = 'uz';
-      // 不支持的语言（ru, fr, de, es, pt 等）统一回退到英语
       else result = 'en';
       
       console.log("[Twikoo] 映射结果:", normalized, "→", result);
@@ -57,9 +49,7 @@ const config = {
     }
   }
 
-  // 解析Twikoo服务端配置（移除自定义端点逻辑，回退到原始配置）
 
-  // 动态创建配置对象
   function createTwikooConfig() {
     const currentLang = getTwikooLang();
     console.log("[Twikoo] 动态获取语言:", currentLang);
@@ -68,14 +58,13 @@ const config = {
       ...config,
       path: getCurrentPath(),
       el: "#tcomment",
-      lang: currentLang, // 使用动态获取的语言，确保覆盖任何默认值
+      lang: currentLang,
     };
     
     console.log("[Twikoo] 最终配置:", JSON.stringify(finalConfig, null, 2));
     return finalConfig;
   }
 
-  // 初始化 Twikoo
   function initTwikoo() {
     if (typeof twikoo === "undefined") {
       setTimeout(initTwikoo, 500);
@@ -83,9 +72,8 @@ const config = {
     }
     
     const commentEl = document.getElementById("tcomment");
-    if (!commentEl) return; // 静默返回，不打印日志
+    if (!commentEl) return;
     
-    // 清空现有内容
     commentEl.innerHTML = "";
 
     const dynamicConfig = createTwikooConfig();
@@ -101,21 +89,17 @@ const config = {
       });
   }
 
-  // 设置全局初始化函数
   window.__initTwikoo = initTwikoo;
 
-  // 页面加载时初始化
   if (document.readyState === 'loading') {
     document.addEventListener("DOMContentLoaded", initTwikoo);
   } else {
     initTwikoo();
   }
 
-  // 语言切换事件处理函数
   function handleLangChange(e) {
     console.log("[Twikoo] 检测到 site-lang-change 事件, detail:", e?.detail);
     
-    // 延迟后直接重新初始化
     setTimeout(() => {
       console.log("[Twikoo] 延迟后准备初始化");
       
@@ -124,19 +108,16 @@ const config = {
         return;
       }
       
-      // 检查各种可能的评论容器
       let tcomment = document.getElementById("tcomment");
       const twikooEl = document.getElementById("twikoo");
       
       console.log("[Twikoo] #tcomment 元素:", tcomment);
       console.log("[Twikoo] #twikoo 元素:", twikooEl);
       
-      // 如果 #tcomment 不存在但 #twikoo 存在，需要销毁并重新创建
       if (!tcomment && twikooEl) {
         console.log("[Twikoo] #twikoo 已存在，销毁并重新创建 #tcomment");
         const parent = twikooEl.parentElement;
         if (parent) {
-          // 清空父元素并重新创建 #tcomment
           parent.innerHTML = '<div id="tcomment"></div>';
           tcomment = document.getElementById("tcomment");
           console.log("[Twikoo] 已重新创建 #tcomment 元素");
@@ -154,13 +135,11 @@ const config = {
     }, 300);
   }
 
-  // 注册语言切换事件监听器
   if (!window.__twikooLangListenerRegistered) {
     window.__twikooLangListenerRegistered = true;
     window.addEventListener('site-lang-change', handleLangChange);
     console.log("[Twikoo] site-lang-change 监听器已注册");
   } else {
-    // 如果已存在，确保使用最新的处理函数
     if (window.__twikooLangChangeHandler) {
       window.removeEventListener('site-lang-change', window.__twikooLangChangeHandler);
     }
@@ -168,7 +147,6 @@ const config = {
     window.addEventListener('site-lang-change', handleLangChange);
   }
 
-  // 监听 Swup 页面切换事件
   if (typeof window.swup !== 'undefined') {
     window.swup.hooks.on('content:replace', () => {
       setTimeout(() => {

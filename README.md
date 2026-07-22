@@ -1,28 +1,27 @@
-
 <img src="./docs/images/1131.png" width = "405" height = "511" alt="NapCat" align=right />
 
 <div align="center">
 
 # Firefly
-> 一款清新美观的 Astro 博客主题模板
+> A fresh and beautiful Astro blog theme template
 </div>
 
 
 ---
 
-[**🖥️在线预览(Netlify)**](https://demo-firefly.netlify.app/) /
-[**📝使用文档**](https://docs-firefly.cuteleaf.cn/) /
-[**🍀我的博客**](https://blog.cuteleaf.cn) 
+[**🖥️ Live Preview (Netlify)**](https://demo-firefly.netlify.app/) /
+[**📝 Documentation**](https://docs-firefly.cuteleaf.cn/) /
+[**🍀 My Blog**](https://blog.cuteleaf.cn) 
 
-⚡ 静态站点生成: 基于Astro的超快加载速度和SEO优化
+⚡ Static Site Generation: Ultra-fast loading speed and SEO optimization based on Astro
 
-🎨 现代化设计: 简洁美观的界面，支持自定义主题色
+🎨 Modern Design: Clean and beautiful interface, supporting custom theme colors
 
-📱 移动友好: 完美的响应式体验，移动端专项优化
+📱 Mobile Friendly: Perfect responsive experience, specially optimized for mobile devices
 
-🌟 看板娘支持: 同时支持Spine和Live2D动画引擎
+🌟 Mascot Support: Supports both Spine and Live2D animation engines
 
-🔧 高度可配置: 大部分功能模块均可通过配置文件自定义
+🔧 Highly Configurable: Most functional modules can be customized through configuration files
 
 <img alt="firefly" src="./docs/images/1.png" />
 
@@ -33,134 +32,134 @@
   </tr>
  </table>
 
-## ✨ 功能特性
+## ✨ Features
 
-### 核心功能
+### Core Features
 
-- [x] **Astro + Tailwind CSS** - 基于现代技术栈的超快静态站点生成
-- [x] **流畅动画** - Swup 页面过渡动画，提供丝滑的浏览体验
-- [x] **响应式设计** - 完美适配桌面端、平板和移动设备
-- [x] **多语言支持** - i18n 国际化，支持简体中文、繁体中文、英文、日文、俄语
-- [x] **全文搜索** - 基于 Pagefind 的客户端搜索，支持文章内容索引
+- [x] **Astro + Tailwind CSS** - Ultra-fast static site generation based on a modern tech stack
+- [x] **Smooth Animations** - Swup page transition animations for a silky browsing experience
+- [x] **Responsive Design** - Perfectly adapts to desktop, tablet, and mobile devices
+- [x] **Multi-language Support** - i18n internationalization, supporting Simplified Chinese, Traditional Chinese, English, Japanese, and Russian
+- [x] **Full-text Search** - Client-side search based on Pagefind, supporting article content indexing
 
-### 个性化
+### Personalization
 
-- [x] **主题色自定义** - 360° 色相调节，支持亮色/暗色/跟随系统三种模式
-- [x] **壁纸模式切换** - 横幅壁纸、全屏壁纸、纯色背景，前台一键切换
-- [x] **布局切换** - 列表/网格布局，前台自由切换
-- [x] **字体管理** - 支持自定义字体，丰富的字体选择器
-- [x] **樱花特效** - 可配置数量的樱花飘落动画
+- [x] **Custom Theme Color** - 360° hue adjustment, supporting light/dark/system-sync modes
+- [x] **Wallpaper Mode Switching** - Banner wallpaper, full-screen wallpaper, solid background, one-click switch on the frontend
+- [x] **Layout Switching** - List/grid layout, freely switchable on the frontend
+- [x] **Font Management** - Supports custom fonts and rich font selectors
+- [x] **Sakura Effect** - Configurable falling sakura animations
 
-### 页面组件
+### Page Components
 
-- [x] **文章目录 (TOC)** - 自动生成，支持桌面端和移动端
-- [x] **侧边栏配置** - 可关闭/切换左右位置，丰富的侧边栏组件
-- [x] **导航栏定制** - Logo、标题、链接全面自定义
-- [x] **友情链接** - 精美的友链展示卡片
-- [x] **公告栏** - 顶部公告提示，支持关闭和自定义样式
-- [x] **页脚配置** - HTML 内容注入，完全自定义
-- [x] **关于页面** - 自定义个人介绍
+- [x] **Table of Contents (TOC)** - Auto-generated, supporting both desktop and mobile
+- [x] **Sidebar Configuration** - Can be toggled/switched between left and right, rich sidebar components
+- [x] **Navbar Customization** - Fully customizable Logo, title, and links
+- [x] **Friends Links** - Exquisite friend link display cards
+- [x] **Announcement Board** - Top announcement prompt, supporting closure and custom styles
+- [x] **Footer Configuration** - HTML content injection, fully customizable
+- [x] **About Page** - Custom personal introduction
 
-### 媒体功能
+### Media Features
 
-- [x] **音乐播放器** - 支持本地音乐和 Meting API 在线音乐（网易云/QQ音乐等）
-- [x] **看板娘** - 支持 Spine 和 Live2D 两种动画引擎
-- [x] **追番页** - 基于 Bangumi API 的追番记录展示
+- [x] **Music Player** - Supports local music and Meting API online music (NetEase Cloud / QQ Music, etc.)
+- [x] **Mascot (Live2D/Spine)** - Supports both Spine and Live2D animation engines
+- [x] **Anime Page** - Anime tracking record display based on Bangumi API
 
-### 交互功能
+### Interactive Features
 
-- [x] **评论系统** - 集成 Twikoo 评论系统
-- [x] **访问量统计** - Twikoo 自带访问量追踪
-- [x] **增强代码块** - 基于 Expressive Code，支持代码折叠、行号、语言标识
-- [x] **数学公式支持** - KaTeX 渲染引擎，支持行内和块级公式
-- [x] **图片灯箱** - Fancybox 图片预览功能
-- [x] **RSS 订阅** - 自动生成 RSS Feed
-- [x] **站点地图** - 自动生成 XML Sitemap，支持页面过滤配置
+- [x] **Comment System** - Integrated Twikoo comment system
+- [x] **Visit Tracking** - Visit tracking built into Twikoo
+- [x] **Enhanced Code Blocks** - Based on Expressive Code, supporting code folding, line numbers, and language identifiers
+- [x] **Math Formulas** - KaTeX rendering engine, supporting inline and block-level formulas
+- [x] **Image Lightbox** - Fancybox image preview function
+- [x] **RSS Feed** - Auto-generated RSS Feed
+- [x] **Sitemap** - Auto-generated XML Sitemap, supporting page filtering configuration
 
-### 性能优化
+### Performance Optimization
 
-- [x] **图片优化** - Astro Image 自动处理
-- [x] **代码分割** - 自动按需加载
-- [x] **SEO 优化** - 完整的 meta 标签和结构化数据
-- [x] **懒加载** - 图片和组件按需加载
-- [x] **站点地图优化** - 自动生成 sitemap-index.xml 和多级站点地图
+- [x] **Image Optimization** - Astro Image automatic processing
+- [x] **Code Splitting** - Automatic on-demand loading
+- [x] **SEO Optimization** - Complete meta tags and structured data
+- [x] **Lazy Loading** - Images and components load on-demand
+- [x] **Sitemap Optimization** - Auto-generated sitemap-index.xml and multi-level sitemaps
 
-## 📝计划中...
+## 📝 Planned...
 
-- [ ] **重构 Live2D 看板娘**
-- [ ] **提供更多评论系统可选**
-- [ ] **修复追番页加载数据问题**
-- [ ] 更多功能持续完善中...
+- [ ] **Refactor Live2D Mascot**
+- [ ] **Provide more optional comment systems**
+- [ ] **Fix anime page data loading issues**
+- [ ] More features continuously improving...
 
-如果你有好用的功能和优化，请提交 [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)
+If you have great features and optimizations, please submit a [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 环境要求
+### Environment Requirements
 
 - Node.js ≤ 22
 - pnpm ≤ 9
 
-### 本地开发部署
+### Local Development Deployment
 
-1. **克隆仓库：**
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/Cuteleaf/Firefly.git
    cd Firefly
    ```
 
-2. **安装依赖：**
+2. **Install dependencies:**
    ```bash
-   # 如果没有安装 pnpm，先安装
+   # If pnpm is not installed, install it first
    npm install -g pnpm
    
-   # 安装项目依赖
+   # Install project dependencies
    pnpm install
    ```
 
-3. **配置博客：**
-   - 编辑 `src/config/` 目录下的配置文件自定义博客设置
+3. **Configure the blog:**
+   - Edit the configuration files under the `src/config/` directory to customize your blog settings
 
-4. **启动开发服务器：**
+4. **Start the development server:**
    ```bash
    pnpm dev
    ```
-   博客将在 `http://localhost:4321` 可用
+   The blog will be available at `http://localhost:4321`
 
-### 平台托管部署
+### Platform Hosting Deployment
 
-- **参考[官方指南](https://docs.astro.build/zh-cn/guides/deploy/)将博客部署至 Vercel, Netlify, GitHub Pages 等。**
+- **Refer to the [Official Guide](https://docs.astro.build/zh-cn/guides/deploy/) to deploy your blog to Vercel, Netlify, GitHub Pages, etc.**
 
-## 📖 配置说明
+## 📖 Configuration Guide
 
-> 📚 **详细配置文档**: 查看 [Firefly使用文档](https://docs-firefly.cuteleaf.cn/) 获取完整的配置指南
+> 📚 **Detailed Configuration Docs**: Check the [Firefly Documentation](https://docs-firefly.cuteleaf.cn/) for complete configuration guides
 
-### 配置文件结构
+### Configuration File Structure
 
 ```
 src/
 ├── config/
-│   ├── index.ts              # 配置索引文件
-│   ├── siteConfig.ts         # 站点基础配置
-│   ├── profileConfig.ts      # 用户资料配置
-│   ├── commentConfig.ts      # 评论系统配置
-│   ├── announcementConfig.ts # 公告配置
-│   ├── licenseConfig.ts      # 许可证配置
-│   ├── footerConfig.ts       # 页脚配置
-│   ├── FooterConfig.html     # 页脚HTML内容
-│   ├── expressiveCodeConfig.ts # 代码高亮配置
-│   ├── sakuraConfig.ts       # 樱花特效配置
-│   ├── fontConfig.ts         # 字体配置
-│   ├── sidebarConfig.ts      # 侧边栏布局配置
-│   ├── navBarConfig.ts       # 导航栏配置
-│   ├── musicConfig.ts        # 音乐播放器配置
-│   ├── pioConfig.ts          # 看板娘配置
-│   ├── adConfig.ts           # 广告配置
-│   └── friendsConfig.ts      # 友链配置
+│   ├── index.ts              # Configuration index file
+│   ├── siteConfig.ts         # Site basic configuration
+│   ├── profileConfig.ts      # User profile configuration
+│   ├── commentConfig.ts      # Comment system configuration
+│   ├── announcementConfig.ts # Announcement configuration
+│   ├── licenseConfig.ts      # License configuration
+│   ├── footerConfig.ts       # Footer configuration
+│   ├── FooterConfig.html     # Footer HTML content
+│   ├── expressiveCodeConfig.ts # Code highlight configuration
+│   ├── sakuraConfig.ts       # Sakura effect configuration
+│   ├── fontConfig.ts         # Font configuration
+│   ├── sidebarConfig.ts      # Sidebar layout configuration
+│   ├── navBarConfig.ts       # Navbar configuration
+│   ├── musicConfig.ts        # Music player configuration
+│   ├── pioConfig.ts          # Mascot configuration
+│   ├── adConfig.ts           # Advertisement configuration
+│   └── friendsConfig.ts      # Friends link configuration
 ```
 
 
-## ⚙️ 文章 Frontmatter
+## ⚙️ Post Frontmatter
 
 ```yaml
 ---
@@ -171,35 +170,35 @@ image: ./cover.jpg
 tags: [Foo, Bar]
 category: Front-end
 draft: false
-lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需要设置
+lang: jp      # Only required when the post language is different from the site language in `config.ts`
 ---
 ```
 
-## 🧞 指令
+## 🧞 Commands
 
-下列指令均需要在项目根目录执行：
+All the following commands need to be executed in the project root directory:
 
 | Command                           | Action                            |
 |:----------------------------------|:----------------------------------|
-| `pnpm install` 并 `pnpm add sharp` | 安装依赖                              |
-| `pnpm dev`                        | 在 `localhost:4321` 启动本地开发服务器      |
-| `pnpm build`                      | 构建网站至 `./dist/`                   |
-| `pnpm preview`                    | 本地预览已构建的网站                        |
-| `pnpm new-post <filename>`        | 创建新文章                             |
-| `pnpm astro ...`                  | 执行 `astro add`, `astro check` 等指令 |
-| `pnpm astro --help`               | 显示 Astro CLI 帮助                   |
+| `pnpm install` and `pnpm add sharp` | Install dependencies              |
+| `pnpm dev`                        | Start local dev server at `localhost:4321` |
+| `pnpm build`                      | Build site to `./dist/`           |
+| `pnpm preview`                    | Preview built site locally        |
+| `pnpm new-post <filename>`        | Create a new post                 |
+| `pnpm astro ...`                  | Execute `astro add`, `astro check` etc. |
+| `pnpm astro --help`               | Show Astro CLI help               |
 
-## 🙏 致谢
+## 🙏 Acknowledgements
 
-- 感谢原始 [Fuwari](https://github.com/saicaca/fuwari) 模板
-- 感谢基于Fuwari二次开发的[Mizuki](https://github.com/matsuzaka-yuki/Mizuki) 模板
-- 感谢b站up[公公的日常](https://space.bilibili.com/3546750017080050)提供的Q版 流萤 看板娘切片数据模型
-- 使用 [Astro](https://astro.build) 和 [Tailwind CSS](https://tailwindcss.com) 构建
-- 图标来自 [Iconify](https://iconify.design/)
+- Thanks to the original [Fuwari](https://github.com/saicaca/fuwari) template
+- Thanks to the [Mizuki](https://github.com/matsuzaka-yuki/Mizuki) template based on Fuwari
+- Thanks to Bilibili uploader [公公的日常](https://space.bilibili.com/3546750017080050) for the chibi Firefly mascot slice data model
+- Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
+- Icons from [Iconify](https://iconify.design/)
 
-## 🍀贡献者
+## 🍀 Contributors
 
-感谢以下贡献者对本项目做出的贡献，如有问题或建议，请提交 [Issue](https://github.com/CuteLeaf/Firefly/issues) 或 [Pull Request](https://github.com/CuteLeaf/Firefly/pulls)。
+Thanks to the following contributors for their contributions to this project. If you have any questions or suggestions, please submit an [Issue](https://github.com/CuteLeaf/Firefly/issues) or [Pull Request](https://github.com/CuteLeaf/Firefly/pulls).
 
 <a href="https://github.com/CuteLeaf/Firefly/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CuteLeaf/Firefly" />
@@ -207,15 +206,6 @@ lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需
 
 ![Alt](https://repobeats.axiom.co/api/embed/6139639d8e88da4d3dc9d45fd43f4e4b2d580086.svg "Repobeats analytics image")
 
-## ⭐Star History
+## ⭐ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=CuteLeaf/Firefly&type=Date)](https://star-history.com/#CuteLeaf/Firefly&Date)
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->

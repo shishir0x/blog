@@ -8,10 +8,8 @@ import { getDefaultHue, getHue, setHue } from "@utils/setting-utils";
 let hue = $state(getHue());
 const defaultHue = getDefaultHue();
 
-// 响应式标签 - 当语言切换时自动更新
 let themeColorLabel = $state(i18n(I18nKey.themeColor));
 
-// 更新语言标签
 function updateLabels() {
 	themeColorLabel = i18n(I18nKey.themeColor);
 }
@@ -20,14 +18,12 @@ function resetHue() {
 	hue = getDefaultHue();
 }
 
-// 使用 $effect 监听 hue 变化并应用到文档
 $effect(() => {
 	if (hue || hue === 0) {
 		setHue(hue);
 	}
 });
 
-// 监听语言切换事件
 onMount(() => {
 	const handleLangChange = () => {
 		updateLabels();
@@ -35,7 +31,6 @@ onMount(() => {
 	
 	window.addEventListener('site-lang-change', handleLangChange);
 	
-	// 清理函数
 	return () => {
 		window.removeEventListener('site-lang-change', handleLangChange);
 	};

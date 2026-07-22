@@ -7,7 +7,7 @@ import { getSortedPosts } from "@/utils/content-utils";
 import { siteConfig } from "@/config";
 export const getStaticPaths = (async ({ paginate }) => {
   const allBlogPosts = await getSortedPosts();
-  // 使用配置中的文章数量
+
   const pageSize = siteConfig.pagination.postsPerPage;
   return paginate(allBlogPosts, { pageSize });
 }) satisfies GetStaticPaths;
@@ -28,15 +28,15 @@ const len = page.data.length;
 </MainGridLayout>
 
 <script>
-  // 响应式分页处理脚本
+
   document.addEventListener("DOMContentLoaded", function () {
-    // 如果启用了响应式分页，添加相应的CSS类
+
     const responsiveEnabled = true; // ${siteConfig.pagination.responsive}
     if (responsiveEnabled) {
       const deviceType = getDeviceType();
       document.body.classList.add(`device-${deviceType}`);
 
-      // 监听窗口大小变化
+
       let resizeTimeout;
       window.addEventListener("resize", function () {
         clearTimeout(resizeTimeout);

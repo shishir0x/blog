@@ -12,9 +12,8 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 
 let mode: LIGHT_DARK_MODE = $state(LIGHT_MODE);
-let displayedMode: LIGHT_DARK_MODE = $state(LIGHT_MODE); // 显示的实际主题（在system模式下会随系统变化）
+let displayedMode: LIGHT_DARK_MODE = $state(LIGHT_MODE);
 
-// 响应式标签 - 当语言切换时自动更新
 let lightModeLabel = $state(i18n(I18nKey.lightMode));
 let darkModeLabel = $state(i18n(I18nKey.darkMode));
 let systemModeLabel = $state(i18n(I18nKey.systemMode));
@@ -24,10 +23,8 @@ function switchScheme(newMode: LIGHT_DARK_MODE) {
 	setTheme(newMode);
 }
 
-// 更新显示的主题（用于显示当前实际主题）
 function updateDisplayedMode() {
 	if (mode === SYSTEM_MODE) {
-		// 如果是system模式，显示实际的系统主题
 		const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		displayedMode = isSystemDark ? DARK_MODE : LIGHT_MODE;
 	} else {
@@ -35,21 +32,17 @@ function updateDisplayedMode() {
 	}
 }
 
-// 更新语言标签
 function updateLabels() {
 	lightModeLabel = i18n(I18nKey.lightMode);
 	darkModeLabel = i18n(I18nKey.darkMode);
 	systemModeLabel = i18n(I18nKey.systemMode);
 }
 
-// 使用onMount确保在组件挂载后正确初始化
 onMount(() => {
-	// 立即获取并设置正确的主题
 	const storedTheme = getStoredTheme();
 	mode = storedTheme;
 	updateDisplayedMode();
 	
-	// 确保DOM状态与存储的主题一致（只对非system模式检查）
 	if (storedTheme !== SYSTEM_MODE) {
 		const currentTheme = document.documentElement.classList.contains('dark') ? DARK_MODE : LIGHT_MODE;
 		if (storedTheme !== currentTheme) {
@@ -57,7 +50,6 @@ onMount(() => {
 		}
 	}
 	
-	// 如果是system模式，监听系统主题变化
 	if (storedTheme === SYSTEM_MODE) {
 		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 		const handleSystemChange = () => {
@@ -66,14 +58,12 @@ onMount(() => {
 		mediaQuery.addEventListener('change', handleSystemChange);
 	}
 	
-	// 添加Swup监听
 	const handleContentReplace = () => {
 		const newTheme = getStoredTheme();
 		mode = newTheme;
 		updateDisplayedMode();
 	};
 	
-	// 检查Swup是否已经加载
 	if ((window as any).swup && (window as any).swup.hooks) {
 		(window as any).swup.hooks.on('content:replace', handleContentReplace);
 	} else {
@@ -84,30 +74,24 @@ onMount(() => {
 		});
 	}
 	
-	// 监听主题变化事件
 	const handleThemeChange = () => {
-		// 只有当mode不是system模式时才更新mode
-		// system模式下，mode应该保持为SYSTEM_MODE，displayedMode会自动更新
 		if (mode !== SYSTEM_MODE) {
 			const newTheme = getStoredTheme();
 			mode = newTheme;
 			updateDisplayedMode();
 		} else {
-			// system模式下只需要更新displayedMode
 			updateDisplayedMode();
 		}
 	};
 	
 	window.addEventListener('theme-change', handleThemeChange);
 	
-	// 监听语言切换事件
 	const handleLangChange = () => {
 		updateLabels();
 	};
 	
 	window.addEventListener('site-lang-change', handleLangChange);
 	
-	// 清理函数
 	return () => {
 		window.removeEventListener('theme-change', handleThemeChange);
 		window.removeEventListener('site-lang-change', handleLangChange);

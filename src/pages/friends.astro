@@ -15,7 +15,7 @@ if (!friendsPost) {
 
 const { Content } = await render(friendsPost);
 
-// 使用配置文件中的友链数据，按权重排序
+
 const items = getEnabledFriends();
 ---
 
@@ -106,7 +106,7 @@ const items = getEnabledFriends();
     </div>
   </div>
 
-  <!-- 评论区 -->
+  
   <div class="mt-4">
     <Comment post={friendsPost} customPath="/friends" />
   </div>

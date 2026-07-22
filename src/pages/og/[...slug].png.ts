@@ -95,12 +95,12 @@ export async function GET({
   // Avatar + icon: still read from disk (small assets)
   let avatarBase64: string;
 
-  // 检查头像是否为 URL
+
   if (profileConfig.avatar?.startsWith("http")) {
-    // 如果是 URL，直接使用
+
     avatarBase64 = profileConfig.avatar;
   } else {
-    // 如果是本地路径，从 public 目录读取
+
     const avatarPath = profileConfig.avatar?.startsWith("/")
       ? `./public${profileConfig.avatar}`
       : `./src/${profileConfig.avatar}`;

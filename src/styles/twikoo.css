@@ -1,11 +1,11 @@
 :root {
   --tk-text: black;
-  --code-block-text: #333; /* 调整为深色但在浅色背景下仍然舒适的值 */
+  --code-block-text: #333; 
 }
 
 html.dark {
   --tk-text: #d1d5db;
-  --code-block-text: #d1d5db; /* 在深色模式下使用更亮的颜色 */
+  --code-block-text: #d1d5db; 
 }
 
 .tk-comments {
@@ -34,7 +34,7 @@ html.dark {
   }
 }
 
-/* 表情和图片按钮位置调整 */
+
 .tk-row .tk-col .tk-actions {
   @apply order-1 mt-4 mb-2 flex gap-2;
 }
@@ -43,7 +43,7 @@ html.dark {
   @apply order-2;
 }
 
-/* 表情和图片按钮样式优化 */
+
 .tk-owo,
 .tk-upload {
   @apply rounded-lg p-2 hover:bg-[var(--btn-plain-bg-hover)] transition-colors duration-200
@@ -107,12 +107,12 @@ html.dark {
   }
 }
 
-/* 隐藏预览按钮 */
+
 .tk-preview {
   display: none !important;
 }
 
-/* 强制统一按钮样式 */
+
 .tk-send,
 .tk-cancel {
   background: var(--btn-regular-bg) !important;
@@ -149,7 +149,7 @@ html.dark {
 
 /* Comment title */
 .tk-comments-title {
-  @apply hidden; /* 隐藏默认标题，使用自定义标题 */
+  @apply hidden; 
 
   .__comments svg {
     @apply fill-[var(--primary)];
@@ -221,7 +221,7 @@ html.dark {
     }
   }
 
-  /* 回复层级指示器 */
+  
   &::before {
     content: '';
     @apply absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b  to-transparent opacity-30;
@@ -256,7 +256,7 @@ Make the emoji component display correctly when there are too many emoji packs
   overflow: visible;
 }
 
-/* 防止 Twikoo 操作时的意外滚动 */
+
 .tk-action-icon,
 .tk-owo,
 .tk-submit,
@@ -268,19 +268,19 @@ Make the emoji component display correctly when there are too many emoji packs
   transition: all 0.2s ease;
 }
 
-/* 确保点击区域足够大 */
+
 .tk-action {
   min-height: 24px;
   display: flex;
   align-items: center;
 }
 
-/* 防止表单提交时的意外跳转 */
+
 .tk-submit-wrapper {
   position: relative;
 }
 
-/* 管理面板样式优化 */
+
 .tk-admin-panel {
   position: relative;
   z-index: 100;

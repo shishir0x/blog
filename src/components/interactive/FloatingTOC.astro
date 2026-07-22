@@ -16,7 +16,7 @@ for (const heading of headings) {
 }
 ---
 
-<!-- 悬浮TOC按钮 -->
+
 <div class="floating-toc-wrapper">
   <div
     id="floating-toc-btn"
@@ -32,7 +32,7 @@ for (const heading of headings) {
   </div>
 </div>
 
-<!-- 悬浮TOC面板 -->
+
 <div
   id="floating-toc-panel"
   class="floating-toc-panel hide fixed w-80 max-h-[24rem] overflow-hidden rounded-2xl shadow-2xl backdrop-blur-lg border border-white/20 bg-white/60 dark:bg-black/60 dark:border-white/10 z-50 md:w-80 w-[calc(100vw-2rem)] md:max-h-[24rem] max-h-[calc(100vh-8rem)]"
@@ -64,7 +64,7 @@ for (const heading of headings) {
       id="floating-toc-content"
       style="width: 100%; max-width: 100%;"
     >
-      <!-- TOC内容将由JavaScript动态生成 -->
+      
     </div>
   </div>
 </div>
@@ -110,7 +110,7 @@ for (const heading of headings) {
 		background-color: rgba(255, 255, 255, 0.95)
 		border-color: rgba(0, 0, 0, 0.2)
 
-/* 暗色主题样式 */
+
 :global(.dark) .floating-toc-btn
 	background-color: var(--card-bg)
 	border: 1px solid rgba(255, 255, 255, 0.15)
@@ -155,7 +155,7 @@ for (const heading of headings) {
 	-webkit-overflow-scrolling: touch
 	scroll-behavior: smooth
 	
-	/* 移动端滚动优化 */
+	
 	@media (max-width: 768px)
 		max-height: calc(24rem - 5rem)
 		
@@ -177,7 +177,7 @@ for (const heading of headings) {
 	contain: layout
 	align-items: flex-start
 
-/* 使用与旧版TOC相同的样式 */
+
 .toc-content a
 	display: flex
 	align-items: center
@@ -199,7 +199,7 @@ for (const heading of headings) {
 	&.visible
 		background: var(--toc-btn-active)
 
-/* 确保文本内容不会溢出 */
+
 .toc-content a div:last-child
 	overflow: hidden
 	text-overflow: ellipsis
@@ -209,13 +209,13 @@ for (const heading of headings) {
 	max-width: calc(100% - 2rem)
 	box-sizing: border-box
 
-/* 徽章容器固定宽度 */
+
 .toc-content a div:first-child
 	flex-shrink: 0
 	width: 1.25rem
 	height: 1.25rem
 
-/* 活动指示器样式 */
+
 #floating-active-indicator
 	position: absolute
 	left: 0
@@ -225,12 +225,12 @@ for (const heading of headings) {
 	transition: all 0.2s ease
 	z-index: -1
 
-/* 移动端隐藏活动指示器 */
+
 @media (max-width: 768px)
 	#floating-active-indicator
 		display: none
 
-/* 响应式调整 */
+
 @media (max-width: 1024px)
 	.floating-toc-btn
 		right: 1rem
@@ -275,7 +275,7 @@ for (const heading of headings) {
 		max-width: 20rem
 		max-height: 28rem
 
-/* 高缩放比例适配 */
+
 @media (min-resolution: 2dppx)
 	.floating-toc-btn
 		right: max(0.5rem, 2rem - 2vw)
@@ -285,7 +285,7 @@ for (const heading of headings) {
 		right: max(0.5rem, 2rem - 2vw) !important
 		bottom: calc(max(12rem, 16rem - 5vh) + 6rem) !important
 
-/* 超小屏幕适配 */
+
 @media (max-width: 360px)
 	.floating-toc-btn
 		right: 0.25rem
@@ -302,7 +302,7 @@ for (const heading of headings) {
 		max-width: 18rem
 		max-height: 24rem
 
-/* 横屏模式适配 */
+
 @media (orientation: landscape) and (max-height: 500px)
 	.floating-toc-btn
 		bottom: 4rem
@@ -313,7 +313,7 @@ for (const heading of headings) {
 		right: 0.5rem !important
 		max-height: 12rem
 
-/* 确保按钮始终在可视区域内 */
+
 .floating-toc-btn
 	min-width: 2rem
 	min-height: 2rem
@@ -322,13 +322,13 @@ for (const heading of headings) {
 	max-height: 4rem
 	border-radius: 1rem !important
 
-/* 高DPI屏幕优化 */
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
 	.floating-toc-btn
 		image-rendering: -webkit-optimize-contrast
 		image-rendering: crisp-edges
 
-/* 极低分辨率适配 */
+
 @media (max-width: 320px)
 	.floating-toc-btn
 		right: 0.125rem
@@ -345,16 +345,16 @@ for (const heading of headings) {
 		max-width: 12rem
 		max-height: 14rem
 
-/* 确保按钮在容器内正确显示 */
+
 .floating-toc-wrapper
 	overflow: visible
 	z-index: 999
 
-/* 按钮激活状态 */
+
 .floating-toc-btn:active
 	transform: scale(0.95)
 
-/* 滚动条样式 */
+
 .toc-scroll-container::-webkit-scrollbar
 	width: 6px
 
@@ -376,7 +376,7 @@ for (const heading of headings) {
 .toc-scroll-container::-webkit-scrollbar-thumb:active
 	background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%)
 
-/* 暗色主题半透明效果 */
+
 :global(.dark) .floating-toc-panel
 	background-color: rgba(0, 0, 0, 0.6) !important
 	backdrop-filter: blur(20px)
@@ -385,7 +385,7 @@ for (const heading of headings) {
 :global(.dark) .floating-toc-panel .p-4
 	background-color: rgba(0, 0, 0, 0.8) !important
 
-/* 暗色主题滚动条 */
+
 :global(.dark) .toc-scroll-container::-webkit-scrollbar-thumb
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 100%)
 	border: 1px solid rgba(0, 0, 0, 0.1)
@@ -397,7 +397,7 @@ for (const heading of headings) {
 :global(.dark) .toc-scroll-container::-webkit-scrollbar-thumb:active
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 100%)
 
-/* Firefox 滚动条样式 */
+
 .toc-scroll-container
 	scrollbar-width: thin
 	scrollbar-color: rgba(0, 0, 0, 0.2) transparent
@@ -414,11 +414,10 @@ for (const heading of headings) {
     window.activeHeadingId = "";
     window.observer = null;
     window.minDepth = 10;
-    window.maxLevel = 3; // 默认显示3级标题
-    window.scrollTimeout = null; // 滚动节流定时器
+    window.maxLevel = 3;
+    window.scrollTimeout = null;
   }
 
-  // 使用全局变量，避免重复声明
   floatingTOCBtn = window.floatingTOCBtn;
   floatingTOCPanel = window.floatingTOCPanel;
   tocItems = window.tocItems;
@@ -446,19 +445,16 @@ for (const heading of headings) {
     };
 
     function updateActiveHeading() {
-      // 直接更新TOC活动状态，检测所有可见标题
       updateTOCActiveState();
     }
 
     function updateTOCActiveState() {
       if (!tocItems) return;
 
-      // 移除所有活动状态
       tocItems.forEach((item) => {
         item.classList.remove("visible");
       });
 
-      // 获取所有在屏幕可视区域内的标题
       const contentContainer =
         document.querySelector(".custom-md") ||
         document.querySelector(".prose") ||
@@ -473,7 +469,6 @@ for (const heading of headings) {
       const windowHeight = window.innerHeight;
       const offset = 100;
 
-      // 找到所有在屏幕可视区域内的标题
       const visibleHeadingIds = [];
       headings.forEach((heading) => {
         if (heading.id) {
@@ -486,7 +481,6 @@ for (const heading of headings) {
         }
       });
 
-      // 如果没有找到任何可见标题，选择最接近屏幕顶部的标题
       if (visibleHeadingIds.length === 0 && headings.length > 0) {
         let closestHeading = null;
         let minDistance = Infinity;
@@ -508,18 +502,15 @@ for (const heading of headings) {
         }
       }
 
-      // 找到对应的TOC项并添加活动状态
       const activeItems = tocItems.filter((item) => {
         const headingId = item.dataset.headingId;
         return visibleHeadingIds.includes(headingId);
       });
 
-      // 添加活动状态
       activeItems.forEach((item) => {
         item.classList.add("visible");
       });
 
-      // 更新活动指示器
       updateActiveIndicator(activeItems);
     }
 
@@ -527,12 +518,10 @@ for (const heading of headings) {
       const indicator = document.getElementById("floating-active-indicator");
       if (!indicator || !tocItems.length) return;
       
-      // 移动端隐藏活动指示器
       if (window.innerWidth <= 768) {
         indicator.style.display = 'none';
         return;
       } else {
-        // 桌面端显示指示器
         indicator.style.display = '';
       }
 
@@ -541,7 +530,6 @@ for (const heading of headings) {
         return;
       }
 
-      // 为每个活动项单独创建指示器区域
       const tocContent = document.getElementById("floating-toc-content");
       const tocPanel = document.getElementById("floating-toc-panel");
 
@@ -550,18 +538,15 @@ for (const heading of headings) {
       const contentRect = tocContent.getBoundingClientRect();
       const panelRect = tocPanel.getBoundingClientRect();
 
-      // 计算可视区域范围
-      const visibleTop = Math.max(0, panelRect.top + 60); // 考虑面板头部高度
-      const visibleBottom = panelRect.bottom - 20; // 考虑面板底部边距
+      const visibleTop = Math.max(0, panelRect.top + 60);
+      const visibleBottom = panelRect.bottom - 20;
 
-      // 找到所有在可视区域内的活动项
       const visibleActiveItems = [];
       activeItems.forEach((item) => {
         const itemRect = item.getBoundingClientRect();
         const itemTop = itemRect.top;
         const itemBottom = itemRect.bottom;
 
-        // 检查活动项是否在可视区域内
         if (itemTop < visibleBottom && itemBottom > visibleTop) {
           visibleActiveItems.push({
             element: item,
@@ -576,7 +561,6 @@ for (const heading of headings) {
         return;
       }
 
-      // 计算指示器位置，只包裹可见的活动项
       const firstVisible = visibleActiveItems[0];
       const lastVisible = visibleActiveItems[visibleActiveItems.length - 1];
 
@@ -587,7 +571,6 @@ for (const heading of headings) {
       indicator.style.height = `${height}px`;
       indicator.style.opacity = "1";
 
-      // 自动滚动到活动项
       const firstActive = activeItems[0];
       if (firstActive) {
         scrollToActiveItem(firstActive, tocContent, tocPanel);
@@ -597,24 +580,20 @@ for (const heading of headings) {
     function scrollToActiveItem(activeItem, tocContent, tocPanel) {
       if (!activeItem || !tocContent) return;
 
-      // 清除之前的定时器
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
-      // 使用节流机制，避免滚动过于频繁
       scrollTimeout = setTimeout(() => {
-        // 使用scrollIntoView方法，更简单可靠
         activeItem.scrollIntoView({
           behavior: "smooth",
-          block: "center", // 将活动项滚动到可视区域中心
+          block: "center",
           inline: "nearest",
         });
-      }, 100); // 100ms延迟
+      }, 100);
     }
 
     function setupIntersectionObserver() {
-      // 只在文章内容容器内查找标题
       const contentContainer =
         document.querySelector(".custom-md") ||
         document.querySelector(".prose") ||
@@ -632,7 +611,6 @@ for (const heading of headings) {
 
       observer = new IntersectionObserver(
         (entries) => {
-          // 当任何标题进入或离开可视区域时，更新TOC状态
           updateTOCActiveState();
         },
         {
@@ -659,13 +637,11 @@ for (const heading of headings) {
       const tocContent = document.getElementById("floating-toc-content");
       if (!tocContent) return;
 
-      // 检查是否为文章页面
       if (!isPostPage()) {
         tocContent.innerHTML = "";
         return;
       }
 
-      // 尝试在文章内容容器内查找标题
       const contentContainer =
         document.querySelector(".custom-md") ||
         document.querySelector(".prose") ||
@@ -675,7 +651,6 @@ for (const heading of headings) {
       if (contentContainer) {
         headings = contentContainer.querySelectorAll("h1, h2, h3, h4, h5, h6");
       } else {
-        // 如果没有找到文章内容容器，尝试在整个页面查找标题
         headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
       }
 
@@ -685,7 +660,6 @@ for (const heading of headings) {
         return;
       }
 
-      // 计算最小深度
       let currentMinDepth = 10;
       headings.forEach((heading) => {
         const depth = parseInt(heading.tagName.charAt(1));
@@ -713,12 +687,10 @@ for (const heading of headings) {
           depth === minDepth ? "" : depth === minDepth + 1 ? "pl-4" : "pl-8";
         const levelClass = `level-${depth}`;
 
-        // 确保标题有ID
         if (!heading.id) {
           return;
         }
 
-        // 使用与旧版TOC相同的徽章样式
         const badgeContent =
           depth === minDepth
             ? heading1Count++
@@ -741,7 +713,6 @@ for (const heading of headings) {
        `;
       });
 
-      // 移动端隐藏活动指示器
       const isMobile = window.innerWidth <= 768;
       const indicatorStyle = isMobile ? 'style="opacity: 0; display: none;"' : 'style="opacity: 0;"';
       
@@ -755,7 +726,6 @@ for (const heading of headings) {
     }
 
     function updateTOCVisibility() {
-      // 检查是否为文章页面
       if (!isPostPage()) {
         if (floatingTOCBtn) {
           floatingTOCBtn.classList.add("hide");
@@ -763,7 +733,6 @@ for (const heading of headings) {
         return;
       }
 
-      // 在文章页面显示按钮
       if (floatingTOCBtn) {
         floatingTOCBtn.classList.remove("hide");
       }
@@ -773,40 +742,34 @@ for (const heading of headings) {
       const anchor = event.target.closest('a[href^="#"]');
       if (!anchor) return;
 
-      // 标记这是TOC内部导航，防止其他事件关闭TOC
       window.tocInternalNavigation = true;
 
-      event.stopPropagation(); // 阻止事件冒泡
-      event.preventDefault(); // 阻止默认行为
+      event.stopPropagation();
+      event.preventDefault();
 
-      // 从href属性获取ID
       const href = anchor.getAttribute("href");
       const id = href ? href.substring(1) : "";
       const targetElement = document.getElementById(id);
 
       if (targetElement) {
-        // 计算目标位置，考虑导航栏高度
         const navbarHeight = 80;
         const targetTop =
           targetElement.getBoundingClientRect().top +
           window.pageYOffset -
           navbarHeight;
 
-        // 平滑滚动到目标位置
         window.scrollTo({
           top: targetTop,
           behavior: "smooth",
         });
       }
 
-      // 点击后不关闭TOC面板，保持打开状态
     }
 
     function initFloatingTOC() {
       floatingTOCBtn = document.getElementById("floating-toc-btn");
       floatingTOCPanel = document.getElementById("floating-toc-panel");
 
-      // 更新全局变量
       window.floatingTOCBtn = floatingTOCBtn;
       window.floatingTOCPanel = floatingTOCPanel;
 
@@ -814,43 +777,33 @@ for (const heading of headings) {
         return;
       }
 
-      // 检查是否为文章页面，如果不是则隐藏按钮
       if (!isPostPage()) {
         floatingTOCBtn.classList.add("hide");
         return;
       }
 
-      // 生成TOC内容
       generateTOCContent();
 
-      // 设置点击监听 - 使用capture模式确保优先处理
       const tocContent = document.getElementById("floating-toc-content");
       if (tocContent) {
         tocContent.addEventListener("click", handleTOCClick, { capture: true });
       }
 
-      // 设置滚动监听
       window.addEventListener("scroll", updateActiveHeading);
 
-      // 设置交叉观察器
       setupIntersectionObserver();
 
-      // 初始化活动状态
       updateActiveHeading();
       updateTOCVisibility();
 
-      // 延迟再次更新，确保DOM完全渲染
       setTimeout(() => {
         updateActiveHeading();
       }, 100);
 
-      // 设置自动关闭功能
       setupAutoClose();
     }
 
-    // 页面离开时自动关闭TOC
     function setupAutoClose() {
-      // 关闭TOC的通用函数
       function closeTOC() {
         if (floatingTOCPanel && !floatingTOCPanel.classList.contains("hide")) {
           floatingTOCPanel.classList.add("hide");
@@ -858,20 +811,16 @@ for (const heading of headings) {
         }
       }
 
-      // 监听页面卸载
       window.addEventListener("beforeunload", closeTOC);
 
-      // 监听页面隐藏（移动端）
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           closeTOC();
         }
       });
 
-      // 监听路由变化（如果使用SPA）
       window.addEventListener("popstate", closeTOC);
 
-      // 监听Swup页面切换（如果使用Swup）
       try {
         if (
           typeof window.swup !== "undefined" &&
@@ -885,23 +834,19 @@ for (const heading of headings) {
         // Swup not available
       }
 
-      // 监听Turbo页面切换（如果使用Turbo）
       if (typeof window.Turbo !== "undefined" && window.Turbo) {
         document.addEventListener("turbo:visit", closeTOC);
         document.addEventListener("turbo:load", closeTOC);
       }
 
-      // 监听Astro页面切换
       document.addEventListener("astro:page-load", closeTOC);
       document.addEventListener("astro:before-preparation", closeTOC);
 
-      // 监听外部链接点击（不处理锚点链接）
       document.addEventListener(
         "click",
         (e) => {
           const link = e.target.closest("a");
           if (link && link.href) {
-            // 只处理外部链接，锚点链接不关闭TOC
             const href = link.getAttribute("href");
             const isExternalLink =
               href && !href.startsWith("#") && !href.startsWith("javascript:");
@@ -910,7 +855,6 @@ for (const heading of headings) {
               return;
             }
 
-            // 检查是否点击的是TOC内部的链接
             const tocPanel = document.getElementById("floating-toc-panel");
             const tocContent = document.getElementById("floating-toc-content");
 
@@ -922,7 +866,6 @@ for (const heading of headings) {
               return;
             }
 
-            // 检查是否是TOC内部导航
             if (window.tocInternalNavigation) {
               return;
             }
@@ -933,7 +876,6 @@ for (const heading of headings) {
         { capture: false }
       );
 
-      // 监听表单提交
       document.addEventListener("submit", (e) => {
         const form = e.target;
         if (form.action) {
@@ -941,30 +883,24 @@ for (const heading of headings) {
         }
       });
 
-      // 监听页面开始卸载
       window.addEventListener("pagehide", closeTOC);
 
-      // 监听页面可见性变化（更可靠）
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           closeTOC();
         }
       });
 
-      // 监听页面卸载前
       window.addEventListener("unload", closeTOC);
 
-      // 监听hashchange事件，但排除TOC内部的锚点链接
       window.addEventListener("hashchange", (e) => {
-        // 检查是否是TOC内部点击导致的hashchange
         if (window.tocInternalNavigation) {
-          window.tocInternalNavigation = false; // 重置标记
+          window.tocInternalNavigation = false;
           return;
         }
         closeTOC();
       });
 
-      // 监听pushState和replaceState（手动路由变化）
       const originalPushState = history.pushState;
       const originalReplaceState = history.replaceState;
 
@@ -978,11 +914,9 @@ for (const heading of headings) {
         return originalReplaceState.apply(this, args);
       };
 
-      // 监听URL变化（最可靠的方法）
       let currentUrl = window.location.href;
       const checkUrlChange = () => {
         if (window.location.href !== currentUrl) {
-          // 检查是否是TOC内部导航导致的URL变化
           if (window.tocInternalNavigation) {
             currentUrl = window.location.href;
             return;
@@ -992,21 +926,16 @@ for (const heading of headings) {
         }
       };
 
-      // 定期检查URL变化
       setInterval(checkUrlChange, 100);
 
-      // 监听页面焦点变化 - 但排除TOC内部的焦点变化
       window.addEventListener("blur", (e) => {
-        // 检查是否是TOC内部导航
         if (window.tocInternalNavigation) {
           return;
         }
         closeTOC();
       });
 
-      // 监听页面失去焦点 - 但排除TOC内部的焦点变化
       document.addEventListener("focusout", (e) => {
-        // 检查焦点是否转移到了TOC内部
         const tocPanel = document.getElementById("floating-toc-panel");
         const tocContent = document.getElementById("floating-toc-content");
         const relatedTarget = e.relatedTarget;
@@ -1021,7 +950,6 @@ for (const heading of headings) {
           return;
         }
 
-        // 检查是否是TOC内部导航
         if (window.tocInternalNavigation) {
           return;
         }
@@ -1030,17 +958,14 @@ for (const heading of headings) {
       });
     }
 
-    // 页面加载完成后初始化
     document.addEventListener("DOMContentLoaded", initFloatingTOC);
 
-    // 如果页面已经加载完成，立即初始化
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", initFloatingTOC);
     } else {
       initFloatingTOC();
     }
 
-    // 监听页面切换（Swup）
     if (typeof window !== "undefined" && window.swup) {
       window.swup.hooks.on("visit:end", () => {
         setTimeout(() => {

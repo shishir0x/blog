@@ -1,119 +1,85 @@
 <script lang="ts">
-    // 导入 Svelte 的生命周期函数和过渡效果
     
-    // 导入 Icon 组件，用于显示图标
     import Icon from "@iconify/svelte";
     import { onDestroy, onMount } from "svelte";
     import { slide } from "svelte/transition";
-    // 从配置文件中导入音乐播放器配置
     import { musicPlayerConfig } from "../../config/musicConfig";
-    // 导入国际化相关的 Key 和 i18n 实例
     import Key from "../../i18n/i18nKey";
     import { i18n } from "../../i18n/translation";
     
-    // 从配置中获取各种设置
     const config = musicPlayerConfig;
     
-    // 音乐播放器模式，可选 "local" 或 "meting"
     let mode = config.mode ?? "meting";
     
-    // Meting API 配置
     let meting_api = config.meting?.api ?? "https://www.bilibili.uno/api?server=:server&type=:type&id=:id&auth=:auth&r=:r";
     let meting_id = config.meting?.playlist?.id ?? "8814137515";
     let meting_server = config.meting?.playlist?.server ?? "netease";
     let meting_type = config.meting?.playlist?.type ?? "playlist";
     let fallback_apis = config.meting?.fallbackApis ?? [];
     
-    // 本地音乐配置
     let local_playlist = config.local?.playlist ?? [];
     
-    // 行为配置
     let autoplay = config.behavior?.autoplay ?? false;
     let default_volume = config.behavior?.defaultVolume ?? 0.7;
     let default_shuffle = config.behavior?.defaultShuffle ?? false;
     let default_repeat = config.behavior?.defaultRepeat ?? 0;
     
-    // 位置配置
     let position_bottom = config.behavior?.position?.bottom ?? 16;
     let position_right = config.behavior?.position?.right ?? 16;
     
-    // 响应式位置配置
     let mobile_position_bottom = config.responsive?.mobile?.position?.bottom ?? 24;
     let mobile_position_right = config.responsive?.mobile?.position?.right ?? 8;
     
-    // 当前使用的位置配置
     let current_bottom = position_bottom;
     let current_right = position_right;
     
-    // 检测屏幕尺寸并更新位置
     function updatePositionForScreenSize() {
-        // 确保在浏览器环境中
         if (typeof window === 'undefined') return;
         
         if (window.innerWidth <= 768) {
-            // 移动端
             current_bottom = mobile_position_bottom;
             current_right = mobile_position_right;
         } else {
-            // 桌面端
             current_bottom = position_bottom;
             current_right = position_right;
         }
     }
     
     
-    // UI 配置
     let show_playlist_button = config.ui?.display?.showPlaylistButton ?? true;
     let show_volume_control = config.ui?.display?.showVolumeControl ?? true;
     let show_shuffle_button = config.ui?.display?.showShuffleButton ?? true;
     let show_repeat_button = config.ui?.display?.showRepeatButton ?? true;
     let show_skip_buttons = config.ui?.display?.showSkipButtons ?? true;
     
-    // 播放列表配置
     let playlist_max_height = config.ui?.playlist?.maxHeight ?? 384;
     let playlist_width = config.ui?.playlist?.width ?? 320;
     let show_track_numbers = config.ui?.playlist?.showTrackNumbers ?? true;
     let show_duration = config.ui?.playlist?.showDuration ?? true;
     
-    // 动画配置
     let cover_rotation_enable = config.ui?.animation?.coverRotation?.enable ?? true;
     let cover_rotation_speed = config.ui?.animation?.coverRotation?.speed ?? 3;
     let cover_rotation_pause_hover = config.ui?.animation?.coverRotation?.pauseOnHover ?? true;
     
-    // 错误处理配置
     let show_error_messages = config.errorHandling?.showErrorMessages ?? true;
     let error_display_duration = config.errorHandling?.errorDisplayDuration ?? 3000;
     let auto_skip_on_error = config.errorHandling?.autoSkipOnError ?? true;
     
     
-    // 播放状态，默认为 false (未播放)
     let isPlaying = false;
-    // 播放器是否展开，默认为 false
     let isExpanded = false;
-    // 播放器是否折叠贴边，默认为 true（默认显示折叠状态）
     let isCollapsed = true;
-    // 是否显示播放列表，默认为 false
     let showPlaylist = false;
-    // 当前播放时间，默认为 0
     let currentTime = 0;
-    // 歌曲总时长，默认为 0
     let duration = 0;
-    // 音量，从配置中获取默认值
     let volume = default_volume;
-    // 是否静音，默认为 false
     let isMuted = false;
-    // 是否正在加载，默认为 false
     let isLoading = false;
-    // 是否随机播放，从配置中获取默认值
     let isShuffled = default_shuffle;
-    // 循环模式，从配置中获取默认值
     let isRepeating = default_repeat;
-    // 错误信息，默认为空字符串
     let errorMessage = "";
-    // 是否显示错误信息，默认为 false
     let showError = false;
     
-    // 当前歌曲信息
     let currentSong = {
         title: "Loading ...",
         artist: "Loading ...", 
@@ -144,7 +110,6 @@
     async function resolvePlayableUrl(url: string): Promise<string> {
         const normalizedUrl = getAssetPath(url);
 
-        // 本地资源不需要做重定向解析
         if (!isHttpUrl(normalizedUrl)) {
             return normalizedUrl;
         }
@@ -154,7 +119,6 @@
             return cachedUrl;
         }
 
-        // 先走自动重定向，拿到最终 response.url
         try {
             const followed = await fetch(normalizedUrl, {
                 method: "GET",
@@ -168,7 +132,6 @@
             }
         } catch {}
 
-        // 再尝试手动重定向读取 location 头（部分 API 允许）
         try {
             const manual = await fetch(normalizedUrl, {
                 method: "GET",
@@ -184,7 +147,6 @@
             }
         } catch {}
 
-        // 解析失败时回退原始地址，让 audio 自己处理重定向
         return normalizedUrl;
     }
     
@@ -192,7 +154,6 @@
         if (!meting_api || !meting_id) return;
         isLoading = true;
         
-        // 尝试主API
         const apis = [meting_api, ...fallback_apis];
         
         for (let i = 0; i < apis.length; i++) {
@@ -228,12 +189,11 @@
                     loadSong(playlist[0]);
                 }
                 isLoading = false;
-                return; // 成功获取，退出循环
+                return;
                 
             } catch (e) {
                 console.warn(`API ${i + 1} failed:`, e);
                 if (i === apis.length - 1) {
-                    // 所有API都失败了
                     showErrorMessage("所有 Meting API 都无法访问，请检查网络连接");
                     isLoading = false;
                 }
@@ -265,7 +225,6 @@
             isExpanded = false;
             showPlaylist = false;
         } else {
-            // 从折叠状态展开时，直接显示完整播放器
             isExpanded = true;
             showPlaylist = false;
         }
@@ -331,11 +290,9 @@
     function getAssetPath(path: string): string {
         if (path.startsWith("http://") || path.startsWith("https://")) return path;
         if (path.startsWith("/")) {
-            // 处理绝对路径，需要添加 base URL
             const baseUrl = import.meta.env.BASE_URL || "/";
             return baseUrl + path.substring(1);
         }
-        // 处理相对路径
         const baseUrl = import.meta.env.BASE_URL || "/";
         return baseUrl + path;
     }
@@ -346,7 +303,6 @@
         currentSong = { ...song };
         const currentRequestId = ++loadRequestId;
         
-        // 如果没有封面，使用默认封面
         if (!currentSong.cover) {
             currentSong.cover = "/favicon/favicon-light-192.png";
         }
@@ -366,7 +322,6 @@
 
             const playableUrl = await resolvePlayableUrl(song.url);
 
-            // 避免切歌时旧请求覆盖当前歌曲
             if (currentRequestId !== loadRequestId) return;
 
             audio.src = playableUrl;
@@ -459,20 +414,16 @@
         audio.addEventListener("ended", () => {
             console.log('歌曲播放结束', { isRepeating, currentIndex, playlistLength: playlist.length, isShuffled });
             if (isRepeating === 1) {
-                // 单曲循环：重新播放当前歌曲
                 console.log('单曲循环：重新播放当前歌曲');
                 audio.currentTime = 0;
                 audio.play().catch(() => {});
             } else if (isRepeating === 2) {
-                // 列表循环：播放下一首
                 console.log('列表循环：播放下一首');
                 nextSong();
             } else if (currentIndex < playlist.length - 1 || isShuffled) {
-                // 非循环模式：如果还有下一首或随机播放，则播放下一首
                 console.log('非循环模式：播放下一首');
                 nextSong();
             } else {
-                // 非循环模式：播放列表结束，停止播放
                 console.log('非循环模式：播放列表结束，停止播放');
                 isPlaying = false;
             }
@@ -491,22 +442,18 @@
         handleAudioEvents();
         
         
-        // 初始化位置
         updatePositionForScreenSize();
         
-        // 监听窗口大小变化
         if (typeof window !== 'undefined') {
             window.addEventListener('resize', updatePositionForScreenSize);
         }
 
-        // 当博客播客播放器开始播放时，暂停音乐
         function onPodcastPlay() {
             if (audio && !audio.paused) {
                 audio.pause();
             }
         }
         window.addEventListener('firefly:podcast:play', onPodcastPlay);
-        // 随页面销毁一起清理
         const _origOnDestroy = () => {
             window.removeEventListener('firefly:podcast:play', onPodcastPlay);
         };
@@ -518,7 +465,6 @@
         
         if (mode === "meting") {
             fetchMetingPlaylist().then(() => {
-                // 如果启用了自动播放，则开始播放
                 if (autoplay && playlist.length > 0) {
                     setTimeout(() => {
                         if (audio && audio.readyState >= 2) {
@@ -528,11 +474,9 @@
                 }
             });
         } else {
-            // 使用本地播放列表，不发送任何API请求
             playlist = [...local_playlist];
             if (playlist.length > 0) {
                 loadSong(playlist[0]);
-                // 如果启用了自动播放，则开始播放
                 if (autoplay) {
                     setTimeout(() => {
                         if (audio && audio.readyState >= 2) {
@@ -551,7 +495,6 @@
             audio.pause();
             audio.src = "";
         }
-        // 移除窗口大小变化监听器
         if (typeof window !== 'undefined') {
             window.removeEventListener('resize', updatePositionForScreenSize);
         }
@@ -577,14 +520,14 @@
          style="bottom: {current_bottom}px; right: {current_right}px; --rotation-speed: {cover_rotation_speed}s; --rotation-pause-hover: {cover_rotation_pause_hover ? 'paused' : 'running'};">
 
         
-        <!-- 折叠贴边状态 - 只显示封面和展开按钮 -->
+        
         <div class="collapsed-player card-base bg-[var(--float-panel-bg)] dark:bg-zinc-800/90 dark:backdrop-blur-md dark:border dark:border-zinc-700/50 rounded-2xl p-3 transition-all duration-500 ease-in-out"
              style="width: 90px; height: 80px; background-color: var(--card-bg); "
              class:opacity-0={!isCollapsed}
              class:scale-95={!isCollapsed}
              class:pointer-events-none={!isCollapsed}>
             <div class="flex items-center gap-2 h-full">
-                <!-- 封面区域 -->
+                
                 <div class="cover-container relative w-12 h-12 rounded-full overflow-hidden cursor-pointer flex-shrink-0"
                      on:click={togglePlay}
                      on:keydown={(e) => {
@@ -608,7 +551,7 @@
                             <Icon icon="fa6-solid:music" class="text-white text-lg" />
                         </div>
                     {/if}
-                    <!-- 播放状态指示器 -->
+                    
                     {#if isPlaying}
                         <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
                             <div class="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
@@ -618,7 +561,7 @@
                     {/if}
                 </div>
                 
-                <!-- 展开按钮 -->
+                
                 <button class="expand-btn w-8 h-8 rounded-full btn-regular border border-[var(--line-divider)] hover:border-[var(--primary)] active:scale-95 transition-all duration-200 flex items-center justify-center flex-shrink-0"
                         on:click={toggleCollapsed}
                         on:keydown={(e) => {
@@ -634,7 +577,7 @@
             </div>
         </div>
         
-        <!-- 展开状态的完整播放器（封面圆形） -->
+        
         <div class="expanded-player card-base bg-[var(--float-panel-bg)] dark:bg-zinc-800/90 dark:backdrop-blur-md dark:border dark:border-zinc-700/50 rounded-2xl p-4 transition-all duration-500 ease-in-out"
              style="width: 320px; background-color: var(--card-bg);"
              class:opacity-0={!isExpanded}
@@ -690,7 +633,7 @@
                 </div>
             </div>
             <div class="controls flex items-center justify-center gap-2 mb-4">
-                <!-- 随机按钮高亮 -->
+                
                 {#if show_shuffle_button}
                 <button class="w-10 h-10 rounded-lg"
                         class:btn-regular={isShuffled}
@@ -724,7 +667,7 @@
                     <Icon icon="material-symbols:skip-next" class="text-xl" />
                 </button>
                 {/if}
-                <!-- 循环按钮高亮 -->
+                
                 {#if show_repeat_button}
                 <button class="w-10 h-10 rounded-lg"
                         class:btn-regular={isRepeating > 0}
@@ -815,7 +758,7 @@
                                 {/if}
                             </div>
                             {/if}
-                            <!-- 歌单列表内封面仍为圆角矩形 -->
+                            
                             <div class="w-10 h-10 rounded-lg overflow-hidden bg-[var(--btn-regular-bg)] flex-shrink-0">
                                 <img src={getAssetPath(song.cover)} alt={song.title} class="w-full h-full object-cover" />
                             </div>
@@ -978,7 +921,7 @@
             height: 12px;
         }
     }
-    /* 自定义旋转动画，停止时保持当前位置 */
+    
     @keyframes spin-continuous {
         from {
             transform: rotate(0deg);
@@ -1001,13 +944,13 @@
         animation-play-state: var(--rotation-pause-hover, running);
     }
     
-    /* 让主题色按钮更有视觉反馈 */
+    
     button.bg-\[var\(--primary\)\] {
         box-shadow: 0 0 0 2px var(--primary);
         border: none;
     }
     
-    /* 播放列表自定义滚动条样式 */
+    
     .scrollbar-custom {
         scrollbar-width: thin;
         scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
@@ -1036,7 +979,7 @@
         background-color: rgba(156, 163, 175, 0.7);
     }
     
-    /* 暗色模式下的滚动条样式 */
+    
     :global(.dark) .scrollbar-custom {
         scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
     }

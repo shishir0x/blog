@@ -13,30 +13,25 @@ import { i18n } from "@i18n/translation";
 
 let mode: WALLPAPER_MODE = $state(siteConfig.backgroundWallpaper.mode);
 
-// 响应式标签 - 当语言切换时自动更新
 let bannerModeLabel = $state(i18n(I18nKey.wallpaperBannerMode));
 let overlayModeLabel = $state(i18n(I18nKey.wallpaperOverlayMode));
 let noneModeLabel = $state(i18n(I18nKey.wallpaperNoneMode));
 
-// 更新语言标签
 function updateLabels() {
 	bannerModeLabel = i18n(I18nKey.wallpaperBannerMode);
 	overlayModeLabel = i18n(I18nKey.wallpaperOverlayMode);
 	noneModeLabel = i18n(I18nKey.wallpaperNoneMode);
 }
 
-// 在组件挂载时从localStorage读取保存的模式
 onMount(() => {
 	mode = getStoredWallpaperMode();
 	
-	// 监听语言切换事件
 	const handleLangChange = () => {
 		updateLabels();
 	};
 	
 	window.addEventListener('site-lang-change', handleLangChange);
 	
-	// 清理函数
 	return () => {
 		window.removeEventListener('site-lang-change', handleLangChange);
 	};

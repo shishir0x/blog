@@ -12,7 +12,7 @@ enum I18nKey {
   postList = "postList",
   tableOfContents = "tableOfContents",
 
-  // 公告栏
+  // Announcement board
   announcement = "announcement",
   announcementClose = "announcementClose",
 
@@ -46,7 +46,7 @@ enum I18nKey {
   friends = "friends",
   anime = "anime",
 
-  // 番剧页面
+  // Anime page
   animeTitle = "animeTitle",
   animeSubtitle = "animeSubtitle",
   animeList = "animeList",
@@ -61,7 +61,7 @@ enum I18nKey {
   animeEmpty = "animeEmpty",
   animeEmptyBangumi = "animeEmptyBangumi",
   
-  // 动漫状态
+  // Anime status
   animeStatusAll = "animeStatusAll",
   animeStatusWish = "animeStatusWish",
   animeStatusDone = "animeStatusDone",
@@ -69,7 +69,7 @@ enum I18nKey {
   animeStatusOnhold = "animeStatusOnhold",
   animeStatusDropped = "animeStatusDropped",
   
-  // 动漫页面文本
+  // Anime page text
   animeLoading = "animeLoading",
   animeLoadingDescription = "animeLoadingDescription",
   animeError = "animeError",
@@ -81,14 +81,14 @@ enum I18nKey {
   animeConfigDescription = "animeConfigDescription",
   animeRefreshNote = "animeRefreshNote",
   
-  // 动漫信息
+  // Anime info
   animeYear = "animeYear",
   animeEpisodes = "animeEpisodes",
   animeRank = "animeRank",
   animeUnknown = "animeUnknown",
   animeLoadFailed = "animeLoadFailed",
   
-  // 分页
+  // Pagination
   paginationFirst = "paginationFirst",
   paginationPrev = "paginationPrev",
   paginationNext = "paginationNext",
@@ -98,13 +98,13 @@ enum I18nKey {
   paginationTotal = "paginationTotal",
   paginationRecords = "paginationRecords",
 
-  // 404页面
+  // 404 page
   notFound = "notFound",
   notFoundTitle = "notFoundTitle",
   notFoundDescription = "notFoundDescription",
   backToHome = "backToHome",
 
-  // 音乐播放器
+  // Music player
   music = "music",
   musicNoPlaying = "musicNoPlaying",
   musicLyrics = "musicLyrics",
@@ -126,7 +126,7 @@ enum I18nKey {
   playlist = "playlist",
 
 
-  // RSS页面
+  // RSS page
   rss = "rss",
   rssDescription = "rssDescription",
   rssSubtitle = "rssSubtitle",
@@ -145,7 +145,7 @@ enum I18nKey {
   rssCopyFailed = "rssCopyFailed",
 
 
-  //最后编辑时间卡片
+  // Last modified time card
   lastModifiedPrefix = "lastModifiedPrefix",
   lastModifiedOutdated = "lastModifiedOutdated",
   lastModifiedDaysAgo = "lastModifiedDaysAgo",
@@ -156,15 +156,15 @@ enum I18nKey {
   minute = "minute",
   second = "second",
 
-  // 访问量统计
+  // Page view statistics
   pageViews = "pageViews",
   pageViewsLoading = "pageViewsLoading",
   pageViewsError = "pageViewsError",
 
-  // 置顶
+  // Pinned
   pinned = "pinned",
 
-  // 壁纸模式
+  // Wallpaper mode
   wallpaperMode = "wallpaperMode",
   wallpaperBannerMode = "wallpaperBannerMode",
   wallpaperOverlayMode = "wallpaperOverlayMode",

@@ -5,9 +5,7 @@ import type {
   WidgetComponentType,
 } from "../types/config";
 
-/**
- * 组件映射表 - 将组件类型映射到实际的组件路径
- */
+
 export const WIDGET_COMPONENT_MAP = {
   profile: "../components/content/Profile.astro",
   announcement: "../components/widget/Announcement.astro",
@@ -16,13 +14,10 @@ export const WIDGET_COMPONENT_MAP = {
   toc: "../components/widget/TOC.astro",
   advertisement: "../components/widget/Advertisement.astro",
   "music-player": "../components/widget/Music.astro",
-  custom: null, // 自定义组件需要在配置中指定路径
+  custom: null,
 } as const;
 
-/**
- * 组件管理器类
- * 负责管理侧边栏组件的动态加载、排序和渲染
- */
+
 export class WidgetManager {
   private config: SidebarLayoutConfig;
   private enabledComponents: WidgetComponentConfig[];
@@ -32,16 +27,12 @@ export class WidgetManager {
     this.enabledComponents = this.getEnabledComponents();
   }
 
-  /**
-   * 获取配置
-   */
+  
   getConfig(): SidebarLayoutConfig {
     return this.config;
   }
 
-  /**
-   * 获取启用的组件列表
-   */
+  
   private getEnabledComponents(): WidgetComponentConfig[] {
     if (!this.config || !this.config.components) {
       console.warn('[WidgetManager] Config or components is undefined, returning empty array');
@@ -52,21 +43,14 @@ export class WidgetManager {
       .sort((a, b) => a.order - b.order);
   }
 
-  /**
-   * 根据位置获取组件列表
-   * @param position 组件位置：'top' | 'sticky'
-   */
+  
   getComponentsByPosition(position: "top" | "sticky"): WidgetComponentConfig[] {
     return this.enabledComponents.filter(
       (component) => component.position === position
     );
   }
 
-  /**
-   * 获取组件的动画延迟时间
-   * @param component 组件配置
-   * @param index 组件在列表中的索引
-   */
+  
   getAnimationDelay(component: WidgetComponentConfig, index: number): number {
     if (component.animationDelay !== undefined) {
       return component.animationDelay;
@@ -82,20 +66,14 @@ export class WidgetManager {
     return 0;
   }
 
-  /**
-   * 获取组件的CSS类名
-   * @param component 组件配置
-   * @param index 组件在列表中的索引
-   */
+  
   getComponentClass(component: WidgetComponentConfig, _index: number): string {
     const classes: string[] = [];
 
-    // 添加基础类名
     if (component.class) {
       classes.push(component.class);
     }
 
-    // 添加响应式隐藏类名
     if (component.responsive?.hidden) {
       component.responsive.hidden.forEach((device) => {
         switch (device) {
@@ -115,20 +93,14 @@ export class WidgetManager {
     return classes.join(" ");
   }
 
-  /**
-   * 获取组件的内联样式
-   * @param component 组件配置
-   * @param index 组件在列表中的索引
-   */
+  
   getComponentStyle(component: WidgetComponentConfig, index: number): string {
     const styles: string[] = [];
 
-    // 添加自定义样式
     if (component.style) {
       styles.push(component.style);
     }
 
-    // 添加动画延迟样式
     const animationDelay = this.getAnimationDelay(component, index);
     if (animationDelay > 0) {
       styles.push(`animation-delay: ${animationDelay}ms`);
@@ -137,11 +109,7 @@ export class WidgetManager {
     return styles.join("; ");
   }
 
-  /**
-   * 检查组件是否应该折叠
-   * @param component 组件配置
-   * @param itemCount 组件内容项数量
-   */
+  
   isCollapsed(component: WidgetComponentConfig, itemCount: number): boolean {
     if (!component.responsive?.collapseThreshold) {
       return false;
@@ -149,18 +117,12 @@ export class WidgetManager {
     return itemCount >= component.responsive.collapseThreshold;
   }
 
-  /**
-   * 获取组件的路径
-   * @param componentType 组件类型
-   */
+  
   getComponentPath(componentType: WidgetComponentType): string | null {
     return WIDGET_COMPONENT_MAP[componentType];
   }
 
-  /**
-   * 检查当前设备是否应该显示侧边栏
-   * @param deviceType 设备类型
-   */
+  
   shouldShowSidebar(deviceType: "mobile" | "tablet" | "desktop"): boolean {
     if (!this.config.enable) {
       return false;
@@ -170,35 +132,24 @@ export class WidgetManager {
     return layoutMode === "sidebar";
   }
 
-  /**
-   * 获取设备断点配置
-   */
+  
   getBreakpoints() {
     return this.config.responsive.breakpoints;
   }
 
-  /**
-   * 更新组件配置
-   * @param newConfig 新的配置
-   */
+  
   updateConfig(newConfig: Partial<SidebarLayoutConfig>): void {
     this.config = { ...this.config, ...newConfig };
     this.enabledComponents = this.getEnabledComponents();
   }
 
-  /**
-   * 添加新组件
-   * @param component 组件配置
-   */
+  
   addComponent(component: WidgetComponentConfig): void {
     this.config.components.push(component);
     this.enabledComponents = this.getEnabledComponents();
   }
 
-  /**
-   * 移除组件
-   * @param componentType 组件类型
-   */
+  
   removeComponent(componentType: WidgetComponentType): void {
     this.config.components = this.config.components.filter(
       (component) => component.type !== componentType
@@ -206,11 +157,7 @@ export class WidgetManager {
     this.enabledComponents = this.getEnabledComponents();
   }
 
-  /**
-   * 启用/禁用组件
-   * @param componentType 组件类型
-   * @param enable 是否启用
-   */
+  
   toggleComponent(componentType: WidgetComponentType, enable: boolean): void {
     const component = this.config.components.find(
       (c) => c.type === componentType
@@ -221,11 +168,7 @@ export class WidgetManager {
     }
   }
 
-  /**
-   * 重新排序组件
-   * @param componentType 组件类型
-   * @param newOrder 新的排序值
-   */
+  
   reorderComponent(componentType: WidgetComponentType, newOrder: number): void {
     const component = this.config.components.find(
       (c) => c.type === componentType
@@ -236,25 +179,16 @@ export class WidgetManager {
     }
   }
 
-  /**
-   * 检查组件是否应该在侧边栏中渲染
-   * @param componentType 组件类型
-   */
+  
   isSidebarComponent(componentType: WidgetComponentType): boolean {
-    // 过滤组件
     return true;
   }
 }
 
-/**
- * 默认组件管理器实例
- */
+
 export const widgetManager = new WidgetManager();
 
-/**
- * 工具函数：根据组件类型获取组件配置
- * @param componentType 组件类型
- */
+
 export function getComponentConfig(
   componentType: WidgetComponentType
 ): WidgetComponentConfig | undefined {
@@ -265,10 +199,7 @@ export function getComponentConfig(
   return config.components.find((c) => c.type === componentType);
 }
 
-/**
- * 工具函数：检查组件是否启用
- * @param componentType 组件类型
- */
+
 export function isComponentEnabled(
   componentType: WidgetComponentType
 ): boolean {
@@ -276,9 +207,7 @@ export function isComponentEnabled(
   return config?.enable ?? false;
 }
 
-/**
- * 工具函数：获取所有启用的组件类型
- */
+
 export function getEnabledComponentTypes(): WidgetComponentType[] {
   const enabledComponents = widgetManager
     .getComponentsByPosition("top")

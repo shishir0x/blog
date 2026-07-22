@@ -10,7 +10,7 @@ const categories = await getCategoryList();
 
 const COLLAPSED_HEIGHT = "7.5rem";
 
-// 使用统一的组件管理器检查是否应该折叠
+// Check if it should be collapsed using the unified component manager
 const categoriesComponent = widgetManager.config.components.find(c => c.type === "categories");
 const isCollapsed = categoriesComponent ? widgetManager.isCollapsed(categoriesComponent, categories.length) : false;
 

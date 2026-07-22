@@ -2,175 +2,181 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_TW: Translation = {
-  [Key.home]: "首頁",
-  [Key.about]: "關於我",
-  [Key.archive]: "歸檔",
-  [Key.search]: "搜尋",
-  [Key.other]: "其他",
-  [Key.links]: "連結",
+  [Key.home]: "Home",
+  [Key.about]: "About",
+  [Key.archive]: "Archive",
+  [Key.search]: "Search",
+  [Key.other]: "Other",
+  [Key.links]: "Links",
 
-  [Key.tags]: "標籤",
-  [Key.categories]: "分類",
-  [Key.recentPosts]: "最新文章",
-  [Key.postList]: "文章列表",
-  [Key.tableOfContents]: "目錄",
+  [Key.tags]: "Tags",
+  [Key.categories]: "Categories",
+  [Key.recentPosts]: "Recent Posts",
+  [Key.postList]: "Post List",
+  [Key.tableOfContents]: "Table of Contents",
 
-  // 公告欄
-  [Key.announcement]: "公告",
-  [Key.announcementClose]: "關閉",
+  // Announcement
+  [Key.announcement]: "Announcement",
+  [Key.announcementClose]: "Close",
 
-  [Key.comments]: "評論",
-  [Key.commentSection]: "評論區",
-  [Key.commentSubtitle]: "分享你的想法，與大家交流討論",
-  [Key.commentNotConfigured]: "評論系統暫未配置",
-  [Key.friends]: "友鏈",
-  [Key.untitled]: "無標題",
-  [Key.uncategorized]: "未分類",
-  [Key.noTags]: "無標籤",
+  [Key.comments]: "Comments",
+  [Key.commentSection]: "Comments",
+  [Key.commentSubtitle]: "Share your thoughts and discuss with everyone",
+  [Key.commentNotConfigured]: "Comment system not configured",
+  [Key.friends]: "Friends",
+  [Key.untitled]: "Untitled",
+  [Key.uncategorized]: "Uncategorized",
+  [Key.noTags]: "No Tags",
 
-  [Key.wordCount]: "字",
-  [Key.wordsCount]: "字",
-  [Key.minuteCount]: "分鐘",
-  [Key.minutesCount]: "分鐘",
-  [Key.postCount]: "篇文章",
-  [Key.postsCount]: "篇文章",
+  [Key.wordCount]: "word",
+  [Key.wordsCount]: "words",
+  [Key.minuteCount]: "minute",
+  [Key.minutesCount]: "minutes",
+  [Key.postCount]: "post",
+  [Key.postsCount]: "posts",
 
-  [Key.themeColor]: "主題色",
+  [Key.themeColor]: "Theme Color",
 
-  [Key.lightMode]: "亮色",
-  [Key.darkMode]: "暗色",
-  [Key.systemMode]: "跟隨系統",
+  [Key.lightMode]: "Light",
+  [Key.darkMode]: "Dark",
+  [Key.systemMode]: "System",
 
-  [Key.more]: "更多",
+  [Key.more]: "More",
 
-  [Key.author]: "作者",
-  [Key.publishedAt]: "發布於",
-  [Key.license]: "許可協議",
-  [Key.anime]: "追番",
+  [Key.author]: "Author",
+  [Key.publishedAt]: "Published at",
+  [Key.license]: "License",
+  [Key.anime]: "Anime",
 
-  // 番劇頁面
-  [Key.animeTitle]: "我的追番記錄",
-  [Key.animeSubtitle]: "記錄我的二次元之旅",
-  [Key.animeList]: "追番列表",
-  [Key.animeTotal]: "總數",
-  [Key.animeWatching]: "追番中",
-  [Key.animeCompleted]: "已追完",
-  [Key.animeAvgRating]: "平均評分",
-  [Key.animeStatusWatching]: "追番中",
-  [Key.animeStatusCompleted]: "已追完",
-  [Key.animeStatusPlanned]: "計劃中",
-  [Key.animeYear]: "年份",
-  [Key.animeEpisodes]: "集數",
-  [Key.animeStudio]: "製作",
-  [Key.animeEmpty]: "暫無追番數據",
-  [Key.animeEmptyBangumi]: "請檢查 Bangumi 配置或網絡連接",
+  // Anime Page
+  [Key.animeTitle]: "My Anime List",
+  [Key.animeSubtitle]: "Record my anime journey",
+  [Key.animeList]: "Anime List",
+  [Key.animeTotal]: "Total",
+  [Key.animeWatching]: "Watching",
+  [Key.animeCompleted]: "Completed",
+  [Key.animeAvgRating]: "Average Rating",
+  [Key.animeStatusWatching]: "Watching",
+  [Key.animeStatusCompleted]: "Completed",
+  [Key.animeStatusPlanned]: "Planned",
+  [Key.animeStudio]: "Studio",
+  [Key.animeEmpty]: "No anime data",
+  [Key.animeEmptyBangumi]:
+    "Please check Bangumi configuration or network connection",
+    
+  // Anime Status
+  [Key.animeStatusAll]: "All",
+  [Key.animeStatusWish]: "Wish",
+  [Key.animeStatusDone]: "Done",
+  [Key.animeStatusDoing]: "Watching",
+  [Key.animeStatusOnhold]: "On Hold",
+  [Key.animeStatusDropped]: "Dropped",
+  
+  // Anime Page Text
+  [Key.animeLoading]: "Loading anime data...",
+  [Key.animeLoadingDescription]: "Please wait, fetching your collection from Bangumi",
+  [Key.animeError]: "Data loading failed",
+  [Key.animeErrorDescription]: "Unable to connect to Bangumi API, please check your network connection or try again later",
+  [Key.animeRetry]: "Retry",
+  [Key.animeEmptyData]: "No data",
+  [Key.animeEmptyDescription]: "No anime found in this category",
+  [Key.animeEmptySuggestion]: "Try switching to other categories",
+  [Key.animeConfigDescription]: "Please set your Bangumi user ID in src/config/siteConfig.ts",
+  [Key.animeRefreshNote]: "Due to some limitations, you may need to refresh the page once to load anime data, there is no good solution yet",
+  
+  // Anime Info
+  [Key.animeYear]: "Year",
+  [Key.animeEpisodes]: "Episodes",
+  [Key.animeRank]: "Rank",
+  [Key.animeUnknown]: "Unknown",
+  [Key.animeLoadFailed]: "Load failed",
 
-  // 動漫狀態
-  [Key.animeStatusAll]: "全部",
-  [Key.animeStatusWish]: "想看",
-  [Key.animeStatusDone]: "看過",
-  [Key.animeStatusDoing]: "在看",
-  [Key.animeStatusOnhold]: "擱置",
-  [Key.animeStatusDropped]: "拋棄",
+  // Pagination
+  [Key.paginationFirst]: "First",
+  [Key.paginationPrev]: "Previous",
+  [Key.paginationNext]: "Next",
+  [Key.paginationLast]: "Last",
+  [Key.paginationPage]: "Page",
+  [Key.paginationOf]: "of",
+  [Key.paginationTotal]: ", Total",
+  [Key.paginationRecords]: " records",
 
-  // 動漫頁面文本
-  [Key.animeLoading]: "正在載入追番數據...",
-  [Key.animeLoadingDescription]: "請稍候，正在從 Bangumi 獲取您的收藏資訊",
-  [Key.animeError]: "數據載入失敗",
-  [Key.animeErrorDescription]: "無法連接到 Bangumi API，請檢查網絡連接或稍後重試",
-  [Key.animeRetry]: "重新載入",
-  [Key.animeEmptyData]: "暫無數據",
-  [Key.animeEmptyDescription]: "該分類下暫時沒有找到相關的動漫作品",
-  [Key.animeEmptySuggestion]: "試試切換到其他分類查看",
-  [Key.animeConfigDescription]: "請在 src/config/siteConfig.ts 檔案中設定你的 Bangumi 使用者ID",
-  [Key.animeRefreshNote]: "由於一些限制，可能需要重新整理一次頁面才會載入追番數據，目前尚無更好的解決方法",
-
-  // 動漫資訊
-  [Key.animeRank]: "排名",
-  [Key.animeUnknown]: "未知",
-  [Key.animeLoadFailed]: "載入失敗",
-
-  // 分頁
-  [Key.paginationFirst]: "首頁",
-  [Key.paginationPrev]: "上一頁",
-  [Key.paginationNext]: "下一頁",
-  [Key.paginationLast]: "末頁",
-  [Key.paginationPage]: "第",
-  [Key.paginationOf]: "頁，共",
-  [Key.paginationTotal]: "頁，總計",
-  [Key.paginationRecords]: "條記錄",
-
-  // 404頁面
+  // 404 Page
   [Key.notFound]: "404",
-  [Key.notFoundTitle]: "頁面未找到",
-  [Key.notFoundDescription]: "抱歉，您訪問的頁面不存在或已被移動。",
-  [Key.backToHome]: "返回首頁",
+  [Key.notFoundTitle]: "Page Not Found",
+  [Key.notFoundDescription]:
+    "Sorry, the page you visited does not exist or has been moved.",
+  [Key.backToHome]: "Back to Home",
 
-  // 音樂播放器
-  [Key.music]: "音樂",
-  [Key.musicNoPlaying]: "暫無播放",
-  [Key.musicLyrics]: "歌詞",
-  [Key.musicVolume]: "音量",
-  [Key.musicPlayMode]: "播放模式",
-  [Key.musicPrev]: "上一首",
-  [Key.musicNext]: "下一首",
-  [Key.musicPlaylist]: "播放列表",
-  [Key.musicNoLyrics]: "暫無歌詞",
-  [Key.musicLoadingLyrics]: "歌詞加載中...",
-  [Key.musicFailedLyrics]: "歌詞加載失敗",
-  [Key.musicNoSongs]: "播放列表為空",
-  [Key.musicError]: "音樂播放器錯誤",
-  [Key.musicPlay]: "播放",
-  [Key.musicPause]: "暫停",
-  [Key.musicProgress]: "播放進度",
-  [Key.musicCover]: "封面",
-  [Key.musicNoCover]: "無封面",
-  [Key.playlist]: "播放列表",
-
-
-  // RSS頁面
-  [Key.rss]: "RSS 訂閱",
-  [Key.rssDescription]: "訂閱獲取最新更新",
-  [Key.rssSubtitle]: "通過 RSS 訂閱，第一時間獲取最新文章和動態",
-  [Key.rssLink]: "RSS 鏈接",
-  [Key.rssCopyToReader]: "複製鏈接到你的 RSS 閱讀器",
-  [Key.rssCopyLink]: "複製鏈接",
-  [Key.rssLatestPosts]: "最新文章",
-  [Key.rssWhatIsRSS]: "什麼是 RSS？",
-  [Key.rssWhatIsRSSDescription]:
-    "RSS（Really Simple Syndication）是一種用於發布經常更新內容的標準格式。通過 RSS，你可以：",
-  [Key.rssBenefit1]: "及時獲取網站最新內容，無需手動訪問",
-  [Key.rssBenefit2]: "在一個地方管理多個網站的訂閱",
-  [Key.rssBenefit3]: "避免錯過重要更新和文章",
-  [Key.rssBenefit4]: "享受無廣告的純淨閱讀體驗",
-  [Key.rssHowToUse]: "推薦使用 Feedly、Inoreader 或其他 RSS 閱讀器來訂閱本站。",
-  [Key.rssCopied]: "RSS 鏈接已複製到剪貼板！",
-  [Key.rssCopyFailed]: "複製失敗，請手動複製鏈接",
+  // Music Player
+  [Key.music]: "Music",
+  [Key.musicNoPlaying]: "No music playing",
+  [Key.musicLyrics]: "Lyrics",
+  [Key.musicVolume]: "Volume",
+  [Key.musicPlayMode]: "Play Mode",
+  [Key.musicPrev]: "Previous",
+  [Key.musicNext]: "Next",
+  [Key.musicPlaylist]: "Playlist",
+  [Key.musicNoLyrics]: "No lyrics available",
+  [Key.musicLoadingLyrics]: "Loading lyrics...",
+  [Key.musicFailedLyrics]: "Failed to load lyrics",
+  [Key.musicNoSongs]: "No songs in playlist",
+  [Key.musicError]: "Music player error",
+  [Key.musicPlay]: "Play",
+  [Key.musicPause]: "Pause",
+  [Key.musicProgress]: "Progress",
+  [Key.musicCover]: "Cover",
+  [Key.musicNoCover]: "No cover",
+  [Key.playlist]: "Playlist",
 
 
+	// RSS Page
+	[Key.rss]: "RSS Feed",
+	[Key.rssDescription]: "Subscribe to get latest updates",
+	[Key.rssSubtitle]:
+		"Subscribe via RSS to get the latest articles and updates imediately",
+	[Key.rssLink]: "RSS Link",
+	[Key.rssCopyToReader]: "Copy link to your RSS reader",
+	[Key.rssCopyLink]: "Copy Link",
+	[Key.rssLatestPosts]: "Latest Posts",
+	[Key.rssWhatIsRSS]: "What is RSS?",
+	[Key.rssWhatIsRSSDescription]:
+		"RSS (Really Simple Syndication) is a standard format for publishing frequently updated content. With RSS, you can:",
+	[Key.rssBenefit1]:
+		"Get the latest website content in time without manually visiting",
+	[Key.rssBenefit2]: "Manage subscriptions to multiple websites in one place",
+	[Key.rssBenefit3]: "Avoid missing important updates and articles",
+	[Key.rssBenefit4]: "Enjoy an ad-free, clean reading experience",
+	[Key.rssHowToUse]:
+		"It is recommended to use Feedly, Inoreader or other RSS readers to subscribe to this site.",
+	[Key.rssCopied]: "RSS link copied to clipboard!",
+	[Key.rssCopyFailed]: "Copy failed, please copy the link manually",
 
-  //最後編輯時間卡片
-  [Key.lastModifiedPrefix]: "最後更新於 ",
-  [Key.lastModifiedOutdated]: "部分內容可能已過時",
-  [Key.lastModifiedDaysAgo]: "距今已過 {days} 天",
-  [Key.year]: "年",
-  [Key.month]: "月",
-  [Key.day]: "日",
-  [Key.hour]: "時",
-  [Key.minute]: "分",
-  [Key.second]: "秒",
 
-  // 訪問量統計
-  [Key.pageViews]: "瀏覽量",
-  [Key.pageViewsLoading]: "載入中...",
-  [Key.pageViewsError]: "統計不可用",
 
-  // 置頂
-  [Key.pinned]: "置頂",
+  // Last Modified Time Card
+  [Key.lastModifiedPrefix]: "Last updated on ",
+  [Key.lastModifiedOutdated]: "Some content may be outdated",
+  [Key.lastModifiedDaysAgo]: "{days} days ago",
+  [Key.year]: "year",
+  [Key.month]: "month",
+  [Key.day]: "day",
+  [Key.hour]: "hour",
+  [Key.minute]: "minute",
+  [Key.second]: "second",
 
-  // 壁紙模式
-  [Key.wallpaperMode]: "壁紙模式",
-  [Key.wallpaperBannerMode]: "橫幅壁紙",
-  [Key.wallpaperOverlayMode]: "全屏壁紙",
-  [Key.wallpaperNoneMode]: "純色背景",
+  // Page Views Statistics
+  [Key.pageViews]: "Views",
+  [Key.pageViewsLoading]: "Loading...",
+  [Key.pageViewsError]: "Stats unavailable",
+
+  // Pinned
+  [Key.pinned]: "Pinned",
+
+  // Wallpaper Mode
+  [Key.wallpaperMode]: "Wallpaper Mode",
+  [Key.wallpaperBannerMode]: "Banner Wallpaper",
+  [Key.wallpaperOverlayMode]: "Full Screen Wallpaper",
+  [Key.wallpaperNoneMode]: "Solid Color Background",
 };
+

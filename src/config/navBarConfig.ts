@@ -5,17 +5,17 @@ import { siteConfig } from "./siteConfig";
 
 function tLinks(): string {
   const lang = (siteConfig.lang || 'en').toLowerCase();
-  if (lang.startsWith('zh')) return '链接';
-  if (lang.startsWith('ja')) return 'リンク';
-  if (lang.startsWith('ru')) return 'Ссылки';
+  if (lang.startsWith('zh')) return 'Links';
+  if (lang.startsWith('ja')) return 'Links';
+  if (lang.startsWith('ru')) return 'Links';
   return 'Links';
 }
 
 function tAbout(): string {
   const lang = (siteConfig.lang || 'en').toLowerCase();
-  if (lang.startsWith('zh')) return '关于我';
-  if (lang.startsWith('ja')) return 'について';
-  if (lang.startsWith('ru')) return 'О нас';
+  if (lang.startsWith('zh')) return 'About';
+  if (lang.startsWith('ja')) return 'About';
+  if (lang.startsWith('ru')) return 'About';
   return 'About';
 }
 

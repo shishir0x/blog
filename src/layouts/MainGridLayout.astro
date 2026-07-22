@@ -45,32 +45,32 @@ const {
 	headings = [],
 } = Astro.props;
 
-// 检查背景壁纸模式和是否允许切换
+
 const isBannerMode = siteConfig.backgroundWallpaper.mode === "banner";
 const isOverlayMode = siteConfig.backgroundWallpaper.mode === "overlay";
 const isBackgroundEnabled = siteConfig.backgroundWallpaper.mode !== "none";
 const isWallpaperSwitchable = siteConfig.backgroundWallpaper.switchable ?? true;
 
-// 检查是否启用波浪动画效果
+
 const wavesConfig = siteConfig.backgroundWallpaper.banner?.waves?.enable;
 const isWavesEnabled = isBannerMode && isBackgroundEnabled && wavesConfig;
-// 处理分设备控制的波浪动画
+
 const wavesEnabledOnDesktop = typeof wavesConfig === 'object' ? wavesConfig.desktop : wavesConfig;
 const wavesEnabledOnMobile = typeof wavesConfig === 'object' ? wavesConfig.mobile : wavesConfig;
 
-// 获取波浪效果性能设置
+
 const performanceConfig = siteConfig.backgroundWallpaper.banner?.waves?.performance;
 const waveQuality = performanceConfig?.quality || 'high';
 const hardwareAcceleration = performanceConfig?.hardwareAcceleration ?? true;
 
-// 处理分设备控制的横幅信贷显示
+
 const creditEnableConfig = siteConfig.backgroundWallpaper.banner?.credit?.enable;
 const creditEnabledOnDesktop = typeof creditEnableConfig === 'object' ? creditEnableConfig.desktop : creditEnableConfig;
 const creditEnabledOnMobile = typeof creditEnableConfig === 'object' ? creditEnableConfig.mobile : creditEnableConfig;
 
 const hasBannerCredit = isBannerMode && isBackgroundEnabled && creditEnableConfig;
 
-// 处理分设备控制的横幅信贷文本和链接
+
 const creditTextConfig = siteConfig.backgroundWallpaper.banner?.credit?.text;
 const creditTextDesktop = typeof creditTextConfig === 'object' ? creditTextConfig.desktop : creditTextConfig;
 const creditTextMobile = typeof creditTextConfig === 'object' ? creditTextConfig.mobile : creditTextConfig;
@@ -81,34 +81,34 @@ const creditUrlMobile = typeof creditUrlConfig === 'object' ? creditUrlConfig.mo
 
 const hasBannerLink = !!(creditUrlDesktop || creditUrlMobile);
 
-// 检查是否为首页
+
 const isHomePageCheck = isHomePage(Astro.url.pathname);
 
-// 主页横幅文本只在首页且全局开关为 true 时显示，不区分设备
+
 const homeTextEnable = siteConfig.backgroundWallpaper.banner?.homeText?.enable;
 const showHomeText = isBannerMode && !!homeTextEnable && isHomePageCheck;
-// 手机端非首页不显示banner的CSS类
+
 const mobileNonHomeBannerClass = !isHomePageCheck ? "mobile-hide-banner" : "";
 
-// 计算主内容区域位置，考虑手机端非首页时banner被隐藏
+
 const mainPanelTop = isBannerMode && isBackgroundEnabled
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
 const mobileNonHomeMainTop = !isHomePageCheck ? "5.5rem" : mainPanelTop;
 
-// 当banner模式被禁用时，主内容区域应该始终从顶栏下面开始
+
 const finalMainPanelTop = isBannerMode && isBackgroundEnabled ? mainPanelTop : "5.5rem";
 
-// 获取响应式侧边栏配置
+
 const sidebarConfig = getResponsiveSidebarConfig();
 const { gridCols } = generateGridClasses(sidebarConfig);
 const sidebarClass = generateSidebarClasses(sidebarConfig);
 const mainContentClass = generateMainContentClasses(sidebarConfig);
 
-// 检查是否应该启用半透明效果
+
 const shouldEnableTransparency = isOverlayMode && isBackgroundEnabled;
 
-// 为组件添加半透明效果的CSS类
+
 const transparentClass = shouldEnableTransparency
 	? "wallpaper-transparent"
 	: "";
@@ -118,7 +118,7 @@ const transparentClass = shouldEnableTransparency
 
 
 
-<!-- 全屏透明覆盖壁纸 - 如果允许切换则始终渲染，否则只渲染当前模式 -->
+
 {(isWallpaperSwitchable || isOverlayMode) && (
 	<FullscreenWallpaper config={{
 		src: {
@@ -133,10 +133,10 @@ const transparentClass = shouldEnableTransparency
 	className={isWallpaperSwitchable && !isOverlayMode ? "hidden opacity-0" : undefined} />
 )}
 
-<!-- 全局图标加载器 -->
+
 <IconifyLoader />
 
-<!-- 为全屏壁纸模式添加body类 -->
+
 {shouldEnableTransparency && (
 	<script>
 		document.body.classList.add('wallpaper-transparent');
@@ -151,10 +151,10 @@ const transparentClass = shouldEnableTransparency
     </div>
 </div>
 
-<!-- Banner - 如果允许切换则始终渲染，否则只渲染当前模式 -->
+
 {(isWallpaperSwitchable || isBannerMode) && (
 <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden ${mobileNonHomeBannerClass}`} style={isWallpaperSwitchable ? `top: -${BANNER_HEIGHT_EXTEND}vh; display: none;` : `top: -${BANNER_HEIGHT_EXTEND}vh`}>
-    <!-- 背景图片显示 -->
+    
     <div class="relative h-full w-full">
         <!-- Mobile: use mobile-specific image -->
         <ImageWrapper 
@@ -173,7 +173,7 @@ const transparentClass = shouldEnableTransparency
         />
     </div>
     
-    <!-- Home page text overlay - 始终渲染以便切换模式时控制显示 -->
+    
     {(isWallpaperSwitchable || showHomeText) && homeTextEnable && (
         <div class={`banner-text-overlay absolute inset-0 z-20 flex items-center justify-center ${!showHomeText ? 'hidden' : ''}`}>
             <div class="w-4/5 lg:w-3/4 text-center mb-0">
@@ -204,7 +204,7 @@ const transparentClass = shouldEnableTransparency
         </div>
     )}
     
-    <!-- Water waves effect - 始终渲染以便动态切换 -->
+    
     {(wavesEnabledOnDesktop || wavesEnabledOnMobile) ? (
     <div class={`waves absolute -bottom-[1px] h-[10vh] max-h-[9.375rem] min-h-[3.125rem] w-full md:h-[15vh] 
         ${!wavesEnabledOnMobile ? 'hidden' : ''} ${!wavesEnabledOnDesktop ? 'md:hidden' : ''} ${wavesEnabledOnDesktop ? 'md:block' : ''}`} 
@@ -335,7 +335,7 @@ const transparentClass = shouldEnableTransparency
     </div>
 </div>
 
-<!-- 悬浮TOC组件 -->
+
 {siteConfig.toc.enable && <FloatingTOC headings={headings}></FloatingTOC>}
 
 <!-- #toc needs to exist for Swup to work normally -->
