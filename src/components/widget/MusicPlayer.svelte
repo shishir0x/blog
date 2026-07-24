@@ -170,8 +170,8 @@
                 
                 const list = await res.json();
                 playlist = list.map((song) => {
-                    let title = song.name ?? song.title ?? "未知歌曲";
-                    let artist = song.artist ?? song.author ?? "未知艺术家";
+                    let title = song.name ?? song.title ?? "Unknown song";
+                    let artist = song.artist ?? song.author ?? "Unknown artist";
                     let dur = song.duration ?? 0;
                     if (dur > 10000) dur = Math.floor(dur / 1000);
                     if (!Number.isFinite(dur) || dur <= 0) dur = 0;
@@ -194,7 +194,7 @@
             } catch (e) {
                 console.warn(`API ${i + 1} failed:`, e);
                 if (i === apis.length - 1) {
-                    showErrorMessage("所有 Meting API 都无法访问，请检查网络连接");
+                    showErrorMessage("All Meting APIs are inaccessible, please check your network connection");
                     isLoading = false;
                 }
             }
@@ -346,7 +346,7 @@
         if (auto_skip_on_error && playlist.length > 1) {
             setTimeout(() => nextSong(), 1000);
         } else if (playlist.length <= 1) {
-            showErrorMessage("播放列表中没有可用的歌曲");
+            showErrorMessage("No available songs in the playlist");
         }
     }
     
@@ -485,7 +485,7 @@
                     }, 1000);
                 }
             } else {
-                showErrorMessage("本地播放列表为空");
+                showErrorMessage("Local playlist is empty");
             }
         }
     });
@@ -538,7 +538,7 @@
                      }}
                      tabindex="0"
                      role="button"
-                     aria-label={isPlaying ? "暂停音乐" : "播放音乐"}>
+                     aria-label={isPlaying ? "Pause music" : "Play music"}>
                     {#if currentSong.cover}
                         <img src={getAssetPath(currentSong.cover)} 
                              alt="{currentSong.title} - {currentSong.artist}"
@@ -571,7 +571,7 @@
                             }
                         }}
                         tabindex="0"
-                        aria-label="展开音乐播放器">
+                        aria-label="Expand music player">
                     <Icon icon="fa6-solid:chevron-left" class="text-[var(--primary)] text-sm" />
                 </button>
             </div>
@@ -586,7 +586,7 @@
             <div class="flex items-center gap-4 mb-4">
                 <div class="cover-container relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0"
                      title="{currentSong.title} - {currentSong.artist}">
-                    <img src={getAssetPath(currentSong.cover)} alt="封面"
+                    <img src={getAssetPath(currentSong.cover)} alt="Cover"
                          class="w-full h-full object-cover transition-transform duration-300"
                          class:spinning={isPlaying && !isLoading && cover_rotation_enable}
                          class:animate-pulse={isLoading}
@@ -624,7 +624,7 @@
                      }}
                      role="slider"
                      tabindex="0"
-                     aria-label="播放进度"
+                     aria-label="Playback progress"
                      aria-valuemin="0"
                      aria-valuemax="100"
                      aria-valuenow={duration > 0 ? (currentTime / duration * 100) : 0}>
@@ -705,7 +705,7 @@
                      }}
                      role="slider"
                      tabindex="0"
-                     aria-label="音量控制"
+                     aria-label="Volume control"
                      aria-valuemin="0"
                      aria-valuemax="100"
                      aria-valuenow={volume * 100}>
@@ -746,7 +746,7 @@
                              }}
                              role="button"
                              tabindex="0"
-                             aria-label="播放 {song.title} - {song.artist}">
+                             aria-label="Play {song.title} - {song.artist}">
                             {#if show_track_numbers}
                             <div class="w-6 h-6 flex items-center justify-center">
                                 {#if index === currentIndex && isPlaying}

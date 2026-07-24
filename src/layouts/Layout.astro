@@ -96,13 +96,14 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 <!DOCTYPE html>
 <html lang={siteLang} class="bg-[var(--page-bg)] text-[14px] md:text-[16px]">
 	<head>
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KRX3XGVH');</script>
-		<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "tjr3vkhj8i");</script>
-		<script defer src="https://cloud.umami.is/script.js" data-website-id="e420f55f-cf8c-452d-8155-b21dedaee1bd"></script>
+		<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KRX3XGVH');</script>
+		<script is:inline type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "tjr3vkhj8i");</script>
+		<script is:inline defer src="https://cloud.umami.is/script.js" data-website-id="e420f55f-cf8c-452d-8155-b21dedaee1bd"></script>
 
 		<title>{pageTitle}</title>
 
 		<meta charset="UTF-8" />
+		<meta name="google" content="notranslate" />
 		<meta name="description" content={description || siteConfig.description || pageTitle}>
 		{siteConfig.keywords && siteConfig.keywords.length > 0 && (
 			<meta name="keywords" content={siteConfig.keywords.join(', ')} />
@@ -297,28 +298,7 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 			})();
 		</script>
 		
-		<!-- Pre-load language setting for fast, seamless language updates -->
-		<script is:inline>
-		(function(){
-			function normalize(code){
-				const s = (code || '').toLowerCase();
-				if (s.startsWith('en')) return 'en';
-				if (s === 'zh_cn' || s === 'zh-cn' || s === 'zh_hans') return 'zh_CN';
-				if (s === 'zh_tw' || s === 'zh-tw' || s === 'zh_hant') return 'zh_TW';
-				if (s.startsWith('ja')) return 'ja';
-				if (s.startsWith('ru')) return 'ru';
-				return null;
-			}
-			
-			try {
-				const saved = localStorage.getItem('site-lang');
-				const lang = normalize(saved);
-				if (lang) {
-					document.documentElement.setAttribute('lang', lang.replace('_', '-'));
-				}
-			} catch {}
-		})();
-		</script>
+		<!-- Pre-load language setting removed to enforce single language -->
 		
 		<style define:vars={{
 			configHue,
@@ -365,156 +345,7 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 		<!-- Fancybox Manager -->
 		<FancyboxManager />
 
-		<!-- Language Manager: keep navbar, sidebar, 404, and meta labels in sync with selected language -->
-		<!-- Inject translation maps from server-side -->
-		<script is:inline define:vars={{ translations: { en, zh_CN, zh_TW, ja, ru } }}>
-		(function(){
-		  if (window.__langManagerInit) return; // guard against double init
-		  window.__langManagerInit = true;
-
-		  function normalize(code){
-		    const s = (code || '').toLowerCase();
-		    if (s.startsWith('en')) return 'en';
-		    if (s === 'zh_cn' || s === 'zh-cn' || s === 'zh_hans') return 'zh_CN';
-		    if (s === 'zh_tw' || s === 'zh-tw' || s === 'zh_hant') return 'zh_TW';
-		    if (s.startsWith('ja')) return 'ja';
-		    if (s.startsWith('ru')) return 'ru';
-		    const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
-		    if (htmlLang.startsWith('zh')) return 'zh_CN';
-		    if (htmlLang.startsWith('ja')) return 'ja';
-		    if (htmlLang.startsWith('ru')) return 'ru';
-		    return 'en';
-		  }
-
-		  // Use translations injected from server-side
-		  const dicts = translations;
-
-		  function getDict(lang){
-		    return dicts[lang] || dicts.en;
-		  }
-
-		  function pathToKey(path){
-		    if (!path) return null;
-		    let p = path;
-		    if (!p.startsWith('/')) p = '/' + p;
-		    if (!p.endsWith('/')) p = p + '/';
-		    switch(p){
-		      case '/': return 'home';
-		      case '/archive/': return 'archive';
-		      case '/anime/': return 'anime';
-		      case '/friends/': return 'friends';
-		      case '/links/': return 'links';
-		      case '/content/':
-		      case '/about/': return 'about';
-		      case '/rss/': return 'rss';
-		      default: return null;
-		    }
-		  }
-
-		  function updateHtmlLang(lang){
-		    document.documentElement.setAttribute('lang', lang.replace('_','-'));
-		  }
-
-					function updateNavLabels(lang){
-		    const dict = getDict(lang);
-		    const nodes = document.querySelectorAll('[data-link-url]');
-		    nodes.forEach((el)=>{
-		      const path = el.getAttribute('data-link-url') || '';
-		      const key = pathToKey(path);
-		      if (!key) return;
-		      const label = dict[key];
-		      if (!label) return;
-		      const span = el.querySelector('.dropdown-link-label');
-		      if (span) span.textContent = label;
-		      if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', label);
-		    });
-		  }
-
-					function updateI18nElements(lang){
-						const dict = getDict(lang);
-						const els = document.querySelectorAll('[data-i18n-key]');
-						els.forEach((el)=>{
-							const key = el.getAttribute('data-i18n-key');
-							if (!key) return;
-							let val = dict[key];
-							if (!val) return;
-							// simple placeholder replacement using data attributes like data-i18n-days
-							Array.from(el.attributes).forEach(attr => {
-								if (attr.name.startsWith('data-i18n-') && attr.name !== 'data-i18n-key'){
-									const token = attr.name.replace('data-i18n-','');
-									val = val.replaceAll(`{${token}}`, attr.value);
-								}
-							});
-							// If there is a .i18n-label child, update it; else update textContent
-							const labelSpan = el.querySelector('.i18n-label');
-							if (labelSpan) {
-								labelSpan.textContent = val;
-							} else {
-								el.textContent = val;
-							}
-							if (el.hasAttribute('aria-label')) el.setAttribute('aria-label', val);
-						});
-					}
-
-		  function init(){
-		    const saved = localStorage.getItem('site-lang');
-		    const lang = normalize(saved);
-		    updateHtmlLang(lang);
-		    
-		    // Function to update all i18n content
-		    const updateAll = () => {
-		      try {
-		        const saved = localStorage.getItem('site-lang');
-		        const lang = normalize(saved);
-		        updateHtmlLang(lang);
-		        updateNavLabels(lang);
-		        updateI18nElements(lang);
-		      } catch {}
-		    };
-		    
-		    // Initial update
-		    updateNavLabels(lang);
-		    updateI18nElements(lang);
-		    
-		    // Listen for language change events
-		    window.addEventListener('site-lang-change', (e)=>{
-							try {
-								const l = normalize(e.detail && e.detail.lang);
-								updateHtmlLang(l);
-								updateNavLabels(l);
-								updateI18nElements(l);
-							} catch (err) {
-								console.error('[Language Manager] Error:', err);
-							}
-		    });
-		    window.addEventListener('storage', (e)=>{
-							if (e.key === 'site-lang'){
-								const l = normalize(e.newValue || '');
-								updateHtmlLang(l);
-								updateNavLabels(l);
-								updateI18nElements(l);
-							}
-		    });
-		    
-		    // Listen for Swup page transitions (event-based API)
-		    document.addEventListener('swup:page-view', updateAll);
-		    
-		    // Also listen via Swup hooks API (for compatibility)
-		    if (window.swup && window.swup.hooks) {
-		      window.swup.hooks.on('page:view', updateAll);
-		    } else {
-		      // If Swup is not ready yet, wait for it
-		      document.addEventListener('swup:enable', () => {
-		        if (window.swup && window.swup.hooks) {
-		          window.swup.hooks.on('page:view', updateAll);
-		        }
-		      });
-		    }
-		  }
-
-		  init();
-		})();
-		</script>
+		<!-- Language Manager removed to enforce single language -->
 		
 	</body>
 </html>
@@ -868,7 +699,7 @@ const setup = () => {
 					}
 				});
 				document.dispatchEvent(pageLoadedEvent);
-				console.log('Layout: 触发 firefly:page:loaded 事件，路径:', window.location.pathname);
+				console.log('Layout: Triggered firefly:page:loaded event, path:', window.location.pathname);
 			}
 		}, 300);
 	});
@@ -906,7 +737,7 @@ function scrollFunction() {
 	const bannerHeight = window.innerHeight * (BANNER_HEIGHT / 100);
 
 
-	const operations = [];
+	const operations: (() => void)[] = [];
 	
 	if (backToTopBtn) {
 		operations.push(() => {

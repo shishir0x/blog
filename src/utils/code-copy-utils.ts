@@ -4,7 +4,7 @@
 export function extractCodeText(codeElement: Element): string {
     const lineElements = codeElement.querySelectorAll('span.line');
     if (lineElements.length > 0) {
-        const lines = [];
+        const lines: string[] = [];
         for (let i = 0; i < lineElements.length; i++) {
             const lineElement = lineElements[i];
             const lineText = lineElement.textContent || '';
@@ -14,7 +14,7 @@ export function extractCodeText(codeElement: Element): string {
     } else {
         const codeElements = codeElement.querySelectorAll('.code:not(summary *)');
         if (codeElements.length > 0) {
-            const lines = [];
+            const lines: string[] = [];
             for (let i = 0; i < codeElements.length; i++) {
                 const el = codeElements[i];
                 const lineText = el.textContent || '';
@@ -33,7 +33,7 @@ export function processEmptyLines(code: string): string {
         const newlineCount = match.length;
         const emptyLineCount = newlineCount - 1;
         
-        let resultEmptyLines;
+        let resultEmptyLines: number;
         if (emptyLineCount % 2 === 0) {
             resultEmptyLines = emptyLineCount / 2;
         } else {
@@ -52,7 +52,7 @@ export async function copyToClipboard(text: string): Promise<boolean> {
         await navigator.clipboard.writeText(text);
         return true;
     } catch (clipboardErr) {
-        console.warn('Clipboard API 失败，尝试备用方案:', clipboardErr);
+        console.warn('Clipboard API failed, trying fallback:', clipboardErr);
         
         const textArea = document.createElement('textarea');
         textArea.value = text;
@@ -66,12 +66,12 @@ export async function copyToClipboard(text: string): Promise<boolean> {
         try {
             const successful = document.execCommand('copy');
             if (!successful) {
-                throw new Error('execCommand 返回 false');
+                throw new Error('execCommand returned false');
             }
             return true;
         } catch (execErr) {
-            console.error('execCommand 也失败了:', execErr);
-            throw new Error('所有复制方法都失败了');
+            console.error('execCommand also failed:', execErr);
+            throw new Error('All copy methods failed');
         } finally {
             document.body.removeChild(textArea);
         }
@@ -84,7 +84,7 @@ export async function handleCodeCopy(target: Element): Promise<void> {
     const codeEle = preEle?.querySelector("code");
     
     if (!codeEle) {
-        console.warn('未找到代码元素');
+        console.warn('Code element not found');
         return;
     }
     
@@ -108,6 +108,6 @@ export async function handleCodeCopy(target: Element): Promise<void> {
 
         target.setAttribute("data-timeout-id", newTimeoutId.toString());
     } catch (err) {
-        console.error('复制失败:', err);
+        console.error('Copy failed:', err);
     }
 }

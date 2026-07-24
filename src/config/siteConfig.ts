@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
   lang: SITE_LANG,
 
   themeColor: {
-    hue: 165, // Default hue for the theme color, from 0 to 360. e.g., red: 0, cyan: 200, teal: 250, pink: 345
+    hue: 245, // Default hue for the theme color, from 0 to 360. 245 exactly maps to #0EA6E9 (Sky Blue) in OKLCH
     fixed: false, // Hide the theme color picker for visitors
     defaultMode: "system", // Default mode: "light", "dark", "system"
   },
@@ -30,8 +30,7 @@ export const siteConfig: SiteConfig = {
   favicon: [
     // Leave empty to use the default favicon
     {
-      src: "/assets/images/favicon.ico", // Icon file path
-      theme: "light", // Optional, specify theme 'light' | 'dark'
+      src: "/favicon-white.ico", // Icon file path
       sizes: "32x32", // Optional, icon size
     },
   ],
@@ -43,8 +42,8 @@ export const siteConfig: SiteConfig = {
   // { type: "image", value: "https://example.com/logo.png", alt: "Firefly Logo" }
   navbarLogo: {
     type: "image",
-    value: "/assets/images/LiuYingPure3.svg",
-    alt: "🍀",
+    value: "/favicon-white.ico",
+    alt: "Logo",
   },
   navbarTitle: "shishir0x ", // Navbar title, can be different from title, if not set, title will be used
 

@@ -18,7 +18,7 @@ const style = Astro.props.style;
 <!-- Component display is now controlled by sidebarLayoutConfig, no need to check config.enable -->
 <WidgetLayout
   name={config.title || i18n(I18nKey.announcement)}
-  labelKey={!config.title && I18nKey.announcement}
+  labelKey={!config.title ? I18nKey.announcement : undefined}
   id="announcement"
   class={className}
   style={style}
@@ -69,7 +69,7 @@ const style = Astro.props.style;
     );
     if (widgetLayout) {
       // Hide the entire widget-layout element
-      widgetLayout.style.display = "none";
+      (widgetLayout as HTMLElement).style.display = "none";
       // Save close state to localStorage
       localStorage.setItem("announcementClosed", "true");
     }
@@ -81,10 +81,10 @@ const style = Astro.props.style;
       'widget-layout[data-id="announcement"]'
     );
     if (widgetLayout && localStorage.getItem("announcementClosed") === "true") {
-      widgetLayout.style.display = "none";
+      (widgetLayout as HTMLElement).style.display = "none";
     }
   });
 
   // Make the close function globally available
-  window.closeAnnouncement = closeAnnouncement;
+  (window as any).closeAnnouncement = closeAnnouncement;
 </script>

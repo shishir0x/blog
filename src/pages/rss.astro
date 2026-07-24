@@ -124,7 +124,7 @@ const recentPosts = posts.slice(0, 6);
                             this.style.backgroundColor = '';
                         }, 2000);
                     } catch (err) {
-                        console.error('复制失败:', err);
+                        console.error('Copy failed:', err);
                         const originalText = this.textContent;
                         this.textContent = this.getAttribute('data-failed-text');
                         setTimeout(() => {

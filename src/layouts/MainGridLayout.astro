@@ -3,8 +3,6 @@ import BackToTop from "@components/control/BackToTop.astro";
 import Footer from "@components/layout/Footer.astro";
 import Navbar from "@components/layout/Navbar.astro";
 import SideBar from "@components/layout/SideBar.astro";
-import SpineModel from "@components/widget/SpineModel.astro";
-import Live2DWidget from "@components/widget/Live2DWidget.astro";
 import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
 import FullscreenWallpaper from "@/components/misc/FullscreenWallpaper.astro";
@@ -13,7 +11,7 @@ import ImageWrapper from "@/components/misc/ImageWrapper.astro";
 import TypewriterText from "@/components/content/TypewriterText.astro";
 //import TOC from "@/components/widget/TOC.astro";
 import FloatingTOC from "@/components/interactive/FloatingTOC.astro";
-import { siteConfig, live2dModelConfig } from "@/config";
+import { siteConfig } from "@/config";
 import {
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
@@ -330,8 +328,6 @@ const transparentClass = shouldEnableTransparency
         </div>
 
         <BackToTop></BackToTop>
-        <SpineModel></SpineModel>
-        {live2dModelConfig.enable && <Live2DWidget config={live2dModelConfig} />}
     </div>
 </div>
 

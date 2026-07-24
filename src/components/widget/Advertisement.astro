@@ -69,8 +69,8 @@ const paddingClass = getPaddingStyle();
     currentAdConfig.closable && (
       <button
         class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-all duration-200 z-10 close-ad-btn"
-        title="关闭广告"
-        aria-label="关闭广告"
+        title="Close advertisement"
+        aria-label="Close advertisement"
       >
         <svg
           class="w-4 h-4"
@@ -121,7 +121,7 @@ const paddingClass = getPaddingStyle();
             >
               <img
                 src={currentAdConfig.image.src}
-                alt={currentAdConfig.image.alt || "广告图片"}
+                alt={currentAdConfig.image.alt || "Advertisement image"}
                 class={`w-full h-auto transition-transform duration-300 group-hover:scale-105 ${
                   paddingClass === "p-0"
                     ? "rounded-[var(--radius-large)]"
@@ -133,7 +133,7 @@ const paddingClass = getPaddingStyle();
           ) : (
             <img
               src={currentAdConfig.image.src}
-              alt={currentAdConfig.image.alt || "广告图片"}
+              alt={currentAdConfig.image.alt || "Advertisement image"}
               class={`w-full h-auto ${
                 paddingClass === "p-0"
                   ? "rounded-[var(--radius-large)]"
