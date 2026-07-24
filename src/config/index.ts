@@ -22,7 +22,7 @@ export { navBarConfig } from "./navBarConfig"; // Navbar configuration
 
 // Component configuration
 export { musicPlayerConfig } from "./musicConfig"; // Music player configuration
-export { adConfig1, adConfig2 } from "./adConfig"; // Advertisement configuration
+
 export { getEnabledFriends } from "./friendsConfig"; // Friends link configuration
 
 // Type exports

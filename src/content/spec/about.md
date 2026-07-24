@@ -1,26 +1,20 @@
-# 👋 Hi, I'm **alvinluo-tech**
+# 👋 Hi, I'm **Shishir Pandey**
 
 ### About Me
-Hi! I'm **Yaosheng Luo**, a **Computer Science graduate student at Durham University (UK)**.  
-I’m passionate about coding, exploring new technologies, and building elegant, efficient software.  
-Outside of coding, I enjoy running — it helps me stay focused and inspired.
+Hi! I'm **Shishir Pandey**. Welcome to my personal portfolio and blog!  
+I'm passionate about technology, coding, and building things for the web.  
+This is my corner of the internet where I share my thoughts, projects, and experiences.
 
 ### Tech Focus
-- Core: Java · Python · Vue · JavaScript  
-- Exploring: React · Rust · Node.js · Go · Electron · Tauri  
-- Currently Learning: Kotlin & Android Development
-
-### Featured Projects
-- **[tauri-todolist](https://github.com/alvinluo-tech/tauri-todolist)** – A cross-platform Tauri-based todo app with React/TS frontend.  
-- **[proxy_pool_manager](https://gitee.com/alvin_GDUT/proxy_pool_manager)** – A proxy pool manager for scraping tasks.  
-- **[crawler-hub](https://gitee.com/alvin_GDUT/crawler-hub)** – A crawler orchestration and scheduling platform.
+- Core: JavaScript · HTML/CSS · Web Development
+- Exploring: Astro · React · Modern Web Technologies
 
 ### Contact
-- GitHub: [alvinluo-tech](https://github.com/alvinluo-tech)  
-- Gitee: [alvin_GDUT](https://gitee.com/alvin_GDUT)  
-- LinkedIn: [Yaosheng Luo](https://www.linkedin.com/in/yaoshengluo/)  
-- Email: [luoyaosheng123@gmail.com](mailto:luoyaosheng123@gmail.com)
+- GitHub: [shishir0x](https://github.com/shishir0x)  
+- YouTube: [@shishir0_x](https://www.youtube.com/@shishir0_x)  
+- Instagram: [@shishir0x](https://instagram.com/shishir0x)  
+- Email: [shishirpandey085@gmail.com](mailto:shishirpandey085@gmail.com)
 
 ---
 
-*Thanks for visiting! I hope my blog brings you inspiration and help. If you like this site or my projects, feel free to give a Star ⭐ on GitHub to support!*
+*Thanks for visiting! Feel free to reach out to me via email or social media!*

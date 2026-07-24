@@ -1,7 +1,7 @@
 import type { ProfileConfig } from "../types/config";
 
 export const profileConfig: ProfileConfig = {
-  avatar: "/assets/images/avatar.jpg",
+  avatar: "/assets/images/avatar.webp",
   name: "Shishir Pandey",
   bio: "Hello, I'm Shishir.",
   links: [
@@ -13,13 +13,12 @@ export const profileConfig: ProfileConfig = {
       {
       name: "Email",
       icon: "fa6-solid:envelope",
-      url: "shishirpandey085@gmail.com",
+      url: "mailto:shishirpandey085@gmail.com",
     },
       {
       name: "youtube",
       icon: "youtube",
-     
-      url: "https://www.youtube.com/@",
+      url: "https://www.youtube.com/@shishir0_x",
     },
        {
       name: "Instagram",
@@ -27,11 +26,6 @@ export const profileConfig: ProfileConfig = {
       url: "https://instagram.com/shishir0x",
     },
 
-    // {
-    //   name: "X",
-    //   icon: "twitter",
-    //   url: "https://www.xiaohongshu.com/user/profile/5fa793ed00000000010038a3",
-    // },
   
   ],
 };

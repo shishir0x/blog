@@ -12,7 +12,7 @@ export const WIDGET_COMPONENT_MAP = {
   categories: "../components/widget/Categories.astro",
   tags: "../components/widget/Tags.astro",
   toc: "../components/widget/TOC.astro",
-  advertisement: "../components/widget/Advertisement.astro",
+
   "music-player": "../components/widget/Music.astro",
   custom: null,
 } as const;

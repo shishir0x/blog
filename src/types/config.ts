@@ -212,7 +212,7 @@ export type WidgetComponentType =
   | "categories"
   | "tags"
   | "toc"
-  | "advertisement"
+
   | "music-player"
   | "custom";
 

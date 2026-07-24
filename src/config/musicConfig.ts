@@ -30,9 +30,9 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 		// Music platform: netease, tencent, kugou, xiami, baidu
 		server: "netease",
 		// Type: song, playlist, album, search, artist
-		type: "playlist",
+		type: "search",
 		// Playlist/Album/Song ID or search keywords
-		id: "17459518569",
+		id: "Cigarettes After Sex",
 		// Auth token (optional)
 		auth: "",
 		// Fallback APIs (used when primary API fails)

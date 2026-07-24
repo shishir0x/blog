@@ -93,38 +93,7 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
         collapseThreshold: 20,
       },
     },
-    {
-      // Component type: Advertisement component 1
-      type: "advertisement",
-      // Whether to enable this component
-      enable: false,
-      // Component display order
-      order: 7,
-      // Component position: "sticky" means sticky positioning
-      position: "sticky",
-      // CSS class name
-      class: "onload-animation",
-      // Animation delay time
-      animationDelay: 300,
-      // Config ID: Use the first advertisement configuration
-      configId: "ad1",
-    },
-    {
-      // Component type: Advertisement component 2
-      type: "advertisement",
-      // Whether to enable this component
-      enable: false,
-      // Component display order
-      order: 8,
-      // Component position: "sticky" means sticky positioning
-      position: "sticky",
-      // CSS class name
-      class: "onload-animation",
-      // Animation delay time
-      animationDelay: 350,
-      // Config ID: Use the second advertisement configuration
-      configId: "ad2",
-    },
+
   ],
 
   // Default animation configuration
