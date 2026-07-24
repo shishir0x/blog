@@ -27,32 +27,32 @@ const config = {
 
   function getTwikooLang() {
     try {
-      const siteLang = localStorage.getItem('site-lang') || 'zh-CN';
-      console.log("[Twikoo] localStorage 读取:", siteLang);
+      const siteLang = localStorage.getItem('site-lang') || 'en';
+      console.log("[Twikoo] localStorage read:", siteLang);
       const normalized = siteLang.toLowerCase();
       
-      let result = 'zh-CN';
+      let result = 'en';
       if (normalized.startsWith('en')) result = 'en';
-      else if (normalized === 'zh_cn' || normalized === 'zh-cn' || normalized === 'zh_hans') result = 'zh-CN';
-      else if (normalized === 'zh_tw' || normalized === 'zh-tw' || normalized === 'zh_hant') result = 'zh-TW';
-      else if (normalized === 'zh_hk' || normalized === 'zh-hk') result = 'zh-HK';
+      else if (normalized === 'zh_cn' || normalized === 'zh-cn' || normalized === 'zh_hans') result = 'en';
+      else if (normalized === 'zh_tw' || normalized === 'zh-tw' || normalized === 'zh_hant') result = 'en';
+      else if (normalized === 'zh_hk' || normalized === 'zh-hk') result = 'en';
       else if (normalized.startsWith('ja')) result = 'ja';
       else if (normalized.startsWith('ko')) result = 'ko';
       else if (normalized.startsWith('uz')) result = 'uz';
       else result = 'en';
       
-      console.log("[Twikoo] 映射结果:", normalized, "→", result);
+      console.log("[Twikoo] mapped result:", normalized, "→", result);
       return result;
     } catch (error) {
-      console.warn("[Twikoo] 获取语言设置时出错:", error);
-      return 'zh-CN';
+      console.warn("[Twikoo] error getting language setting:", error);
+      return 'en';
     }
   }
 
 
   function createTwikooConfig() {
     const currentLang = getTwikooLang();
-    console.log("[Twikoo] 动态获取语言:", currentLang);
+    console.log("[Twikoo] dynamic language fetched:", currentLang);
     
     const finalConfig = {
       ...config,
@@ -61,7 +61,7 @@ const config = {
       lang: currentLang,
     };
     
-    console.log("[Twikoo] 最终配置:", JSON.stringify(finalConfig, null, 2));
+    console.log("[Twikoo] final config:", JSON.stringify(finalConfig, null, 2));
     return finalConfig;
   }
 
@@ -77,15 +77,15 @@ const config = {
     commentEl.innerHTML = "";
 
     const dynamicConfig = createTwikooConfig();
-    console.log("[Twikoo] 初始化配置:", dynamicConfig);
+    console.log("[Twikoo] initializing config:", dynamicConfig);
 
     twikoo
       .init(dynamicConfig)
       .then(() => {
-        console.log("[Twikoo] 初始化完成");
+        console.log("[Twikoo] initialization complete");
       })
       .catch((error) => {
-        console.error("[Twikoo] 初始化失败:", error);
+        console.error("[Twikoo] initialization failed:", error);
       });
   }
 
@@ -98,39 +98,39 @@ const config = {
   }
 
   function handleLangChange(e) {
-    console.log("[Twikoo] 检测到 site-lang-change 事件, detail:", e?.detail);
+    console.log("[Twikoo] detected site-lang-change event, detail:", e?.detail);
     
     setTimeout(() => {
-      console.log("[Twikoo] 延迟后准备初始化");
+      console.log("[Twikoo] preparing to initialize after delay");
       
       if (typeof twikoo === "undefined") {
-        console.log("[Twikoo] Twikoo 库未加载");
+        console.log("[Twikoo] Twikoo library not loaded");
         return;
       }
       
       let tcomment = document.getElementById("tcomment");
       const twikooEl = document.getElementById("twikoo");
       
-      console.log("[Twikoo] #tcomment 元素:", tcomment);
-      console.log("[Twikoo] #twikoo 元素:", twikooEl);
+      console.log("[Twikoo] #tcomment element:", tcomment);
+      console.log("[Twikoo] #twikoo element:", twikooEl);
       
       if (!tcomment && twikooEl) {
-        console.log("[Twikoo] #twikoo 已存在，销毁并重新创建 #tcomment");
+        console.log("[Twikoo] #twikoo exists, destroying and recreating #tcomment");
         const parent = twikooEl.parentElement;
         if (parent) {
           parent.innerHTML = '<div id="tcomment"></div>';
           tcomment = document.getElementById("tcomment");
-          console.log("[Twikoo] 已重新创建 #tcomment 元素");
+          console.log("[Twikoo] recreated #tcomment element");
         }
       }
       
       if (!tcomment) {
-        console.log("[Twikoo] 未找到评论容器，跳过初始化");
+        console.log("[Twikoo] comment container not found, skipping initialization");
         return;
       }
       
       const newLang = getTwikooLang();
-      console.log("[Twikoo] 切换到新语言:", newLang);
+      console.log("[Twikoo] switching to new language:", newLang);
       initTwikoo();
     }, 300);
   }
@@ -138,7 +138,7 @@ const config = {
   if (!window.__twikooLangListenerRegistered) {
     window.__twikooLangListenerRegistered = true;
     window.addEventListener('site-lang-change', handleLangChange);
-    console.log("[Twikoo] site-lang-change 监听器已注册");
+    console.log("[Twikoo] site-lang-change listener registered");
   } else {
     if (window.__twikooLangChangeHandler) {
       window.removeEventListener('site-lang-change', window.__twikooLangChangeHandler);

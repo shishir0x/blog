@@ -1,0 +1,79 @@
+---
+import { commentConfig } from "@/config/commentConfig";
+
+interface Props {
+  path: string;
+  url: string;
+  title: string;
+}
+
+const { path, url, title } = Astro.props;
+const cusdisConfig = commentConfig.cusdis || { appId: "", host: "" };
+---
+
+<div class="cusdis-container w-full mt-8">
+  <div id="cusdis_thread"
+    data-host={cusdisConfig.host || "https://cusdis.com"}
+    data-app-id={cusdisConfig.appId}
+    data-page-id={path}
+    data-page-url={url}
+    data-page-title={title}
+    data-theme="auto"
+  ></div>
+  <script is:inline async defer src={`${cusdisConfig.host || "https://cusdis.com"}/js/cusdis.es.js`}></script>
+  
+  <script is:inline>
+    // Sync Cusdis theme with the blog's dark/light mode
+    function syncCusdisTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const theme = isDark ? 'dark' : 'light';
+      
+      // Wait for Cusdis to load
+      if (window.CUSDIS) {
+        window.CUSDIS.setTheme(theme);
+      }
+    }
+
+    // Observe theme changes on the html element
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          syncCusdisTheme();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, { attributes: true });
+    
+    // Initial sync after a short delay to ensure iframe is loaded
+    setTimeout(syncCusdisTheme, 1000);
+
+    // Re-initialize Cusdis on Swup page navigation
+    function initCusdis() {
+      if (typeof window.renderCusdis !== "undefined") {
+        window.renderCusdis();
+        setTimeout(syncCusdisTheme, 1000);
+      }
+    }
+
+    if (typeof window.swup !== 'undefined') {
+      window.swup.hooks.on('content:replace', () => {
+        setTimeout(initCusdis, 200);
+      });
+    } else {
+      document.addEventListener('swup:enable', function() {
+        if (window.swup && window.swup.hooks) {
+          window.swup.hooks.on('content:replace', () => {
+            setTimeout(initCusdis, 200);
+          });
+        }
+      }, { once: true });
+    }
+  </script>
+</div>
+
+<style is:global>
+  #cusdis_thread iframe {
+    min-height: 350px !important;
+  }
+</style>

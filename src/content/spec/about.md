@@ -13,6 +13,7 @@ This is my corner of the internet where I share my thoughts, projects, and exper
 - GitHub: [shishir0x](https://github.com/shishir0x)  
 - YouTube: [@shishir0_x](https://www.youtube.com/@shishir0_x)  
 - Instagram: [@shishir0x](https://instagram.com/shishir0x)  
+- TikTok: [@shishir_0x](https://www.tiktok.com/@shishir_0x)
 - Email: [shishirpandey085@gmail.com](mailto:shishirpandey085@gmail.com)
 
 ---

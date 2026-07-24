@@ -119,11 +119,18 @@ export type CommentConfig = {
   enable: boolean;
   enableVisitorCount?: boolean;
   twikoo?: TwikooConfig;
+  cusdis?: CusdisConfig;
 };
 
 type TwikooConfig = {
   envId: string;
   region?: string;
+  lang?: string;
+};
+
+type CusdisConfig = {
+  appId: string;
+  host?: string;
   lang?: string;
 };
 

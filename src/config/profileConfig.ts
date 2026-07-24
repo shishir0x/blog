@@ -25,7 +25,11 @@ export const profileConfig: ProfileConfig = {
       icon: "instagram",
       url: "https://instagram.com/shishir0x",
     },
-
+       {
+      name: "TikTok",
+      icon: "fa6-brands:tiktok",
+      url: "https://www.tiktok.com/@shishir_0x",
+    },
   
   ],
 };
