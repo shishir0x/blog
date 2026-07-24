@@ -118,19 +118,11 @@ export type LicenseConfig = {
 export type CommentConfig = {
   enable: boolean;
   enableVisitorCount?: boolean;
-  twikoo?: TwikooConfig;
-  cusdis?: CusdisConfig;
+  waline?: WalineConfig;
 };
 
-type TwikooConfig = {
-  envId: string;
-  region?: string;
-  lang?: string;
-};
-
-type CusdisConfig = {
-  appId: string;
-  host?: string;
+type WalineConfig = {
+  serverURL: string;
   lang?: string;
 };
 

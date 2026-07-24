@@ -1,0 +1,306 @@
+---
+import { commentConfig } from "@/config/commentConfig";
+
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+const config = {
+  serverURL: commentConfig.waline?.serverURL || "",
+  lang: commentConfig.waline?.lang || "en",
+};
+---
+
+<div id="waline" class="mt-4"></div>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+<script is:inline type="module" define:vars={{ config }}>
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+  
+  let walineInstance = null;
+
+  function initWaline() {
+    const el = document.getElementById("waline");
+    if (!el) return;
+    
+    const pathname = window.location.pathname;
+    const currentPath = pathname.endsWith("/") && pathname.length > 1 
+            ? pathname.slice(0, -1) 
+            : pathname;
+
+    const dynamicConfig = {
+      ...config,
+      el: '#waline',
+      path: currentPath,
+      dark: 'html.dark',
+      emoji: [
+        'https://unpkg.com/@waline/emojis@1.2.0/weibo',
+        'https://unpkg.com/@waline/emojis@1.2.0/bilibili',
+      ],
+    };
+
+    if (walineInstance) {
+      walineInstance.destroy();
+    }
+    
+    walineInstance = init(dynamicConfig);
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", initWaline);
+  } else {
+    initWaline();
+  }
+
+  // Re-initialize on Swup navigation
+  if (typeof window.swup !== 'undefined') {
+    window.swup.hooks.on('content:replace', () => {
+      setTimeout(initWaline, 200);
+    });
+  } else {
+    document.addEventListener('swup:enable', function() {
+      if (window.swup && window.swup.hooks) {
+        window.swup.hooks.on('content:replace', () => {
+          setTimeout(initWaline, 200);
+        });
+      }
+    }, { once: true });
+  }
+</script>
+
+<style is:global>
+  /* --- THEME MATCHING FOR WALINE --- */
+  :root {
+    --waline-theme-color: var(--primary) !important;
+    --waline-active-color: var(--primary) !important;
+    --waline-color: var(--content-text) !important;
+    --waline-bg-color: transparent !important;
+    --waline-bg-color-light: var(--btn-regular-bg) !important;
+    --waline-border-color: var(--line-color) !important;
+    --waline-disable-bg-color: var(--btn-regular-bg) !important;
+    --waline-disable-color: var(--content-meta) !important;
+    --waline-info-bg-color: var(--btn-regular-bg) !important;
+    --waline-info-color: var(--content-meta) !important;
+    --waline-border: 1px solid var(--line-color) !important;
+    --waline-avatar-radius: 50% !important;
+    --waline-box-shadow: 0 8px 30px rgba(0,0,0,0.05) !important;
+  }
+  
+  /* --- INSTAGRAM STYLE INPUT PANEL --- */
+  .wl-panel {
+    border: 1px solid var(--line-color) !important;
+    background: var(--btn-regular-bg) !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+    margin-bottom: 2rem !important;
+    padding: 16px !important;
+    transition: border-color 0.3s ease !important;
+  }
+  
+  .wl-panel:focus-within {
+    border-color: var(--primary) !important;
+  }
+  
+  /* The user info header */
+  .wl-header {
+    border-bottom: 1px solid var(--line-color) !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 12px !important;
+    background: transparent !important;
+  }
+  
+  .wl-header-item {
+    background: transparent !important;
+  }
+  
+  /* Add vertical dividers between the header items */
+  @media (min-width: 768px) {
+    .wl-header-item:not(:last-child) {
+      border-right: 1px solid var(--line-color) !important;
+    }
+  }
+  
+  .wl-header-item input {
+    color: var(--content-text) !important;
+    font-size: 0.9rem !important;
+    background: transparent !important;
+  }
+  
+  /* Minimal text area */
+  .wl-card-item {
+    padding: 16px !important;
+    border-radius: 20px !important;
+    background: var(--btn-regular-bg) !important;
+    border: 1px solid var(--line-color) !important;
+    margin-bottom: 16px !important;
+  }
+  
+  /* Apply same styling to empty state */
+  .wl-empty {
+    padding: 24px !important;
+    border-radius: 20px !important;
+    background: var(--btn-regular-bg) !important;
+    border: 1px solid var(--line-color) !important;
+    color: var(--content-meta) !important;
+    text-align: center !important;
+    margin-top: 16px !important;
+  }
+  
+  /* Divider below sorting tabs */
+  .wl-sort {
+    border-bottom: 1px solid var(--line-color) !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .wl-editor {
+    border: none !important;
+    padding: 0 4px !important;
+    background: transparent !important;
+    color: var(--content-text) !important;
+    font-size: 0.95rem !important;
+    min-height: 52px !important;
+  }
+  
+  .wl-editor:focus {
+    background: transparent !important;
+  }
+  
+  .wl-editor::placeholder,
+  .wl-header-item input::placeholder {
+    color: var(--content-meta) !important;
+  }
+  
+  /* Footer actions */
+  .wl-footer {
+    margin-top: 12px !important;
+    padding: 0 4px !important;
+    background: transparent !important;
+  }
+  
+  /* Instagram 'Post' text button style */
+  .wl-btn {
+    background: transparent !important;
+    color: var(--primary) !important;
+    border: none !important;
+    font-weight: 700 !important;
+    padding: 4px 12px !important;
+    font-size: 0.95rem !important;
+    box-shadow: none !important;
+    letter-spacing: 0.5px !important;
+  }
+  
+  .wl-btn:hover {
+    background: transparent !important;
+    opacity: 0.7 !important;
+  }
+  
+  /* Make icons subtle */
+  .wl-actions svg {
+    fill: var(--content-meta) !important;
+  }
+  
+  /* Hide the markdown helper badge */
+  .wl-meta-head .wl-badge {
+    display: none !important;
+  }
+  
+  /* Force text visibility in dark mode */
+  html.dark .wl-editor,
+  html.dark .wl-header-item input {
+    color: #ffffff !important;
+  }
+  html.dark .wl-editor::placeholder,
+  html.dark .wl-header-item input::placeholder {
+    color: #9ca3af !important;
+  }
+
+  /* Style individual comment cards as grey pills */
+  .wl-card-item {
+    padding: 16px !important;
+    border-radius: 20px !important;
+    background: var(--btn-regular-bg) !important;
+    border: 1px solid var(--line-color) !important;
+    margin-bottom: 16px !important;
+  }
+  
+  /* Apply same styling to empty state */
+  .wl-empty {
+    padding: 24px !important;
+    border-radius: 20px !important;
+    background: var(--btn-regular-bg) !important;
+    border: 1px solid var(--line-color) !important;
+    color: var(--content-meta) !important;
+    text-align: center !important;
+    margin-top: 16px !important;
+  }
+  
+  /* Divider below sorting tabs */
+  .wl-sort {
+    border-bottom: 1px solid var(--line-color) !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* --- CUSTOM INSTAGRAM UI FOR WALINE --- */
+  
+
+
+  /* Make the card header (username) inline */
+  .wl-meta-head {
+    display: inline !important;
+  }
+  
+  /* Make the username bold, inline */
+  .wl-nick {
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    margin-right: 6px !important;
+    display: inline !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Force the comment text itself to be inline right next to the username */
+  .wl-content {
+    display: inline !important;
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Paragraphs inside the comment must also be inline */
+  .wl-content p {
+    display: inline !important;
+    margin: 0 !important;
+  }
+  
+  /* The extras container (time, likes, reply button) goes below the text */
+  .wl-meta-foot {
+    display: block !important;
+    margin-top: 8px !important;
+  }
+  
+  /* Style the date/time and buttons in small grey font */
+  .wl-time, .wl-like, .wl-reply {
+    color: #8e8e8e !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+  }
+
+  /* Hide the annoying OS and Browser info tags (too cluttered) */
+  .wl-browser, .wl-os, .wl-badge {
+    display: none !important;
+  }
+  
+  /* Reduce avatar margin to tighten the layout */
+  .wl-avatar {
+    margin-top: 2px !important;
+  }
+
+  /* Clean up action buttons */
+  .wl-actions {
+    padding-bottom: 10px !important;
+  }
+</style>
