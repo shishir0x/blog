@@ -33,6 +33,7 @@ const config = {
       ...config,
       el: '#waline',
       path: currentPath,
+      search: false, // Prevent scrolling to specific comments on load which can cause issues
       dark: 'html.dark',
       emoji: [
         'https://unpkg.com/@waline/emojis@1.2.0/weibo',
@@ -45,6 +46,19 @@ const config = {
     }
     
     walineInstance = init(dynamicConfig);
+    
+    // Prevent Waline from autofocusing the text editor, which forces the browser to scroll down
+    setTimeout(() => {
+      const observer = new MutationObserver(() => {
+        const editor = document.querySelector('.wl-editor');
+        if (editor) {
+          editor.blur();
+          editor.removeAttribute('autofocus');
+          observer.disconnect();
+        }
+      });
+      observer.observe(el, { childList: true, subtree: true });
+    }, 50);
   }
 
   // Initialize on load
