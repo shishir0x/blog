@@ -96,18 +96,18 @@ const jsonLd = {
             {remarkPluginFrontmatter.words}
             <span
               class="i18n-label"
-              data-i18n-key={
-                remarkPluginFrontmatter.words === 1
-                  ? I18nKey.wordCount
-                  : I18nKey.wordsCount
-              }
+              data-i18n-key={remarkPluginFrontmatter.words === 1
+                ? I18nKey.wordCount
+                : I18nKey.wordsCount}
             >
-              {" " +
-                i18n(
-                  remarkPluginFrontmatter.words === 1
-                    ? I18nKey.wordCount
-                    : I18nKey.wordsCount
-                )}
+              {
+                " " +
+                  i18n(
+                    remarkPluginFrontmatter.words === 1
+                      ? I18nKey.wordCount
+                      : I18nKey.wordsCount,
+                  )
+              }
             </span>
           </div>
         </div>
@@ -121,18 +121,18 @@ const jsonLd = {
             {remarkPluginFrontmatter.minutes}
             <span
               class="i18n-label"
-              data-i18n-key={
-                remarkPluginFrontmatter.minutes === 1
-                  ? I18nKey.minuteCount
-                  : I18nKey.minutesCount
-              }
+              data-i18n-key={remarkPluginFrontmatter.minutes === 1
+                ? I18nKey.minuteCount
+                : I18nKey.minutesCount}
             >
-              {" " +
-                i18n(
-                  remarkPluginFrontmatter.minutes === 1
-                    ? I18nKey.minuteCount
-                    : I18nKey.minutesCount
-                )}
+              {
+                " " +
+                  i18n(
+                    remarkPluginFrontmatter.minutes === 1
+                      ? I18nKey.minuteCount
+                      : I18nKey.minutesCount,
+                  )
+              }
             </span>
           </div>
         </div>
@@ -187,9 +187,11 @@ const jsonLd = {
       }
 
       <!-- podcast audio player -->
-      {entry.data.audio && (
-        <AudioPlayer src={entry.data.audio} title={entry.data.title} />
-      )}
+      {
+        entry.data.audio && (
+          <AudioPlayer src={entry.data.audio} title={entry.data.title} />
+        )
+      }
 
       <Markdown class="mb-6 markdown-content onload-animation">
         <Content />
@@ -225,7 +227,7 @@ const jsonLd = {
 
             {(() => {
               const lastModified = dayjs(
-                entry.data.updated || entry.data.published
+                entry.data.updated || entry.data.published,
               );
               const now = dayjs();
               const daysDiff = now.diff(lastModified, "day");
@@ -235,9 +237,12 @@ const jsonLd = {
               return (
                 <div class="flex flex-col gap-0.1">
                   <div class="text-[1.0rem] leading-tight text-black/75 dark:text-white/75">
-                    <span class="i18n-label" data-i18n-key={I18nKey.lastModifiedPrefix}
-                      >{i18n(I18nKey.lastModifiedPrefix)}</span
+                    <span
+                      class="i18n-label"
+                      data-i18n-key={I18nKey.lastModifiedPrefix}
                     >
+                      {i18n(I18nKey.lastModifiedPrefix)}
+                    </span>
                     {dateStr}
                     {isOutdated && (
                       <>
@@ -246,13 +251,20 @@ const jsonLd = {
                           class="i18n-label"
                           data-i18n-key={I18nKey.lastModifiedDaysAgo}
                           data-i18n-days={daysDiff.toString()}
-                          >{i18n(I18nKey.lastModifiedDaysAgo).replace("{days}", daysDiff.toString())}</span
                         >
+                          {i18n(I18nKey.lastModifiedDaysAgo).replace(
+                            "{days}",
+                            daysDiff.toString(),
+                          )}
+                        </span>
                       </>
                     )}
                   </div>
                   {isOutdated && (
-                    <p class="text-[0.8rem] leading-tight text-black/75 dark:text-white/75 i18n-label" data-i18n-key={I18nKey.lastModifiedOutdated}>
+                    <p
+                      class="text-[0.8rem] leading-tight text-black/75 dark:text-white/75 i18n-label"
+                      data-i18n-key={I18nKey.lastModifiedOutdated}
+                    >
                       {i18n(I18nKey.lastModifiedOutdated)}
                     </p>
                   )}
@@ -265,7 +277,6 @@ const jsonLd = {
     )
   }
 
-  
   <Comment post={entry} />
 
   <div

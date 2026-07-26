@@ -32,7 +32,7 @@ export default defineConfig({
 		port: 5173,
 		host: true,
 	},
-	site: "https://alvinluo-tech.github.io",
+	site: "https://shishir-pandey.com.np",
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
