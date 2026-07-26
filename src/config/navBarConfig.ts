@@ -45,9 +45,9 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
       },
         {
       name: "youtube",
-      icon: "youtube",
+      icon: "fa6-brands:youtube",
       external: true,
-      url: "https://www.youtube.com/@shishir_0x",
+      url: "https://www.youtube.com/@shishir0_x",
     },
             //  {
     //   name: "bilibili",
@@ -58,7 +58,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
         {
       name: "Instagram",
       url: "https://www.instagram.com/shishir0x",
-      icon: "instagram",
+      icon: "fa6-brands:instagram",
       external: true,
     },
       //  {
@@ -68,10 +68,10 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
       //   icon: "redbook",
       // },
       {
-        name: "Tiktok",
-        url: "https://www.tiktok.com/@shishir0x",
+      name: "Tiktok",
+        url: "https://www.tiktok.com/@shishir_0x",
         external: true,
-        icon: "tiktok",
+        icon: "fa6-brands:tiktok",
       },
   
 

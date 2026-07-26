@@ -17,12 +17,12 @@ export const profileConfig: ProfileConfig = {
     },
       {
       name: "youtube",
-      icon: "youtube",
+      icon: "fa6-brands:youtube",
       url: "https://www.youtube.com/@shishir0_x",
     },
        {
       name: "Instagram",
-      icon: "instagram",
+      icon: "fa6-brands:instagram",
       url: "https://instagram.com/shishir0x",
     },
        {
