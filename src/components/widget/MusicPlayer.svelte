@@ -459,7 +459,7 @@
         };
         document.addEventListener('astro:before-swap', _origOnDestroy, { once: true });
         
-        if (!musicPlayerConfig.enable) {
+        if (musicPlayerConfig.enable === false) {
             return;
         }
         
@@ -474,7 +474,14 @@
                 }
             });
         } else {
-            playlist = [...local_playlist];
+            playlist = (local_playlist || []).map((song: any, index: number) => ({
+                id: index,
+                title: song.title || song.name || "Unknown song",
+                artist: song.artist || song.author || "Unknown artist",
+                cover: song.cover || song.pic || "",
+                url: song.url || "",
+                duration: song.duration || 0,
+            }));
             if (playlist.length > 0) {
                 loadSong(playlist[0]);
                 if (autoplay) {

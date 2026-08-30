@@ -28,10 +28,22 @@ const localPlaylist =
 			})
 		: [];
 
+const ytPlaylist =
+	config.mode === "youtube" && config.youtube?.playlist
+		? config.youtube.playlist.map((song) => ({
+				name: song.name,
+				artist: song.artist,
+				ytId: song.id,
+				pic: song.cover || `https://i.ytimg.com/vi/${song.id}/hqdefault.jpg`,
+				lrc: song.lrc,
+			}))
+		: [];
+
 const managerConfigStr = JSON.stringify({
 	mode: config.mode,
 	meting: config.meting,
 	localPlaylist: localPlaylist,
+	ytPlaylist: ytPlaylist,
 	volume: config.volume ?? 0.7,
 	playMode: config.playMode ?? "list",
 	showLyrics: config.showLyrics ?? true,
@@ -100,6 +112,23 @@ const managerConfigStr = JSON.stringify({
     audio.style.display = 'none';
     document.body.appendChild(audio);
 
+    // ── YouTube hidden player setup ─────────────────────────
+    var ytPlayer = null;
+    var ytReady = false;
+    var pendingTrack = null;
+    var timeInterval = null;
+
+    var ytContainer = document.getElementById('firefly-yt-wrapper');
+    if (!ytContainer) {
+        ytContainer = document.createElement('div');
+        ytContainer.id = 'firefly-yt-wrapper';
+        ytContainer.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:200px;height:200px;opacity:0.001;pointer-events:none;z-index:-99999;';
+        var ytDiv = document.createElement('div');
+        ytDiv.id = 'firefly-yt-player';
+        ytContainer.appendChild(ytDiv);
+        document.body.appendChild(ytContainer);
+    }
+
     // ── State ────────────────────────────────────────────────
     var state = {
         playlist: [],
@@ -114,7 +143,9 @@ const managerConfigStr = JSON.stringify({
         currentLrcIndex: -1,
         initialized: false,
         initializing: false,
-        error: null
+        error: null,
+        currentTime: 0,
+        duration: 0
     };
 
     // Map config playMode string to number
@@ -125,6 +156,148 @@ const managerConfigStr = JSON.stringify({
     // ── Event helpers ────────────────────────────────────────
     function emit(name, detail) {
         window.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
+    }
+
+    // ── Time polling for smooth progress & lyrics ────────────
+    function startTimePolling() {
+        stopTimePolling();
+        timeInterval = setInterval(function () {
+            var curTrack = state.playlist[state.currentIndex];
+            var ct = 0;
+            var dur = 0;
+
+            if (curTrack && curTrack.ytId && ytPlayer && ytReady && typeof ytPlayer.getCurrentTime === 'function') {
+                try {
+                    ct = ytPlayer.getCurrentTime() || 0;
+                    dur = ytPlayer.getDuration() || 0;
+                } catch (e) {}
+            } else if (audio && !isNaN(audio.duration)) {
+                ct = audio.currentTime || 0;
+                dur = audio.duration || 0;
+            }
+
+            state.currentTime = ct;
+            state.duration = dur;
+            var pct = dur > 0 ? (ct / dur) * 100 : 0;
+
+            emit('fm:time', {
+                currentTime: ct,
+                duration: dur,
+                progress: pct,
+                currentTimeStr: formatTime(ct),
+                durationStr: formatTime(dur)
+            });
+
+            // Lyrics sync
+            if (state.lyrics.length > 0) {
+                var idx = -1;
+                for (var i = 0; i < state.lyrics.length; i++) {
+                    if (ct >= state.lyrics[i].time) idx = i;
+                    else break;
+                }
+                if (idx !== state.currentLrcIndex) {
+                    state.currentLrcIndex = idx;
+                    emit('fm:lrc-index', { index: idx });
+                }
+            }
+        }, 250);
+    }
+
+    function stopTimePolling() {
+        if (timeInterval) {
+            clearInterval(timeInterval);
+            timeInterval = null;
+        }
+    }
+
+    // ── YouTube API loader ───────────────────────────────────
+    function initYouTubeAPI(callback) {
+        if (window.YT && window.YT.Player) {
+            callback();
+            return;
+        }
+
+        var prevCallback = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function () {
+            if (typeof prevCallback === 'function') {
+                try { prevCallback(); } catch (e) {}
+            }
+            callback();
+        };
+
+        if (!document.getElementById('youtube-iframe-api')) {
+            var tag = document.createElement('script');
+            tag.id = 'youtube-iframe-api';
+            tag.src = 'https://www.youtube.com/iframe_api';
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            if (firstScriptTag && firstScriptTag.parentNode) {
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                document.head.appendChild(tag);
+            }
+        }
+    }
+
+    function setupYTPlayer(initialId) {
+        initYouTubeAPI(function () {
+            if (ytPlayer) return;
+            try {
+                ytPlayer = new window.YT.Player('firefly-yt-player', {
+                    height: '200',
+                    width: '200',
+                    videoId: initialId || 'sElE_BfQ67s',
+                    playerVars: {
+                        autoplay: 0,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        modestbranding: 1,
+                        playsinline: 1,
+                        rel: 0,
+                        enablejsapi: 1,
+                        origin: window.location.origin
+                    },
+                    events: {
+                        onReady: function () {
+                            ytReady = true;
+                            try {
+                                ytPlayer.setVolume(Math.round(state.volume * 100));
+                                if (state.isMuted) ytPlayer.mute();
+                            } catch (e) {}
+
+                            if (pendingTrack) {
+                                var p = pendingTrack;
+                                pendingTrack = null;
+                                loadTrack(p.index, p.autoPlay);
+                            }
+                        },
+                        onStateChange: function (event) {
+                            if (event.data === 1) { // PLAYING
+                                state.isPlaying = true;
+                                emit('fm:play-state', { isPlaying: true });
+                                startTimePolling();
+                                window.dispatchEvent(new CustomEvent('firefly:music:play'));
+                            } else if (event.data === 2) { // PAUSED
+                                state.isPlaying = false;
+                                emit('fm:play-state', { isPlaying: false });
+                                stopTimePolling();
+                            } else if (event.data === 0) { // ENDED
+                                stopTimePolling();
+                                playNext(true);
+                            }
+                        },
+                        onError: function (event) {
+                            console.warn('YouTube playback error code:', event.data);
+                            setTimeout(function () {
+                                playNext(true);
+                            }, 1000);
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error('Error creating YouTube player:', err);
+            }
+        });
     }
 
     // ── Meting fetch ─────────────────────────────────────────
@@ -172,31 +345,78 @@ const managerConfigStr = JSON.stringify({
         state.lyrics = [];
         state.currentLrcIndex = -1;
 
-        if (!track.lrc) {
-            emit('fm:lyrics', { lyrics: [], status: 'none' });
+        if (track.lrc) {
+            var isLrcUrl = /^(https?:)?\/\//.test(track.lrc)
+                || track.lrc.startsWith('/')
+                || /\.(lrc|txt)(\?|#|$)/i.test(track.lrc);
+
+            if (isLrcUrl) {
+                emit('fm:lyrics', { lyrics: [], status: 'loading' });
+                fetch(track.lrc)
+                    .then(function (r) { return r.text(); })
+                    .then(function (text) {
+                        state.lyrics = parseLRC(text);
+                        emit('fm:lyrics', { lyrics: state.lyrics, status: 'loaded' });
+                    })
+                    .catch(function () {
+                        state.lyrics = [];
+                        emit('fm:lyrics', { lyrics: [], status: 'failed' });
+                    });
+            } else {
+                state.lyrics = parseLRC(track.lrc);
+                emit('fm:lyrics', { lyrics: state.lyrics, status: state.lyrics.length > 0 ? 'loaded' : 'none' });
+            }
             return;
         }
 
-        var isLrcUrl = /^(https?:)?\/\//.test(track.lrc)
-            || track.lrc.startsWith('/')
-            || /\.(lrc|txt)(\?|#|$)/i.test(track.lrc);
+        // Dynamic fetch from online lyrics database (LRCLIB)
+        emit('fm:lyrics', { lyrics: [], status: 'loading' });
+        var cleanArtist = (track.artist || '').replace(/\s*-\s*Topic$/i, '').trim();
+        var cleanName = (track.name || '')
+            .replace(/\(Official Audio\)/i, '')
+            .replace(/\(Official Video\)/i, '')
+            .replace(/\(Audio\)/i, '')
+            .replace(/\(Official Music Video\)/i, '')
+            .trim();
 
-        if (isLrcUrl) {
-            emit('fm:lyrics', { lyrics: [], status: 'loading' });
-            fetch(track.lrc)
-                .then(function (r) { return r.text(); })
-                .then(function (text) {
-                    state.lyrics = parseLRC(text);
-                    emit('fm:lyrics', { lyrics: state.lyrics, status: 'loaded' });
-                })
-                .catch(function () {
+        var apiUrl = 'https://lrclib.net/api/get?artist_name=' + encodeURIComponent(cleanArtist) + '&track_name=' + encodeURIComponent(cleanName);
+
+        fetch(apiUrl)
+            .then(function (r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            })
+            .then(function (data) {
+                var lrcText = data.syncedLyrics || data.plainLyrics || '';
+                if (lrcText) {
+                    state.lyrics = parseLRC(lrcText);
+                    emit('fm:lyrics', { lyrics: state.lyrics, status: state.lyrics.length > 0 ? 'loaded' : 'none' });
+                } else {
                     state.lyrics = [];
-                    emit('fm:lyrics', { lyrics: [], status: 'failed' });
-                });
-        } else {
-            state.lyrics = parseLRC(track.lrc);
-            emit('fm:lyrics', { lyrics: state.lyrics, status: state.lyrics.length > 0 ? 'loaded' : 'none' });
-        }
+                    emit('fm:lyrics', { lyrics: [], status: 'none' });
+                }
+            })
+            .catch(function () {
+                // Fallback to search endpoint
+                var searchUrl = 'https://lrclib.net/api/search?q=' + encodeURIComponent(cleanArtist + ' ' + cleanName);
+                fetch(searchUrl)
+                    .then(function (r) { return r.json(); })
+                    .then(function (results) {
+                        if (Array.isArray(results) && results.length > 0) {
+                            var item = results.find(function (x) { return x.syncedLyrics; }) || results[0];
+                            var lrcText = item.syncedLyrics || item.plainLyrics || '';
+                            state.lyrics = parseLRC(lrcText);
+                            emit('fm:lyrics', { lyrics: state.lyrics, status: state.lyrics.length > 0 ? 'loaded' : 'none' });
+                        } else {
+                            state.lyrics = [];
+                            emit('fm:lyrics', { lyrics: [], status: 'none' });
+                        }
+                    })
+                    .catch(function () {
+                        state.lyrics = [];
+                        emit('fm:lyrics', { lyrics: [], status: 'failed' });
+                    });
+            });
     }
 
     // ── Track loading ────────────────────────────────────────
@@ -205,47 +425,108 @@ const managerConfigStr = JSON.stringify({
         state.currentIndex = index;
         var track = state.playlist[index];
 
-        audio.src = track.url;
-
         loadLyrics(track);
-
         emit('fm:track', { index: index, track: track, autoPlay: !!autoPlay });
 
-        if (autoPlay) {
-            audio.play().then(function () {
-                state.isPlaying = true;
-                emit('fm:play-state', { isPlaying: true });
-                // Notify podcast player to pause
-                window.dispatchEvent(new CustomEvent('firefly:music:play'));
-            }).catch(function (e) {
-                console.warn('Autoplay blocked:', e);
-            });
-        } else {
-            state.isPlaying = false;
-            emit('fm:play-state', { isPlaying: false });
+        if (track.ytId) {
+            if (!audio.paused) audio.pause();
+
+            if (ytPlayer && ytReady && typeof ytPlayer.loadVideoById === 'function') {
+                try {
+                    if (autoPlay) {
+                        ytPlayer.loadVideoById(track.ytId);
+                        state.isPlaying = true;
+                        emit('fm:play-state', { isPlaying: true });
+                        startTimePolling();
+                        window.dispatchEvent(new CustomEvent('firefly:music:play'));
+                    } else {
+                        ytPlayer.cueVideoById(track.ytId);
+                        state.isPlaying = false;
+                        emit('fm:play-state', { isPlaying: false });
+                        stopTimePolling();
+                    }
+                } catch (e) {
+                    console.warn('YouTube loadVideo error:', e);
+                }
+            } else {
+                pendingTrack = { index: index, autoPlay: !!autoPlay };
+            }
+        } else if (track.url) {
+            if (ytPlayer && ytReady && typeof ytPlayer.pauseVideo === 'function') {
+                try { ytPlayer.pauseVideo(); } catch (e) {}
+            }
+            audio.src = track.url;
+            if (autoPlay) {
+                audio.play().then(function () {
+                    state.isPlaying = true;
+                    emit('fm:play-state', { isPlaying: true });
+                    startTimePolling();
+                    window.dispatchEvent(new CustomEvent('firefly:music:play'));
+                }).catch(function (e) {
+                    console.warn('Autoplay blocked:', e);
+                });
+            } else {
+                state.isPlaying = false;
+                emit('fm:play-state', { isPlaying: false });
+                stopTimePolling();
+            }
         }
     }
 
     // ── Playback controls ────────────────────────────────────
     function togglePlay() {
-        if (audio.paused) {
-            audio.play().then(function () {
-                state.isPlaying = true;
-                emit('fm:play-state', { isPlaying: true });
-                // Notify podcast player to pause
-                window.dispatchEvent(new CustomEvent('firefly:music:play'));
-            });
+        var curTrack = state.playlist[state.currentIndex];
+        if (!curTrack) return;
+
+        if (curTrack.ytId) {
+            if (!ytPlayer || !ytReady) {
+                loadTrack(state.currentIndex, true);
+                return;
+            }
+            try {
+                var pState = typeof ytPlayer.getPlayerState === 'function' ? ytPlayer.getPlayerState() : -1;
+                if (pState === 1 || state.isPlaying) {
+                    ytPlayer.pauseVideo();
+                    state.isPlaying = false;
+                    emit('fm:play-state', { isPlaying: false });
+                    stopTimePolling();
+                } else {
+                    ytPlayer.playVideo();
+                    state.isPlaying = true;
+                    emit('fm:play-state', { isPlaying: true });
+                    startTimePolling();
+                    window.dispatchEvent(new CustomEvent('firefly:music:play'));
+                }
+            } catch (e) {
+                console.warn('YouTube togglePlay error:', e);
+            }
         } else {
-            audio.pause();
-            state.isPlaying = false;
-            emit('fm:play-state', { isPlaying: false });
+            if (audio.paused) {
+                audio.play().then(function () {
+                    state.isPlaying = true;
+                    emit('fm:play-state', { isPlaying: true });
+                    startTimePolling();
+                    window.dispatchEvent(new CustomEvent('firefly:music:play'));
+                });
+            } else {
+                audio.pause();
+                state.isPlaying = false;
+                emit('fm:play-state', { isPlaying: false });
+                stopTimePolling();
+            }
         }
     }
 
     function playNext(auto) {
         if (state.playMode === 1 && auto) {
-            audio.currentTime = 0;
-            audio.play();
+            var curTrack = state.playlist[state.currentIndex];
+            if (curTrack && curTrack.ytId && ytPlayer && ytReady) {
+                ytPlayer.seekTo(0, true);
+                ytPlayer.playVideo();
+            } else {
+                audio.currentTime = 0;
+                audio.play();
+            }
             return;
         }
         var nextIndex;
@@ -282,6 +563,12 @@ const managerConfigStr = JSON.stringify({
         state.isMuted = false;
         audio.volume = val;
         audio.muted = false;
+        if (ytPlayer && ytReady) {
+            try {
+                if (typeof ytPlayer.setVolume === 'function') ytPlayer.setVolume(Math.round(val * 100));
+                if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+            } catch (e) {}
+        }
         localStorage.setItem('music-player-volume', val.toString());
         emit('fm:volume', { volume: val, isMuted: false });
     }
@@ -289,72 +576,66 @@ const managerConfigStr = JSON.stringify({
     function toggleMute() {
         state.isMuted = !state.isMuted;
         audio.muted = state.isMuted;
+        if (ytPlayer && ytReady) {
+            try {
+                if (state.isMuted) {
+                    if (typeof ytPlayer.mute === 'function') ytPlayer.mute();
+                } else {
+                    if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+                }
+            } catch (e) {}
+        }
         emit('fm:volume', { volume: state.volume, isMuted: state.isMuted });
     }
 
     function seek(percent) {
-        if (!audio.duration) return;
-        audio.currentTime = Math.max(0, Math.min(1, percent)) * audio.duration;
+        var curTrack = state.playlist[state.currentIndex];
+        percent = Math.max(0, Math.min(1, percent));
+        if (curTrack && curTrack.ytId && ytPlayer && ytReady && typeof ytPlayer.getDuration === 'function') {
+            var dur = ytPlayer.getDuration() || 0;
+            if (dur > 0) {
+                ytPlayer.seekTo(percent * dur, true);
+            }
+        } else if (audio.duration) {
+            audio.currentTime = percent * audio.duration;
+        }
     }
 
     function seekToTime(time) {
-        if (!audio.duration) return;
-        audio.currentTime = Math.max(0, Math.min(time, audio.duration));
+        var curTrack = state.playlist[state.currentIndex];
+        if (curTrack && curTrack.ytId && ytPlayer && ytReady && typeof ytPlayer.seekTo === 'function') {
+            ytPlayer.seekTo(Math.max(0, time), true);
+        } else if (audio.duration) {
+            audio.currentTime = Math.max(0, Math.min(time, audio.duration));
+        }
     }
 
     function playTrackByIndex(index) {
-        if (index === state.currentIndex && !audio.paused) {
+        if (index === state.currentIndex && state.isPlaying) {
             togglePlay();
         } else {
             loadTrack(index, true);
         }
     }
 
-    // ── Audio events → broadcast ─────────────────────────────
-    audio.addEventListener('timeupdate', function () {
-        if (isNaN(audio.duration)) return;
-        var ct = audio.currentTime;
-        var dur = audio.duration;
-        var pct = (ct / dur) * 100;
-
-        emit('fm:time', {
-            currentTime: ct,
-            duration: dur,
-            progress: pct,
-            currentTimeStr: formatTime(ct),
-            durationStr: formatTime(dur)
-        });
-
-        // Lyrics sync
-        if (state.lyrics.length > 0) {
-            var idx = -1;
-            for (var i = 0; i < state.lyrics.length; i++) {
-                if (ct >= state.lyrics[i].time) idx = i;
-                else break;
-            }
-            if (idx !== state.currentLrcIndex) {
-                state.currentLrcIndex = idx;
-                emit('fm:lrc-index', { index: idx });
-            }
-        }
-    });
-
+    // ── HTML5 Audio events → broadcast fallback ──────────────
     audio.addEventListener('ended', function () {
         playNext(true);
     });
 
     audio.addEventListener('error', function () {
-        state.error = 'Audio playback error';
-        emit('fm:error', { message: state.error });
+        var curTrack = state.playlist[state.currentIndex];
+        if (curTrack && !curTrack.ytId) {
+            state.error = 'Audio playback error';
+            emit('fm:error', { message: state.error });
+        }
     });
 
     // ── Cross-player coordination ────────────────────────────
     // Pause music when podcast starts playing
     window.addEventListener('firefly:podcast:play', function () {
-        if (!audio.paused) {
-            audio.pause();
-            state.isPlaying = false;
-            emit('fm:play-state', { isPlaying: false });
+        if (state.isPlaying) {
+            togglePlay();
         }
     });
 
@@ -364,7 +645,11 @@ const managerConfigStr = JSON.stringify({
         state.initializing = true;
 
         try {
-            if (config.mode === 'meting' && config.meting) {
+            if (config.mode === 'youtube') {
+                state.playlist = config.ytPlaylist || [];
+                var initialYtId = (state.playlist[0] && state.playlist[0].ytId) || 'sElE_BfQ67s';
+                setupYTPlayer(initialYtId);
+            } else if (config.mode === 'meting' && config.meting) {
                 await fetchMetingData();
             } else if (config.mode === 'local') {
                 state.playlist = config.localPlaylist || [];
@@ -419,6 +704,17 @@ const managerConfigStr = JSON.stringify({
         init: init,
         getState: function () {
             var track = state.playlist[state.currentIndex] || null;
+            var ct = state.currentTime || 0;
+            var dur = state.duration || 0;
+            if (track && track.ytId && ytPlayer && ytReady && typeof ytPlayer.getCurrentTime === 'function') {
+                try {
+                    ct = ytPlayer.getCurrentTime() || 0;
+                    dur = ytPlayer.getDuration() || 0;
+                } catch (e) {}
+            } else if (audio && !isNaN(audio.duration)) {
+                ct = audio.currentTime || 0;
+                dur = audio.duration || 0;
+            }
             return {
                 playlist: state.playlist,
                 currentIndex: state.currentIndex,
@@ -427,11 +723,11 @@ const managerConfigStr = JSON.stringify({
                 playMode: state.playMode,
                 volume: state.volume,
                 isMuted: state.isMuted,
-                currentTime: audio.currentTime,
-                duration: audio.duration || 0,
-                progress: audio.duration ? (audio.currentTime / audio.duration) * 100 : 0,
-                currentTimeStr: formatTime(audio.currentTime),
-                durationStr: formatTime(audio.duration),
+                currentTime: ct,
+                duration: dur,
+                progress: dur ? (ct / dur) * 100 : 0,
+                currentTimeStr: formatTime(ct),
+                durationStr: formatTime(dur),
                 lyrics: state.lyrics,
                 currentLrcIndex: state.currentLrcIndex,
                 initialized: state.initialized,

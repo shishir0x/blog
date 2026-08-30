@@ -6,8 +6,8 @@ I'm passionate about technology, coding, and building things for the web.
 This is my corner of the internet where I share my thoughts, projects, and experiences.
 
 ### Tech Focus
-- Core: JavaScript · HTML/CSS · Web Development
-- Exploring: Astro · React · Modern Web Technologies
+- Core: PostgreSQL · Power BI · Excel
+- Exploring: Astro · React · Blender
 
 ### Contact
 - GitHub: [shishir0x](https://github.com/shishir0x)  
