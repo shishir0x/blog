@@ -3,8 +3,10 @@ title: "How I Built My Own Unlimited Cloud Storage with Telegram (And Fixed the 
 published: 2026-08-30
 description: "In a world where 'unlimited' cloud storage is an illusion, I turned Telegram into a Google Drive-class personal cloud with true nested folder structures, media streaming, and zero hosting fees."
 image: "/assets/images/telegram-unlimited-drive-ui.png"
-tags: ["Telegram", "Cloud Storage", "Open Source", "System Design", "Python"]
+tags: ["Telegram", "Cloud Storage", "Open Source", "System Design", "Python", "Google Drive Alternative", "Self-Hosted", "Free Cloud Storage", "Virtual Filesystem"]
 category: "Projects"
+author: "Shishir Pandey"
+sourceLink: "https://github.com/shishir0x/Telegram-Unlimited-Cloud"
 draft: false
 pinned: true
 ---
@@ -43,8 +45,6 @@ If I wanted a personal cloud that could legitimately replace Google Drive or Dro
 You can check out the full open-source project and deploy your own instance here:  
 👉 **[shishir0x/Telegram-Unlimited-Cloud](https://github.com/shishir0x/Telegram-Unlimited-Cloud)**
 :::
-
-
 
 ---
 
@@ -123,6 +123,11 @@ I didn't want a toy script; I wanted a production-ready application that felt sn
 - **Interactive Breadcrumbs:** Seamlessly navigate back up the tree.
 - **Drag & Drop Organization:** Drag files from your computer to upload directly into the active folder, or drag items into folders/breadcrumbs to move them instantly.
 - **Multi-Select & Bulk Actions:** Lasso-select or `Ctrl`/`Shift` click to download as a dynamic ZIP, move, or soft-delete.
+
+![TG Drive Web UI - Complete nested directory tree, categories, breadcrumbs, search, and live storage statistics powered by Telegram](/assets/images/telegram-unlimited-drive-ui.png)
+<p class="text-center text-sm text-[var(--content-meta)] -mt-4 mb-8">
+  *TG Drive Web UI: Complete nested directory tree, categories, breadcrumbs, search, and live storage statistics powered by Telegram.*
+</p>
 
 ### 2. In-Browser Media Streaming & Previews
 Telegram bots normally force you to download the whole file before viewing it. That’s a terrible experience for 2GB video files.

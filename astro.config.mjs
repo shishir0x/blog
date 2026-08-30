@@ -35,6 +35,9 @@ export default defineConfig({
 	site: "https://shishir-pandey.com.np",
 	trailingSlash: "always",
 	integrations: [
+		sitemap({
+			filter: (page) => !page.includes("_sample-preview"),
+		}),
 		tailwind({
 			nesting: true,
 		}),

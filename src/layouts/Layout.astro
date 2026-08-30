@@ -35,10 +35,30 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	postSlug?: string;
+	publishedDate?: Date | string;
+	updatedDate?: Date | string;
+	author?: string;
+	tags?: string[];
+	category?: string;
+	jsonLd?: Record<string, any> | Record<string, any>[];
 }
 
-let { title, banner, description, lang, setOGTypeArticle, postSlug } =
-	Astro.props;
+let {
+	title,
+	banner,
+	description,
+	lang,
+	setOGTypeArticle,
+	postSlug,
+	publishedDate,
+	updatedDate,
+	author,
+	tags,
+	category,
+	jsonLd,
+} = Astro.props;
+
+const postImage = banner;
 
 // apply a class to the body element to decide the height of the banner, only used for initial page load
 // Swup can update the body for each page visit, but it's after the page transition, causing a delay for banner height change
@@ -73,9 +93,21 @@ if (title) {
 		: siteConfig.title;
 }
 
+const siteUrl = Astro.site ? Astro.site.toString() : "https://shishir-pandey.com.np/";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
 let ogImageUrl: string | undefined;
 if (siteConfig.generateOgImages && postSlug) {
-	ogImageUrl = new URL(`/og/${postSlug}.png`, Astro.site).toString();
+	ogImageUrl = new URL(`/og/${postSlug}.png`, siteUrl).toString();
+} else if (postImage) {
+	ogImageUrl = postImage.startsWith("http://") || postImage.startsWith("https://")
+		? postImage
+		: new URL(postImage, siteUrl).toString();
+} else if (siteConfig.backgroundWallpaper?.src?.desktop) {
+	const defaultBg = siteConfig.backgroundWallpaper.src.desktop;
+	ogImageUrl = defaultBg.startsWith("http://") || defaultBg.startsWith("https://")
+		? defaultBg
+		: new URL(defaultBg, siteUrl).toString();
 }
 
 const favicons: Favicon[] =
@@ -131,29 +163,42 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 		<title>{pageTitle}</title>
 
 		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="google" content="notranslate" />
 		<meta
 			name="description"
 			content={description || siteConfig.description || pageTitle}
 		/>
 		{
-			siteConfig.keywords && siteConfig.keywords.length > 0 && (
-				<meta
-					name="keywords"
-					content={siteConfig.keywords.join(", ")}
-				/>
+			tags && tags.length > 0 ? (
+				<meta name="keywords" content={tags.join(", ")} />
+			) : (
+				siteConfig.keywords && siteConfig.keywords.length > 0 && (
+					<meta
+						name="keywords"
+						content={siteConfig.keywords.join(", ")}
+					/>
+				)
 			)
 		}
-		<meta name="author" content={profileConfig.name} />
+		<meta name="author" content={author || profileConfig.name} />
 
+		<!-- OpenGraph / Facebook -->
 		<meta property="og:site_name" content={siteConfig.title} />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={pageTitle} />
 		<meta
 			property="og:description"
 			content={description || siteConfig.description || pageTitle}
 		/>
-		{ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+		{ogImageUrl && (
+			<>
+				<meta property="og:image" content={ogImageUrl} />
+				<meta property="og:image:alt" content={pageTitle} />
+			</>
+		)}
 		{
 			setOGTypeArticle ? (
 				<meta property="og:type" content="article" />
@@ -162,15 +207,97 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 			)
 		}
 
+		{/* Article Specific OpenGraph Metadata */}
+		{
+			setOGTypeArticle && (
+				<>
+					{publishedDate && (
+						<meta
+							property="article:published_time"
+							content={new Date(publishedDate).toISOString()}
+						/>
+					)}
+					{updatedDate && (
+						<meta
+							property="article:modified_time"
+							content={new Date(updatedDate).toISOString()}
+						/>
+					)}
+					<meta
+						property="article:author"
+						content={author || profileConfig.name}
+					/>
+					{category && (
+						<meta
+							property="article:section"
+							content={category}
+						/>
+					)}
+					{tags &&
+						tags.map((tag: string) => (
+							<meta
+								property="article:tag"
+								content={tag}
+							/>
+						))}
+				</>
+			)
+		}
+
+		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
+		<meta name="twitter:site" content="@shishir0x" />
+		<meta name="twitter:creator" content="@shishir0x" />
+		<meta property="twitter:url" content={canonicalUrl} />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta
 			name="twitter:description"
 			content={description || siteConfig.description || pageTitle}
 		/>
+		{ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
-		<meta name="viewport" content="width=device-width" />
+		<!-- Global WebSite Schema for non-article pages -->
+		{
+			!setOGTypeArticle && (
+				<script
+					is:inline
+					type="application/ld+json"
+					set:html={JSON.stringify({
+						"@context": "https://schema.org",
+						"@type": "WebSite",
+						name: siteConfig.title,
+						url: siteUrl,
+						description: siteConfig.description,
+						author: {
+							"@type": "Person",
+							name: profileConfig.name,
+							url: siteUrl,
+						},
+					})}
+				/>
+			)
+		}
+
+		{/* Rich Article / Breadcrumb / Custom JSON-LD Schema */}
+		{
+			jsonLd &&
+				(Array.isArray(jsonLd) ? (
+					jsonLd.map((item) => (
+						<script
+							is:inline
+							type="application/ld+json"
+							set:html={JSON.stringify(item)}
+						/>
+					))
+				) : (
+					<script
+						is:inline
+						type="application/ld+json"
+						set:html={JSON.stringify(jsonLd)}
+					/>
+				))
+		}
+
 		<meta name="generator" content={Astro.generator} />
 		{
 			favicons.map((favicon) => (
