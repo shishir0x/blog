@@ -113,9 +113,6 @@ export default defineConfig({
 		svelte(),
 		sitemap({
 			filter: (page) => {
-				if (page.includes("_sample-preview")) {
-					return false;
-				}
 				// Filter sitemap by page enabled flags
 				const url = new URL(page);
 				const pathname = url.pathname;
