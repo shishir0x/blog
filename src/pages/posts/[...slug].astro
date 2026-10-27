@@ -11,19 +11,18 @@ import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { licenseConfig } from "@/config/licenseConfig";
+import PostMetadata from "@/components/content/PostMeta.astro";
 import AudioPlayer from "@/components/misc/AudioPlayer.astro";
 import ImageWrapper from "@/components/misc/ImageWrapper.astro";
-import PostMetadata from "@/components/content/PostMeta.astro";
+import { licenseConfig } from "@/config/licenseConfig";
 import { profileConfig } from "@/config/profileConfig";
 import { siteConfig } from "@/config/siteConfig";
-import { formatDateToYYYYMMDD } from "@/utils/date-utils";
 export async function getStaticPaths() {
-  const blogEntries = await getSortedPosts();
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+	const blogEntries = await getSortedPosts();
+	return blogEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
 }
 
 const { entry } = Astro.props;
@@ -34,99 +33,107 @@ const { remarkPluginFrontmatter } = await entry.render();
 // ...existing code...
 
 dayjs.extend(utc);
-const siteUrl = Astro.site ? Astro.site.toString() : "https://shishir-pandey.com.np/";
+const siteUrl = Astro.site
+	? Astro.site.toString()
+	: "https://shishir-pandey.com.np/";
 const postUrl = new URL(getPostUrlBySlug(entry.slug), siteUrl).toString();
 
 const coverImageUrl = entry.data.image
-  ? (entry.data.image.startsWith("http://") || entry.data.image.startsWith("https://")
-      ? entry.data.image
-      : new URL(entry.data.image, siteUrl).toString())
-  : undefined;
+	? entry.data.image.startsWith("http://") ||
+		entry.data.image.startsWith("https://")
+		? entry.data.image
+		: new URL(entry.data.image, siteUrl).toString()
+	: undefined;
 
 const postJsonLd = {
-  "@context": "https://schema.org",
-  "@type": ["BlogPosting", "TechArticle"],
-  "@id": `${postUrl}#article`,
-  isPartOf: {
-    "@type": "WebSite",
-    "@id": `${siteUrl}#website`,
-    name: siteConfig.title,
-    url: siteUrl,
-  },
-  headline: entry.data.title,
-  description: entry.data.description || entry.data.title,
-  url: postUrl,
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": postUrl,
-  },
-  image: coverImageUrl ? [coverImageUrl] : undefined,
-  datePublished: dayjs(entry.data.published).toISOString(),
-  dateModified: dayjs(entry.data.updated || entry.data.published).toISOString(),
-  author: {
-    "@type": "Person",
-    name: entry.data.author || profileConfig.name,
-    url: siteUrl,
-    sameAs: [
-      "https://github.com/shishir0x",
-      "https://instagram.com/shishir0x",
-      "https://www.youtube.com/@shishir0_x",
-    ],
-  },
-  publisher: {
-    "@type": "Person",
-    name: profileConfig.name,
-    url: siteUrl,
-    logo: {
-      "@type": "ImageObject",
-      url: new URL("/favicon-white.ico", siteUrl).toString(),
-    },
-  },
-  keywords: entry.data.tags && entry.data.tags.length > 0 ? entry.data.tags.join(", ") : undefined,
-  articleSection: entry.data.category || "Projects",
-  inLanguage: entry.data.lang
-    ? entry.data.lang.replace("_", "-")
-    : siteConfig.lang.replace("_", "-"),
-  wordCount: remarkPluginFrontmatter?.words || undefined,
-  ...(entry.data.sourceLink ? {
-    about: {
-      "@type": "SoftwareApplication",
-      name: "Telegram Unlimited Drive (TG Drive)",
-      applicationCategory: "UtilitiesApplication",
-      operatingSystem: "Cross-platform",
-      codeRepository: entry.data.sourceLink,
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-    },
-  } : {}),
+	"@context": "https://schema.org",
+	"@type": ["BlogPosting", "TechArticle"],
+	"@id": `${postUrl}#article`,
+	isPartOf: {
+		"@type": "WebSite",
+		"@id": `${siteUrl}#website`,
+		name: siteConfig.title,
+		url: siteUrl,
+	},
+	headline: entry.data.title,
+	description: entry.data.description || entry.data.title,
+	url: postUrl,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": postUrl,
+	},
+	image: coverImageUrl ? [coverImageUrl] : undefined,
+	datePublished: dayjs(entry.data.published).toISOString(),
+	dateModified: dayjs(entry.data.updated || entry.data.published).toISOString(),
+	author: {
+		"@type": "Person",
+		name: entry.data.author || profileConfig.name,
+		url: siteUrl,
+		sameAs: [
+			"https://github.com/shishir0x",
+			"https://instagram.com/shishir0x",
+			"https://www.youtube.com/@shishir0_x",
+		],
+	},
+	publisher: {
+		"@type": "Person",
+		name: profileConfig.name,
+		url: siteUrl,
+		logo: {
+			"@type": "ImageObject",
+			url: new URL("/favicon-white.ico", siteUrl).toString(),
+		},
+	},
+	keywords:
+		entry.data.tags && entry.data.tags.length > 0
+			? entry.data.tags.join(", ")
+			: undefined,
+	articleSection: entry.data.category || "Projects",
+	inLanguage: entry.data.lang
+		? entry.data.lang.replace("_", "-")
+		: siteConfig.lang.replace("_", "-"),
+	wordCount: remarkPluginFrontmatter?.words || undefined,
+	...(entry.data.sourceLink
+		? {
+				about: {
+					"@type": "SoftwareApplication",
+					name: "Telegram Unlimited Drive (TG Drive)",
+					applicationCategory: "UtilitiesApplication",
+					operatingSystem: "Cross-platform",
+					codeRepository: entry.data.sourceLink,
+					offers: {
+						"@type": "Offer",
+						price: "0",
+						priceCurrency: "USD",
+					},
+				},
+			}
+		: {}),
 };
 
 const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: siteUrl,
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Archive",
-      item: new URL("/archive/", siteUrl).toString(),
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: entry.data.title,
-      item: postUrl,
-    },
-  ],
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Home",
+			item: siteUrl,
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Archive",
+			item: new URL("/archive/", siteUrl).toString(),
+		},
+		{
+			"@type": "ListItem",
+			position: 3,
+			name: entry.data.title,
+			item: postUrl,
+		},
+	],
 };
 ---
 

@@ -2,133 +2,136 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const ja: Translation = {
-  [Key.home]: "Home",
-  [Key.about]: "About",
-  [Key.archive]: "Archive",
-  [Key.search]: "Search",
-  [Key.other]: "Other",
-  [Key.links]: "Links",
+	[Key.home]: "Home",
+	[Key.about]: "About",
+	[Key.archive]: "Archive",
+	[Key.search]: "Search",
+	[Key.other]: "Other",
+	[Key.links]: "Links",
 
-  [Key.tags]: "Tags",
-  [Key.categories]: "Categories",
-  [Key.recentPosts]: "Recent Posts",
-  [Key.postList]: "Post List",
-  [Key.tableOfContents]: "Table of Contents",
+	[Key.tags]: "Tags",
+	[Key.categories]: "Categories",
+	[Key.recentPosts]: "Recent Posts",
+	[Key.postList]: "Post List",
+	[Key.tableOfContents]: "Table of Contents",
 
-  // Announcement
-  [Key.announcement]: "Announcement",
-  [Key.announcementClose]: "Close",
+	// Announcement
+	[Key.announcement]: "Announcement",
+	[Key.announcementClose]: "Close",
 
-  [Key.comments]: "Comments",
-  [Key.commentSection]: "Comments",
-  [Key.commentSubtitle]: "Share your thoughts and discuss with everyone",
-  [Key.commentNotConfigured]: "Comment system not configured",
-  [Key.friends]: "Friends",
-  [Key.untitled]: "Untitled",
-  [Key.uncategorized]: "Uncategorized",
-  [Key.noTags]: "No Tags",
+	[Key.comments]: "Comments",
+	[Key.commentSection]: "Comments",
+	[Key.commentSubtitle]: "Share your thoughts and discuss with everyone",
+	[Key.commentNotConfigured]: "Comment system not configured",
+	[Key.friends]: "Friends",
+	[Key.untitled]: "Untitled",
+	[Key.uncategorized]: "Uncategorized",
+	[Key.noTags]: "No Tags",
 
-  [Key.wordCount]: "word",
-  [Key.wordsCount]: "words",
-  [Key.minuteCount]: "minute",
-  [Key.minutesCount]: "minutes",
-  [Key.postCount]: "post",
-  [Key.postsCount]: "posts",
+	[Key.wordCount]: "word",
+	[Key.wordsCount]: "words",
+	[Key.minuteCount]: "minute",
+	[Key.minutesCount]: "minutes",
+	[Key.postCount]: "post",
+	[Key.postsCount]: "posts",
 
-  [Key.themeColor]: "Theme Color",
+	[Key.themeColor]: "Theme Color",
 
-  [Key.lightMode]: "Light",
-  [Key.darkMode]: "Dark",
-  [Key.systemMode]: "System",
+	[Key.lightMode]: "Light",
+	[Key.darkMode]: "Dark",
+	[Key.systemMode]: "System",
 
-  [Key.more]: "More",
+	[Key.more]: "More",
 
-  [Key.author]: "Author",
-  [Key.publishedAt]: "Published at",
-  [Key.license]: "License",
-  [Key.anime]: "Anime",
+	[Key.author]: "Author",
+	[Key.publishedAt]: "Published at",
+	[Key.license]: "License",
+	[Key.anime]: "Anime",
 
-  // Anime Page
-  [Key.animeTitle]: "My Anime List",
-  [Key.animeSubtitle]: "Record my anime journey",
-  [Key.animeList]: "Anime List",
-  [Key.animeTotal]: "Total",
-  [Key.animeWatching]: "Watching",
-  [Key.animeCompleted]: "Completed",
-  [Key.animeAvgRating]: "Average Rating",
-  [Key.animeStatusWatching]: "Watching",
-  [Key.animeStatusCompleted]: "Completed",
-  [Key.animeStatusPlanned]: "Planned",
-  [Key.animeStudio]: "Studio",
-  [Key.animeEmpty]: "No anime data",
-  [Key.animeEmptyBangumi]:
-    "Please check Bangumi configuration or network connection",
-    
-  // Anime Status
-  [Key.animeStatusAll]: "All",
-  [Key.animeStatusWish]: "Wish",
-  [Key.animeStatusDone]: "Done",
-  [Key.animeStatusDoing]: "Watching",
-  [Key.animeStatusOnhold]: "On Hold",
-  [Key.animeStatusDropped]: "Dropped",
-  
-  // Anime Page Text
-  [Key.animeLoading]: "Loading anime data...",
-  [Key.animeLoadingDescription]: "Please wait, fetching your collection from Bangumi",
-  [Key.animeError]: "Data loading failed",
-  [Key.animeErrorDescription]: "Unable to connect to Bangumi API, please check your network connection or try again later",
-  [Key.animeRetry]: "Retry",
-  [Key.animeEmptyData]: "No data",
-  [Key.animeEmptyDescription]: "No anime found in this category",
-  [Key.animeEmptySuggestion]: "Try switching to other categories",
-  [Key.animeConfigDescription]: "Please set your Bangumi user ID in src/config/siteConfig.ts",
-  [Key.animeRefreshNote]: "Due to some limitations, you may need to refresh the page once to load anime data, there is no good solution yet",
-  
-  // Anime Info
-  [Key.animeYear]: "Year",
-  [Key.animeEpisodes]: "Episodes",
-  [Key.animeRank]: "Rank",
-  [Key.animeUnknown]: "Unknown",
-  [Key.animeLoadFailed]: "Load failed",
+	// Anime Page
+	[Key.animeTitle]: "My Anime List",
+	[Key.animeSubtitle]: "Record my anime journey",
+	[Key.animeList]: "Anime List",
+	[Key.animeTotal]: "Total",
+	[Key.animeWatching]: "Watching",
+	[Key.animeCompleted]: "Completed",
+	[Key.animeAvgRating]: "Average Rating",
+	[Key.animeStatusWatching]: "Watching",
+	[Key.animeStatusCompleted]: "Completed",
+	[Key.animeStatusPlanned]: "Planned",
+	[Key.animeStudio]: "Studio",
+	[Key.animeEmpty]: "No anime data",
+	[Key.animeEmptyBangumi]:
+		"Please check Bangumi configuration or network connection",
 
-  // Pagination
-  [Key.paginationFirst]: "First",
-  [Key.paginationPrev]: "Previous",
-  [Key.paginationNext]: "Next",
-  [Key.paginationLast]: "Last",
-  [Key.paginationPage]: "Page",
-  [Key.paginationOf]: "of",
-  [Key.paginationTotal]: ", Total",
-  [Key.paginationRecords]: " records",
+	// Anime Status
+	[Key.animeStatusAll]: "All",
+	[Key.animeStatusWish]: "Wish",
+	[Key.animeStatusDone]: "Done",
+	[Key.animeStatusDoing]: "Watching",
+	[Key.animeStatusOnhold]: "On Hold",
+	[Key.animeStatusDropped]: "Dropped",
 
-  // 404 Page
-  [Key.notFound]: "404",
-  [Key.notFoundTitle]: "Page Not Found",
-  [Key.notFoundDescription]:
-    "Sorry, the page you visited does not exist or has been moved.",
-  [Key.backToHome]: "Back to Home",
+	// Anime Page Text
+	[Key.animeLoading]: "Loading anime data...",
+	[Key.animeLoadingDescription]:
+		"Please wait, fetching your collection from Bangumi",
+	[Key.animeError]: "Data loading failed",
+	[Key.animeErrorDescription]:
+		"Unable to connect to Bangumi API, please check your network connection or try again later",
+	[Key.animeRetry]: "Retry",
+	[Key.animeEmptyData]: "No data",
+	[Key.animeEmptyDescription]: "No anime found in this category",
+	[Key.animeEmptySuggestion]: "Try switching to other categories",
+	[Key.animeConfigDescription]:
+		"Please set your Bangumi user ID in src/config/siteConfig.ts",
+	[Key.animeRefreshNote]:
+		"Due to some limitations, you may need to refresh the page once to load anime data, there is no good solution yet",
 
-  // Music Player
-  [Key.music]: "Music",
-  [Key.musicNoPlaying]: "No music playing",
-  [Key.musicLyrics]: "Lyrics",
-  [Key.musicVolume]: "Volume",
-  [Key.musicPlayMode]: "Play Mode",
-  [Key.musicPrev]: "Previous",
-  [Key.musicNext]: "Next",
-  [Key.musicPlaylist]: "Playlist",
-  [Key.musicNoLyrics]: "No lyrics available",
-  [Key.musicLoadingLyrics]: "Loading lyrics...",
-  [Key.musicFailedLyrics]: "Failed to load lyrics",
-  [Key.musicNoSongs]: "No songs in playlist",
-  [Key.musicError]: "Music player error",
-  [Key.musicPlay]: "Play",
-  [Key.musicPause]: "Pause",
-  [Key.musicProgress]: "Progress",
-  [Key.musicCover]: "Cover",
-  [Key.musicNoCover]: "No cover",
-  [Key.playlist]: "Playlist",
+	// Anime Info
+	[Key.animeYear]: "Year",
+	[Key.animeEpisodes]: "Episodes",
+	[Key.animeRank]: "Rank",
+	[Key.animeUnknown]: "Unknown",
+	[Key.animeLoadFailed]: "Load failed",
 
+	// Pagination
+	[Key.paginationFirst]: "First",
+	[Key.paginationPrev]: "Previous",
+	[Key.paginationNext]: "Next",
+	[Key.paginationLast]: "Last",
+	[Key.paginationPage]: "Page",
+	[Key.paginationOf]: "of",
+	[Key.paginationTotal]: ", Total",
+	[Key.paginationRecords]: " records",
+
+	// 404 Page
+	[Key.notFound]: "404",
+	[Key.notFoundTitle]: "Page Not Found",
+	[Key.notFoundDescription]:
+		"Sorry, the page you visited does not exist or has been moved.",
+	[Key.backToHome]: "Back to Home",
+
+	// Music Player
+	[Key.music]: "Music",
+	[Key.musicNoPlaying]: "No music playing",
+	[Key.musicLyrics]: "Lyrics",
+	[Key.musicVolume]: "Volume",
+	[Key.musicPlayMode]: "Play Mode",
+	[Key.musicPrev]: "Previous",
+	[Key.musicNext]: "Next",
+	[Key.musicPlaylist]: "Playlist",
+	[Key.musicNoLyrics]: "No lyrics available",
+	[Key.musicLoadingLyrics]: "Loading lyrics...",
+	[Key.musicFailedLyrics]: "Failed to load lyrics",
+	[Key.musicNoSongs]: "No songs in playlist",
+	[Key.musicError]: "Music player error",
+	[Key.musicPlay]: "Play",
+	[Key.musicPause]: "Pause",
+	[Key.musicProgress]: "Progress",
+	[Key.musicCover]: "Cover",
+	[Key.musicNoCover]: "No cover",
+	[Key.playlist]: "Playlist",
 
 	// RSS Page
 	[Key.rss]: "RSS Feed",
@@ -152,31 +155,28 @@ export const ja: Translation = {
 	[Key.rssCopied]: "RSS link copied to clipboard!",
 	[Key.rssCopyFailed]: "Copy failed, please copy the link manually",
 
+	// Last Modified Time Card
+	[Key.lastModifiedPrefix]: "Last updated on ",
+	[Key.lastModifiedOutdated]: "Some content may be outdated",
+	[Key.lastModifiedDaysAgo]: "{days} days ago",
+	[Key.year]: "year",
+	[Key.month]: "month",
+	[Key.day]: "day",
+	[Key.hour]: "hour",
+	[Key.minute]: "minute",
+	[Key.second]: "second",
 
+	// Page Views Statistics
+	[Key.pageViews]: "Views",
+	[Key.pageViewsLoading]: "Loading...",
+	[Key.pageViewsError]: "Stats unavailable",
 
-  // Last Modified Time Card
-  [Key.lastModifiedPrefix]: "Last updated on ",
-  [Key.lastModifiedOutdated]: "Some content may be outdated",
-  [Key.lastModifiedDaysAgo]: "{days} days ago",
-  [Key.year]: "year",
-  [Key.month]: "month",
-  [Key.day]: "day",
-  [Key.hour]: "hour",
-  [Key.minute]: "minute",
-  [Key.second]: "second",
+	// Pinned
+	[Key.pinned]: "Pinned",
 
-  // Page Views Statistics
-  [Key.pageViews]: "Views",
-  [Key.pageViewsLoading]: "Loading...",
-  [Key.pageViewsError]: "Stats unavailable",
-
-  // Pinned
-  [Key.pinned]: "Pinned",
-
-  // Wallpaper Mode
-  [Key.wallpaperMode]: "Wallpaper Mode",
-  [Key.wallpaperBannerMode]: "Banner Wallpaper",
-  [Key.wallpaperOverlayMode]: "Full Screen Wallpaper",
-  [Key.wallpaperNoneMode]: "Solid Color Background",
+	// Wallpaper Mode
+	[Key.wallpaperMode]: "Wallpaper Mode",
+	[Key.wallpaperBannerMode]: "Banner Wallpaper",
+	[Key.wallpaperOverlayMode]: "Full Screen Wallpaper",
+	[Key.wallpaperNoneMode]: "Solid Color Background",
 };
-

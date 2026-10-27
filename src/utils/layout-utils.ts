@@ -1,4 +1,4 @@
-import { siteConfig } from '../config';
+import { siteConfig } from "../config";
 
 export const getBackgroundImages = () => {
 	const bgSrc = siteConfig.backgroundWallpaper.src;
@@ -58,17 +58,20 @@ export const getDefaultBackground = (): string => {
 
 export const isHomePage = (pathname: string): boolean => {
 	const baseUrl = import.meta.env.BASE_URL || "/";
-	
+
 	const normalizedPath = pathname.replace(baseUrl, "/");
-	
+
 	return normalizedPath === "/" || normalizedPath === "";
 };
 
-export const getBannerOffset = (position: string = "center") => {
+export const getBannerOffset = (position = "center") => {
 	const bannerOffsetByPosition = {
 		top: "100vh",
-		center: "50vh", 
+		center: "50vh",
 		bottom: "0",
 	};
-	return bannerOffsetByPosition[position as keyof typeof bannerOffsetByPosition] || "50vh";
+	return (
+		bannerOffsetByPosition[position as keyof typeof bannerOffsetByPosition] ||
+		"50vh"
+	);
 };

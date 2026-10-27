@@ -4,49 +4,49 @@ import { siteConfig } from "@/config";
 const { font: fontConfig } = siteConfig;
 
 const getSelectedFonts = () => {
-  if (!fontConfig.enable || !fontConfig.selected) return [];
+	if (!fontConfig.enable || !fontConfig.selected) return [];
 
-  const selectedIds = Array.isArray(fontConfig.selected)
-    ? fontConfig.selected
-    : [fontConfig.selected];
+	const selectedIds = Array.isArray(fontConfig.selected)
+		? fontConfig.selected
+		: [fontConfig.selected];
 
-  return selectedIds
-    .map((id) => fontConfig.fonts[id])
-    .filter((font) => font && font.src);
+	return selectedIds
+		.map((id) => fontConfig.fonts[id])
+		.filter((font) => font && font.src);
 };
 
 const selectedFonts = getSelectedFonts();
 
 const generateFontClasses = () => {
-  if (!fontConfig.enable) return [];
+	if (!fontConfig.enable) return [];
 
-  const selectedIds = Array.isArray(fontConfig.selected)
-    ? fontConfig.selected
-    : [fontConfig.selected];
+	const selectedIds = Array.isArray(fontConfig.selected)
+		? fontConfig.selected
+		: [fontConfig.selected];
 
-  return selectedIds.map((id) => `font-${id}-enabled`);
+	return selectedIds.map((id) => `font-${id}-enabled`);
 };
 
 const fontClasses = generateFontClasses();
 
 const generateFontFamilyStyle = () => {
-  if (!fontConfig.enable || !fontConfig.selected) return "";
+	if (!fontConfig.enable || !fontConfig.selected) return "";
 
-  const selectedIds = Array.isArray(fontConfig.selected)
-    ? fontConfig.selected
-    : [fontConfig.selected];
+	const selectedIds = Array.isArray(fontConfig.selected)
+		? fontConfig.selected
+		: [fontConfig.selected];
 
-  const selectedFontFamilies = selectedIds
-    .map((id) => fontConfig.fonts[id])
-    .filter((font) => font)
-    .map((font) => `"${font.family}"`);
+	const selectedFontFamilies = selectedIds
+		.map((id) => fontConfig.fonts[id])
+		.filter((font) => font)
+		.map((font) => `"${font.family}"`);
 
-  if (selectedFontFamilies.length === 0) return "";
+	if (selectedFontFamilies.length === 0) return "";
 
-  const fallbacks = fontConfig.fallback || [];
-  const allFonts = [...selectedFontFamilies, ...fallbacks];
+	const fallbacks = fontConfig.fallback || [];
+	const allFonts = [...selectedFontFamilies, ...fallbacks];
 
-  return `font-family: ${allFonts.join(", ")};`;
+	return `font-family: ${allFonts.join(", ")};`;
 };
 
 const fontFamilyStyle = generateFontFamilyStyle();

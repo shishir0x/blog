@@ -2,10 +2,10 @@
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
-import { url } from "@/utils/url-utils";
+import { navigateToPage } from "@utils/navigation-utils";
 import { onMount } from "svelte";
 import type { SearchResult } from "@/global";
-import { navigateToPage } from "@utils/navigation-utils";
+import { url } from "@/utils/url-utils";
 
 let keywordDesktop = "";
 let keywordMobile = "";
@@ -121,7 +121,7 @@ onMount(() => {
 	const handleLangChange = () => {
 		searchPlaceholder = i18n(I18nKey.search);
 	};
-	window.addEventListener('site-lang-change', handleLangChange);
+	window.addEventListener("site-lang-change", handleLangChange);
 
 	if (import.meta.env.DEV) {
 		console.log(
@@ -151,7 +151,7 @@ onMount(() => {
 
 	// Cleanup
 	return () => {
-		window.removeEventListener('site-lang-change', handleLangChange);
+		window.removeEventListener("site-lang-change", handleLangChange);
 	};
 });
 

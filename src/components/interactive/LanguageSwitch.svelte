@@ -1,74 +1,85 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { getLanguageDisplayName } from '@/utils/language-utils';
+import { onMount } from "svelte";
+import { getLanguageDisplayName } from "@/utils/language-utils";
 
-  type LangCode = 'en' | 'zh_CN' | 'zh_TW' | 'ja' | 'ru';
+type LangCode = "en" | "zh_CN" | "zh_TW" | "ja" | "ru";
 
-  const supported: { code: LangCode; label: string }[] = [
-    { code: 'en', label: getLanguageDisplayName('en') },
-    { code: 'zh_CN', label: getLanguageDisplayName('zh_CN') },
-    { code: 'zh_TW', label: getLanguageDisplayName('zh_TW') },
-    { code: 'ja', label: getLanguageDisplayName('ja') },
-    { code: 'ru', label: getLanguageDisplayName('ru') },
-  ];
+const supported: { code: LangCode; label: string }[] = [
+	{ code: "en", label: getLanguageDisplayName("en") },
+	{ code: "zh_CN", label: getLanguageDisplayName("zh_CN") },
+	{ code: "zh_TW", label: getLanguageDisplayName("zh_TW") },
+	{ code: "ja", label: getLanguageDisplayName("ja") },
+	{ code: "ru", label: getLanguageDisplayName("ru") },
+];
 
-  let open = false;
-  let current: LangCode = 'en';
+let open = false;
+let current: LangCode = "en";
 
-  function detectInitial(): LangCode {
-    const saved = (localStorage.getItem('site-lang') || '').toLowerCase();
-    if (saved) {
-      // normalize saved to supported codes
-      if (saved.startsWith('en')) return 'en';
-      if (saved === 'zh_cn' || saved === 'zh-cn' || saved === 'zh_hans') return 'zh_CN';
-      if (saved === 'zh_tw' || saved === 'zh-tw' || saved === 'zh_hant') return 'zh_TW';
-      if (saved.startsWith('ja')) return 'ja';
-      if (saved.startsWith('ru')) return 'ru';
-    }
-    const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
-    if (htmlLang.startsWith('zh')) return 'zh_CN';
-    if (htmlLang.startsWith('ja')) return 'ja';
-    if (htmlLang.startsWith('ru')) return 'ru';
-    return 'en';
-  }
+function detectInitial(): LangCode {
+	const saved = (localStorage.getItem("site-lang") || "").toLowerCase();
+	if (saved) {
+		// normalize saved to supported codes
+		if (saved.startsWith("en")) return "en";
+		if (saved === "zh_cn" || saved === "zh-cn" || saved === "zh_hans")
+			return "zh_CN";
+		if (saved === "zh_tw" || saved === "zh-tw" || saved === "zh_hant")
+			return "zh_TW";
+		if (saved.startsWith("ja")) return "ja";
+		if (saved.startsWith("ru")) return "ru";
+	}
+	const htmlLang = (
+		document.documentElement.getAttribute("lang") || ""
+	).toLowerCase();
+	if (htmlLang.startsWith("zh")) return "zh_CN";
+	if (htmlLang.startsWith("ja")) return "ja";
+	if (htmlLang.startsWith("ru")) return "ru";
+	return "en";
+}
 
-  onMount(() => {
-    current = detectInitial();
-    // click outside to close
-    const handler = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest('[data-lang-switch]')) {
-        open = false;
-      }
-    };
-    document.addEventListener('click', handler);
-    return () => document.removeEventListener('click', handler);
-  });
+onMount(() => {
+	current = detectInitial();
+	// click outside to close
+	const handler = (e: MouseEvent) => {
+		const target = e.target as HTMLElement;
+		if (!target.closest("[data-lang-switch]")) {
+			open = false;
+		}
+	};
+	document.addEventListener("click", handler);
+	return () => document.removeEventListener("click", handler);
+});
 
-  function abbr(code: LangCode): string {
-    switch (code) {
-      case 'en': return 'EN';
-      case 'zh_CN': return 'ZH';
-      case 'zh_TW': return 'TW';
-      case 'ja': return '日本語';
-      case 'ru': return 'RU';
-    }
-  }
+function abbr(code: LangCode): string {
+	switch (code) {
+		case "en":
+			return "EN";
+		case "zh_CN":
+			return "ZH";
+		case "zh_TW":
+			return "TW";
+		case "ja":
+			return "日本語";
+		case "ru":
+			return "RU";
+	}
+}
 
-  function switchLanguage(code: LangCode) {
-    current = code;
-    // persist user preference
-    const toSave = code === 'zh_CN' ? 'zh_CN' : code;
-    localStorage.setItem('site-lang', toSave);
+function switchLanguage(code: LangCode) {
+	current = code;
+	// persist user preference
+	const toSave = code === "zh_CN" ? "zh_CN" : code;
+	localStorage.setItem("site-lang", toSave);
 
-    // broadcast language change so UI can update without full reload
-    try {
-      window.dispatchEvent(new CustomEvent('site-lang-change', { detail: { lang: code } }));
-    } catch {}
+	// broadcast language change so UI can update without full reload
+	try {
+		window.dispatchEvent(
+			new CustomEvent("site-lang-change", { detail: { lang: code } }),
+		);
+	} catch {}
 
-    // Close dropdown
-    open = false;
-  }
+	// Close dropdown
+	open = false;
+}
 </script>
 
 <div data-lang-switch class="relative">

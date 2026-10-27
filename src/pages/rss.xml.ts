@@ -1,7 +1,7 @@
 import rss from "@astrojs/rss";
 import type { APIRoute } from "astro";
-import { siteConfig } from "@/config/siteConfig";
 import { profileConfig } from "@/config/profileConfig";
+import { siteConfig } from "@/config/siteConfig";
 import { getSortedPosts } from "@/utils/content-utils";
 import { getPostUrlBySlug } from "@/utils/url-utils";
 
@@ -10,7 +10,7 @@ export const GET: APIRoute = async (context) => {
 
 	return rss({
 		title: siteConfig.title,
-		description: siteConfig.description,
+		description: siteConfig.description || siteConfig.subtitle || "",
 		site: context.site ?? "https://shishir-pandey.com.np",
 		items: posts.map((post) => ({
 			title: post.data.title,

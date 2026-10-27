@@ -15,8 +15,8 @@ interface Props {
 
 const { config, className } = Astro.props;
 
-const desktopSrc = config.src.desktop || config.src.mobile || '';
-const mobileSrc = config.src.mobile || config.src.desktop || '';
+const desktopSrc = config.src.desktop || config.src.mobile || "";
+const mobileSrc = config.src.mobile || config.src.desktop || "";
 
 if (!desktopSrc && !mobileSrc) {
 	return null;

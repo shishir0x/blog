@@ -20,10 +20,8 @@ import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-cop
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
-import { rehypeMermaid } from "./src/plugins/rehype-mermaid.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
-import { remarkMermaid } from "./src/plugins/remark-mermaid.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import mdx from "@astrojs/mdx";
 // https://astro.build/config
@@ -35,9 +33,6 @@ export default defineConfig({
 	site: "https://shishir-pandey.com.np",
 	trailingSlash: "always",
 	integrations: [
-		sitemap({
-			filter: (page) => !page.includes("_sample-preview"),
-		}),
 		tailwind({
 			nesting: true,
 		}),
@@ -118,11 +113,13 @@ export default defineConfig({
 		svelte(),
 		sitemap({
 			filter: (page) => {
-				// 根据页面开关配置过滤sitemap
+				if (page.includes("_sample-preview")) {
+					return false;
+				}
+				// Filter sitemap by page enabled flags
 				const url = new URL(page);
 				const pathname = url.pathname;
 
-				// 检查各个页面是否启用
 				if (pathname === '/anime/' && !siteConfig.pages.anime) {
 					return false;
 				}
@@ -150,12 +147,10 @@ export default defineConfig({
 			remarkDirective,
 			remarkSectionize,
 			parseDirectiveNode,
-			remarkMermaid,
 		],
 		rehypePlugins: [
 			rehypeKatex,
 			rehypeSlug,
-			rehypeMermaid,
 			[
 				rehypeComponents,
 				{

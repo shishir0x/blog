@@ -1,15 +1,15 @@
 <script lang="ts">
-import { DARK_MODE, LIGHT_MODE, SYSTEM_MODE } from "@/constants/constants";
-import Icon from "@iconify/svelte";
-import {
-	getStoredTheme,
-	setTheme,
-	applyThemeToDocument,
-} from "@/utils/setting-utils";
-import type { LIGHT_DARK_MODE } from "@/types/config.ts";
-import { onMount } from 'svelte';
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import Icon from "@iconify/svelte";
+import { onMount } from "svelte";
+import { DARK_MODE, LIGHT_MODE, SYSTEM_MODE } from "@/constants/constants";
+import type { LIGHT_DARK_MODE } from "@/types/config.ts";
+import {
+	applyThemeToDocument,
+	getStoredTheme,
+	setTheme,
+} from "@/utils/setting-utils";
 
 let mode: LIGHT_DARK_MODE = $state(LIGHT_MODE);
 let displayedMode: LIGHT_DARK_MODE = $state(LIGHT_MODE);
@@ -25,7 +25,9 @@ function switchScheme(newMode: LIGHT_DARK_MODE) {
 
 function updateDisplayedMode() {
 	if (mode === SYSTEM_MODE) {
-		const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		const isSystemDark = window.matchMedia(
+			"(prefers-color-scheme: dark)",
+		).matches;
 		displayedMode = isSystemDark ? DARK_MODE : LIGHT_MODE;
 	} else {
 		displayedMode = mode;
@@ -42,38 +44,40 @@ onMount(() => {
 	const storedTheme = getStoredTheme();
 	mode = storedTheme;
 	updateDisplayedMode();
-	
+
 	if (storedTheme !== SYSTEM_MODE) {
-		const currentTheme = document.documentElement.classList.contains('dark') ? DARK_MODE : LIGHT_MODE;
+		const currentTheme = document.documentElement.classList.contains("dark")
+			? DARK_MODE
+			: LIGHT_MODE;
 		if (storedTheme !== currentTheme) {
 			applyThemeToDocument(storedTheme);
 		}
 	}
-	
+
 	if (storedTheme === SYSTEM_MODE) {
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 		const handleSystemChange = () => {
 			updateDisplayedMode();
 		};
-		mediaQuery.addEventListener('change', handleSystemChange);
+		mediaQuery.addEventListener("change", handleSystemChange);
 	}
-	
+
 	const handleContentReplace = () => {
 		const newTheme = getStoredTheme();
 		mode = newTheme;
 		updateDisplayedMode();
 	};
-	
+
 	if ((window as any).swup && (window as any).swup.hooks) {
-		(window as any).swup.hooks.on('content:replace', handleContentReplace);
+		(window as any).swup.hooks.on("content:replace", handleContentReplace);
 	} else {
-		document.addEventListener('swup:enable', () => {
+		document.addEventListener("swup:enable", () => {
 			if ((window as any).swup && (window as any).swup.hooks) {
-				(window as any).swup.hooks.on('content:replace', handleContentReplace);
+				(window as any).swup.hooks.on("content:replace", handleContentReplace);
 			}
 		});
 	}
-	
+
 	const handleThemeChange = () => {
 		if (mode !== SYSTEM_MODE) {
 			const newTheme = getStoredTheme();
@@ -83,18 +87,18 @@ onMount(() => {
 			updateDisplayedMode();
 		}
 	};
-	
-	window.addEventListener('theme-change', handleThemeChange);
-	
+
+	window.addEventListener("theme-change", handleThemeChange);
+
 	const handleLangChange = () => {
 		updateLabels();
 	};
-	
-	window.addEventListener('site-lang-change', handleLangChange);
-	
+
+	window.addEventListener("site-lang-change", handleLangChange);
+
 	return () => {
-		window.removeEventListener('theme-change', handleThemeChange);
-		window.removeEventListener('site-lang-change', handleLangChange);
+		window.removeEventListener("theme-change", handleThemeChange);
+		window.removeEventListener("site-lang-change", handleLangChange);
 	};
 });
 </script>

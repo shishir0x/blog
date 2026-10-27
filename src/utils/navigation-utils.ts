@@ -1,6 +1,3 @@
-
-
-
 export function navigateToPage(
 	url: string,
 	options?: {
@@ -46,7 +43,6 @@ export function navigateToPage(
 	}
 }
 
-
 function fallbackNavigation(
 	url: string,
 	options?: {
@@ -61,13 +57,11 @@ function fallbackNavigation(
 	}
 }
 
-
 export function isSwupReady(): boolean {
 	return typeof window !== "undefined" && !!(window as any).swup;
 }
 
-
-export function waitForSwup(timeout: number = 5000): Promise<boolean> {
+export function waitForSwup(timeout = 5000): Promise<boolean> {
 	return new Promise((resolve) => {
 		if (isSwupReady()) {
 			resolve(true);
@@ -93,7 +87,6 @@ export function waitForSwup(timeout: number = 5000): Promise<boolean> {
 	});
 }
 
-
 export function preloadPage(url: string): void {
 	if (!url || typeof url !== "string") {
 		return;
@@ -108,23 +101,19 @@ export function preloadPage(url: string): void {
 	}
 }
 
-
 export function getCurrentPath(): string {
 	return typeof window !== "undefined" ? window.location.pathname : "";
 }
-
 
 export function isHomePage(): boolean {
 	const path = getCurrentPath();
 	return path === "/" || path === "";
 }
 
-
 export function isPostPage(): boolean {
 	const path = getCurrentPath();
 	return path.startsWith("/posts/");
 }
-
 
 export function pathsEqual(path1: string, path2: string): boolean {
 	const normalize = (path: string) => {

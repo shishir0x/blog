@@ -1,16 +1,11 @@
 ---
-import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
-import FontManager from "@components/interactive/FontManager.astro";
-import MusicManager from "@components/features/MusicManager.astro";
-import SakuraEffect from "@components/effects/SakuraEffect.astro";
 import FancyboxManager from "@components/effects/FancyboxManager.astro";
+import SakuraEffect from "@components/effects/SakuraEffect.astro";
+import MusicManager from "@components/features/MusicManager.astro";
+import FontManager from "@components/interactive/FontManager.astro";
+import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
 
 import { profileConfig, siteConfig } from "@/config";
-import { en } from "@/i18n/languages/en";
-import { zh_CN } from "@/i18n/languages/zh_CN";
-import { zh_TW } from "@/i18n/languages/zh_TW";
-import { ja } from "@/i18n/languages/ja";
-import { ru } from "@/i18n/languages/ru";
 import {
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
@@ -19,8 +14,8 @@ import {
 } from "@/constants/constants";
 import { defaultFavicons } from "@/constants/icon";
 import type { Favicon } from "@/types/config";
-import { url } from "@/utils/url-utils";
 import { getDefaultBackground, isHomePage } from "@/utils/layout-utils";
+import { url } from "@/utils/url-utils";
 
 import "katex/dist/katex.css";
 import "@/styles/navbar-unified.css";
@@ -93,21 +88,31 @@ if (title) {
 		: siteConfig.title;
 }
 
-const siteUrl = Astro.site ? Astro.site.toString() : "https://shishir-pandey.com.np/";
+const siteUrl = Astro.site
+	? Astro.site.toString()
+	: "https://shishir-pandey.com.np/";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
 let ogImageUrl: string | undefined;
 if (siteConfig.generateOgImages && postSlug) {
 	ogImageUrl = new URL(`/og/${postSlug}.png`, siteUrl).toString();
 } else if (postImage) {
-	ogImageUrl = postImage.startsWith("http://") || postImage.startsWith("https://")
-		? postImage
-		: new URL(postImage, siteUrl).toString();
-} else if (siteConfig.backgroundWallpaper?.src?.desktop) {
+	ogImageUrl =
+		postImage.startsWith("http://") || postImage.startsWith("https://")
+			? postImage
+			: new URL(postImage, siteUrl).toString();
+} else if (
+	siteConfig.backgroundWallpaper?.src &&
+	typeof siteConfig.backgroundWallpaper.src === "object" &&
+	!Array.isArray(siteConfig.backgroundWallpaper.src) &&
+	"desktop" in siteConfig.backgroundWallpaper.src &&
+	typeof siteConfig.backgroundWallpaper.src.desktop === "string"
+) {
 	const defaultBg = siteConfig.backgroundWallpaper.src.desktop;
-	ogImageUrl = defaultBg.startsWith("http://") || defaultBg.startsWith("https://")
-		? defaultBg
-		: new URL(defaultBg, siteUrl).toString();
+	ogImageUrl =
+		defaultBg.startsWith("http://") || defaultBg.startsWith("https://")
+			? defaultBg
+			: new URL(defaultBg, siteUrl).toString();
 }
 
 const favicons: Favicon[] =
@@ -282,7 +287,7 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 		{
 			jsonLd &&
 				(Array.isArray(jsonLd) ? (
-					jsonLd.map((item) => (
+					jsonLd.map((item: any) => (
 						<script
 							is:inline
 							type="application/ld+json"
@@ -632,7 +637,6 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 		BANNER_HEIGHT,
 		BANNER_HEIGHT_HOME,
 		BANNER_HEIGHT_EXTEND,
-		MAIN_PANEL_OVERLAPS_BANNER_HEIGHT,
 	} from "@/constants/constants";
 	import { siteConfig } from "@/config";
 
@@ -718,14 +722,6 @@ function disableAnimation() {
 		"scheme-switch",
 	]);
 
-	function loadTheme() {
-		const theme = getStoredTheme();
-		setTheme(theme);
-	}
-
-	function loadHue() {
-		setHue(getHue());
-	}
 
 	function initCustomScrollbar() {
 		const katexElements = document.querySelectorAll(

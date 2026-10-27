@@ -1,17 +1,16 @@
 ---
 import type { MarkdownHeading } from "astro";
-import { widgetManager } from "@/utils/widget-manager";
+import Profile from "@/components/content/Profile.astro";
 import Announcement from "@/components/widget/Announcement.astro";
 import Categories from "@/components/widget/Categories.astro";
-import Profile from "@/components/content/Profile.astro";
+import Music from "@/components/widget/Music.astro";
 import Tags from "@/components/widget/Tags.astro";
 import TOC from "@/components/widget/TOC.astro";
-
-import Music from "@/components/widget/Music.astro";
+import { widgetManager } from "@/utils/widget-manager";
 
 interface Props {
-  class?: string;
-  headings?: MarkdownHeading[];
+	class?: string;
+	headings?: MarkdownHeading[];
 }
 
 const { class: className, headings } = Astro.props;
@@ -23,44 +22,44 @@ const stickyComponents = widgetManager.getComponentsByPosition("sticky");
 // Extract data needed by the client
 const breakpoints = widgetManager.getBreakpoints();
 const sidebarConfig = {
-  breakpoints: breakpoints,
-  shouldShowSidebar: {
-    mobile: widgetManager.shouldShowSidebar("mobile"),
-    tablet: widgetManager.shouldShowSidebar("tablet"),
-    desktop: widgetManager.shouldShowSidebar("desktop"),
-  },
+	breakpoints: breakpoints,
+	shouldShowSidebar: {
+		mobile: widgetManager.shouldShowSidebar("mobile"),
+		tablet: widgetManager.shouldShowSidebar("tablet"),
+		desktop: widgetManager.shouldShowSidebar("desktop"),
+	},
 };
 
 // Component mapping map
 const componentMap = {
-  profile: Profile,
-  announcement: Announcement,
-  categories: Categories,
-  tags: Tags,
-  toc: TOC,
+	profile: Profile,
+	announcement: Announcement,
+	categories: Categories,
+	tags: Tags,
+	toc: TOC,
 
-  "music-player": Music,
+	"music-player": Music,
 };
 
 // Helper function to render components
 function renderComponent(component: any, index: number, _components: any[]) {
-  const ComponentToRender =
-    componentMap[component.type as keyof typeof componentMap];
-  if (!ComponentToRender) return null;
+	const ComponentToRender =
+		componentMap[component.type as keyof typeof componentMap];
+	if (!ComponentToRender) return null;
 
-  const componentClass = widgetManager.getComponentClass(component, index);
-  const componentStyle = widgetManager.getComponentStyle(component, index);
+	const componentClass = widgetManager.getComponentClass(component, index);
+	const componentStyle = widgetManager.getComponentStyle(component, index);
 
-  return {
-    Component: ComponentToRender,
-    props: {
-      class: componentClass,
-      style: componentStyle,
-      headings: component.type === "toc" ? headings : undefined,
-      configId: component.configId, // Pass configId to Advertisement component
-      ...component.customProps,
-    },
-  };
+	return {
+		Component: ComponentToRender,
+		props: {
+			class: componentClass,
+			style: componentStyle,
+			headings: component.type === "toc" ? headings : undefined,
+			configId: component.configId, // Pass configId to Advertisement component
+			...component.customProps,
+		},
+	};
 }
 ---
 

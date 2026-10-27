@@ -1,37 +1,12 @@
 ---
 import type { MarkdownHeading } from "astro";
-import { siteConfig } from "@/config/siteConfig";
-import { url } from "@/utils/url-utils";
-
 
 interface Props {
-  class?: string;
-  headings: MarkdownHeading[];
-}
-
-let { headings = [] } = Astro.props;
-
-let minDepth = 10;
-for (const heading of headings) {
-  minDepth = Math.min(minDepth, heading.depth);
+	class?: string;
+	headings?: MarkdownHeading[];
 }
 
 const className = Astro.props.class;
-const isPostsRoute =
-  Astro.url.pathname.includes("/posts/") || headings.length > 0;
-
-const removeTailingHash = (text: string) => {
-  let lastIndexOfHash = text.lastIndexOf("#");
-  if (lastIndexOfHash !== text.length - 1) {
-    return text;
-  }
-
-  return text.substring(0, lastIndexOfHash);
-};
-
-let heading1Count = 1;
-
-const maxLevel = siteConfig.toc.depth;
 ---
 
 <table-of-contents class:list={[className, "group"]} id="toc">

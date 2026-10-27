@@ -2,13 +2,13 @@
 import { commentConfig } from "@/config/commentConfig";
 
 interface Props {
-  path: string;
+	path: string;
 }
 
 const { path } = Astro.props;
 const config = {
-  serverURL: commentConfig.waline?.serverURL || "",
-  lang: commentConfig.waline?.lang || "en",
+	serverURL: commentConfig.waline?.serverURL || "",
+	lang: commentConfig.waline?.lang || "en",
 };
 ---
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-import { onMount } from 'svelte';
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import { getDefaultHue, getHue, setHue } from "@utils/setting-utils";
+import { onMount } from "svelte";
 
 let hue = $state(getHue());
 const defaultHue = getDefaultHue();
@@ -28,11 +28,11 @@ onMount(() => {
 	const handleLangChange = () => {
 		updateLabels();
 	};
-	
-	window.addEventListener('site-lang-change', handleLangChange);
-	
+
+	window.addEventListener("site-lang-change", handleLangChange);
+
 	return () => {
-		window.removeEventListener('site-lang-change', handleLangChange);
+		window.removeEventListener("site-lang-change", handleLangChange);
 	};
 });
 </script>

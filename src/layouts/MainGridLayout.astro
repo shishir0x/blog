@@ -5,12 +5,12 @@ import Navbar from "@components/layout/Navbar.astro";
 import SideBar from "@components/layout/SideBar.astro";
 import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
-import FullscreenWallpaper from "@/components/misc/FullscreenWallpaper.astro";
-import IconifyLoader from "@/components/misc/IconifyLoader.astro";
-import ImageWrapper from "@/components/misc/ImageWrapper.astro";
 import TypewriterText from "@/components/content/TypewriterText.astro";
 //import TOC from "@/components/widget/TOC.astro";
 import FloatingTOC from "@/components/interactive/FloatingTOC.astro";
+import FullscreenWallpaper from "@/components/misc/FullscreenWallpaper.astro";
+import IconifyLoader from "@/components/misc/IconifyLoader.astro";
+import ImageWrapper from "@/components/misc/ImageWrapper.astro";
 import { siteConfig } from "@/config";
 import {
 	BANNER_HEIGHT,
@@ -18,7 +18,12 @@ import {
 	MAIN_PANEL_OVERLAPS_BANNER_HEIGHT,
 } from "@/constants/constants";
 import { getBackgroundImages, isHomePage } from "@/utils/layout-utils";
-import { getResponsiveSidebarConfig, generateGridClasses, generateSidebarClasses, generateMainContentClasses } from "@/utils/responsive-utils";
+import {
+	generateGridClasses,
+	generateMainContentClasses,
+	generateSidebarClasses,
+	getResponsiveSidebarConfig,
+} from "@/utils/responsive-utils";
 import Layout from "./Layout.astro";
 
 interface Props {
@@ -55,69 +60,78 @@ const {
 	jsonLd,
 } = Astro.props;
 
-
 const isBannerMode = siteConfig.backgroundWallpaper.mode === "banner";
 const isOverlayMode = siteConfig.backgroundWallpaper.mode === "overlay";
 const isBackgroundEnabled = siteConfig.backgroundWallpaper.mode !== "none";
 const isWallpaperSwitchable = siteConfig.backgroundWallpaper.switchable ?? true;
 
-
 const wavesConfig = siteConfig.backgroundWallpaper.banner?.waves?.enable;
-const isWavesEnabled = isBannerMode && isBackgroundEnabled && wavesConfig;
 
-const wavesEnabledOnDesktop = typeof wavesConfig === 'object' ? wavesConfig.desktop : wavesConfig;
-const wavesEnabledOnMobile = typeof wavesConfig === 'object' ? wavesConfig.mobile : wavesConfig;
+const wavesEnabledOnDesktop =
+	typeof wavesConfig === "object" ? wavesConfig.desktop : wavesConfig;
+const wavesEnabledOnMobile =
+	typeof wavesConfig === "object" ? wavesConfig.mobile : wavesConfig;
 
-
-const performanceConfig = siteConfig.backgroundWallpaper.banner?.waves?.performance;
-const waveQuality = performanceConfig?.quality || 'high';
+const performanceConfig =
+	siteConfig.backgroundWallpaper.banner?.waves?.performance;
+const waveQuality = performanceConfig?.quality || "high";
 const hardwareAcceleration = performanceConfig?.hardwareAcceleration ?? true;
 
+const creditEnableConfig =
+	siteConfig.backgroundWallpaper.banner?.credit?.enable;
+const creditEnabledOnDesktop =
+	typeof creditEnableConfig === "object"
+		? creditEnableConfig.desktop
+		: creditEnableConfig;
+const creditEnabledOnMobile =
+	typeof creditEnableConfig === "object"
+		? creditEnableConfig.mobile
+		: creditEnableConfig;
 
-const creditEnableConfig = siteConfig.backgroundWallpaper.banner?.credit?.enable;
-const creditEnabledOnDesktop = typeof creditEnableConfig === 'object' ? creditEnableConfig.desktop : creditEnableConfig;
-const creditEnabledOnMobile = typeof creditEnableConfig === 'object' ? creditEnableConfig.mobile : creditEnableConfig;
-
-const hasBannerCredit = isBannerMode && isBackgroundEnabled && creditEnableConfig;
-
+const hasBannerCredit =
+	isBannerMode && isBackgroundEnabled && creditEnableConfig;
 
 const creditTextConfig = siteConfig.backgroundWallpaper.banner?.credit?.text;
-const creditTextDesktop = typeof creditTextConfig === 'object' ? creditTextConfig.desktop : creditTextConfig;
-const creditTextMobile = typeof creditTextConfig === 'object' ? creditTextConfig.mobile : creditTextConfig;
+const creditTextDesktop =
+	typeof creditTextConfig === "object"
+		? creditTextConfig.desktop
+		: creditTextConfig;
+const creditTextMobile =
+	typeof creditTextConfig === "object"
+		? creditTextConfig.mobile
+		: creditTextConfig;
 
 const creditUrlConfig = siteConfig.backgroundWallpaper.banner?.credit?.url;
-const creditUrlDesktop = typeof creditUrlConfig === 'object' ? creditUrlConfig.desktop : creditUrlConfig;
-const creditUrlMobile = typeof creditUrlConfig === 'object' ? creditUrlConfig.mobile : creditUrlConfig;
-
-const hasBannerLink = !!(creditUrlDesktop || creditUrlMobile);
-
+const creditUrlDesktop =
+	typeof creditUrlConfig === "object"
+		? creditUrlConfig.desktop
+		: creditUrlConfig;
+const creditUrlMobile =
+	typeof creditUrlConfig === "object"
+		? creditUrlConfig.mobile
+		: creditUrlConfig;
 
 const isHomePageCheck = isHomePage(Astro.url.pathname);
-
 
 const homeTextEnable = siteConfig.backgroundWallpaper.banner?.homeText?.enable;
 const showHomeText = isBannerMode && !!homeTextEnable && isHomePageCheck;
 
 const mobileNonHomeBannerClass = !isHomePageCheck ? "mobile-hide-banner" : "";
 
+const mainPanelTop =
+	isBannerMode && isBackgroundEnabled
+		? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
+		: "5.5rem";
 
-const mainPanelTop = isBannerMode && isBackgroundEnabled
-	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
-	: "5.5rem";
-const mobileNonHomeMainTop = !isHomePageCheck ? "5.5rem" : mainPanelTop;
-
-
-const finalMainPanelTop = isBannerMode && isBackgroundEnabled ? mainPanelTop : "5.5rem";
-
+const finalMainPanelTop =
+	isBannerMode && isBackgroundEnabled ? mainPanelTop : "5.5rem";
 
 const sidebarConfig = getResponsiveSidebarConfig();
 const { gridCols } = generateGridClasses(sidebarConfig);
 const sidebarClass = generateSidebarClasses(sidebarConfig);
 const mainContentClass = generateMainContentClasses(sidebarConfig);
 
-
 const shouldEnableTransparency = isOverlayMode && isBackgroundEnabled;
-
 
 const transparentClass = shouldEnableTransparency
 	? "wallpaper-transparent"
